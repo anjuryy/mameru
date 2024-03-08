@@ -4,7 +4,9 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -35,6 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat');
+    Route::get('/chat/{id}', [ChatController::class, 'selectUser'])->name('chat.user');
+    Route::post('/send/message', [ChatController::class, 'sendMessage'])->name('send.message');
+    Route::get('/chat-users', [UserController::class, 'getChatUsers'])->name('chat-user-list');
 
     // Route::get('todo/create',[TodoController::class, 'create'])->name('todo.create');
     // Route::get('todo/index',[TodoController::class, 'index'])->name('todo.index');

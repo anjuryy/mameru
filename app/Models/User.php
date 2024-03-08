@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Blog::class,'by_user_id');
     }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class, 'by_user_id');
+    }
 }
