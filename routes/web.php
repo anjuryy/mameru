@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/send/message', [ChatController::class, 'sendMessage'])->name('send.message');
     Route::get('/chat-users', [UserController::class, 'getChatUsers'])->name('chat-user-list');
 
+
     // Route::get('todo/create',[TodoController::class, 'create'])->name('todo.create');
     // Route::get('todo/index',[TodoController::class, 'index'])->name('todo.index');
     // Route::post('todo/store',[TodoController::class, 'store'])->name('todo.store');
@@ -53,6 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('todo', TodoController::class);
 
     Route::resource('blog', BlogController::class);
+
+    Route::post('/blog/update/{id}', [BlogController::class, 'update'])->name('blog.update');
+    Route::post('storeComment/{id}', [BlogController::class, 'storeComment'])->name('blog.storeComment');
 
 });
 

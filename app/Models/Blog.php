@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Blog extends Model
 {
@@ -29,6 +30,21 @@ class Blog extends Model
     public function images(): HasMany
     {
         return $this->hasMany(BlogImage::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(BlogsComment::class, 'blog_id');
+    }
+
+    protected function name(): Attribute
+
+    {
+
+        return Attribute::make(
+            get: fn ($value) => url('uploads/'.$value),
+        );
+
     }
 
 }

@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blogs', function (Blueprint $table) {
+        Schema::create('blogs_comments', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 25);
-            $table->text('blog');
-            $table->string('image')->nullable();
-            $table->string('categorize')->nullable();
+            $table->string('comment');
             $table->foreignIdFor(
-                \App\Models\User::class,
+                'App\Models\Blog',
+                'blog_id'
+            );
+            $table->foreignIdFor(
+                'App\Models\User',
                 'by_user_id'
             );
             $table->softDeletes();
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blogs');
+        Schema::dropIfExists('blogs_comment');
     }
 };

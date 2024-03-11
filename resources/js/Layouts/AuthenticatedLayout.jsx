@@ -27,19 +27,19 @@ export default function Authenticated({ user, header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('todo.index')} active={route().current('to_do')}>
+                                <NavLink href={route('todo.index')} active={route().current('todo.index')}>
                                     To Do
                                 </NavLink>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('blog.index')} active={route().current('blog')}>
+                                <NavLink href={route('blog.index')} active={route().current('blog.index')}>
                                     Blog
                                 </NavLink>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('blog.index')} active={route().current('blog')}>
+                                <NavLink href={route('chat')} active={route().current('chat')}>
                                     Messages
                                 </NavLink>
                             </div>

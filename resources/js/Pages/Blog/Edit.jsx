@@ -5,22 +5,24 @@ import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { PhotoIcon } from '@heroicons/react/20/solid';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { useEffect } from 'react';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 export default function Create({ auth }) {
+    const blog_list = usePage().props
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        title: '',
-        blog: '',
+        title: blog_list.blog_info.title,
+        blog: blog_list.blog_info.blog,
         image: '',
         categorize: ''
     });
 
     const submit = (e) => {
         e.preventDefault();
+        console.log(data.image.name);
 
-        post(route('blog.store'));
+        post(route('blog.update', blog_list.blog_info.id));
     };
 
     return (
@@ -33,7 +35,7 @@ export default function Create({ auth }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <form onSubmit={submit} encType="multipart/form-data">
+                    <form onSubmit={submit} encType='multipart/form-data'>
                         <div>
                             <InputLabel htmlFor="title" value="Title" />
 
@@ -45,7 +47,7 @@ export default function Create({ auth }) {
                                 autoComplete="title"
                                 isFocused={true}
                                 onChange={(e) => setData('title', e.target.value)}
-                                required
+
                             />
 
                             <InputError message={errors.title} className="mt-2" />
@@ -73,50 +75,16 @@ export default function Create({ auth }) {
                         </div>
 
                         <div className="mt-4">
-                        <input
-
-                            type="file"
-
-                            className="border rounded-md file:ox-4 file:py-2 border-gray-200 dark:border-gray-700 file:text-gray-700 file: dark:text-gray-400 file:border-0 file:bg-gray-100 file:dark:bg-gray-800 file:font-medium file:hover:bg-gray-200 file:dark:hover:bg-gray-700 file:hover:cursor-pointer file:mr-4"
-
-                            label="File"
-
-                            name="image"
-
-                            onChange={(e) =>
-
-                                setData("image", e.target.files[0])
-
-                            }
-
+                            <input
+                                type="file"
+                                className="border rounded-md file:ox-4 file:py-2 border-gray-200 dark:border-gray-700 file:text-gray-700 file: dark:text-gray-400 file:border-0 file:bg-gray-100 file:dark:bg-gray-800 file:font-medium file:hover:bg-gray-200 file:dark:hover:bg-gray-700 file:hover:cursor-pointer file:mr-4"
+                                label="File"
+                                name="image"
+                                onChange={(e) => setData("image", e.target.files[0])}
                             />
-                        {/* <input
-                            className="border rounded-md file:ox-4 file:py-2 border-gray-200 dark:border-gray-700 file:text-gray-700 file: dark:text-gray-400 file:border-0 file:bg-gray-100 file:dark:bg-gray-800 file:font-medium file:hover:bg-gray-200 file:dark:hover:bg-gray-700 file:hover:cursor-pointer file:mr-4"
-                            type="file"
-                            name="images"
-                            onChange={(e) => setData('images', e.target.files)}
-                        /> */}
 
                             <InputError message={errors.image} className="mt-2" />
-                            {/* <div className="col-span-full">
-                                <InputLabel htmlFor="image" value="Upload Image" />
-                                <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                                    <div className="text-center">
-                                    <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
-                                    <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                                        <label
-                                        htmlFor="file-upload"
-                                        className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                                        >
-                                        <span>Upload a file</span>
-                                        <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                                        </label>
-                                        <p className="pl-1">or drag and drop</p>
-                                    </div>
-                                    <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-                                    </div>
-                                </div>
-                            </div> */}
+
                         </div>
 
                         <div className="flex items-center justify-end mt-4">

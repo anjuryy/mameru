@@ -3,21 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
-use App\Models\BlogImage;
 use Inertia\Inertia;
+use App\Models\BlogImage;
+use App\Models\BlogsComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class BlogController extends Controller
 {
     public function index(Blog $blog)
     {
         // dd($blog->load(['images']));
-        $blogs = Auth::user()
-                ->blogs()
-                ->with('images')
-                ->paginate(6)
+        $blogs = Blog::
+                // ->with('images')
+                paginate(6)
                 ->withQueryString();
 
         return Inertia::render('Blog/Index', [
@@ -32,41 +33,44 @@ class BlogController extends Controller
 
     public function store(Blog $blog, Request $request)
     {
-        $newBlog = $request->user()->blogs()->create(
-            $request->validate([
-                'title' => 'required|string|max:25',
-                'blog' => 'required|string',
-                // 'image' => 'required'
-            ])
-        );
 
-        if ($request->hasFile('images')) {
-            // Iterate over each uploaded file
-            foreach ($request->file('images') as $file) {
-                // Store the image in the 'images' directory within the 'public' disk
-                $path = $file->store('images', 'public');
+        Validator::make($request->all(), [
+            'title' => 'required|string|max:25',
+            'blog' => 'required|string',
+            'image' => 'image'
 
-                // Create a new BlogImage model and associate it with the blog post
-                $blogImage = new BlogImage([
-                    'filename' => $path,
-                ]);
+        ])->validate();
 
-                // Save the association between the blog post and the image
-                $newBlog->images()->save($blogImage);
-            }
+            // ddd($request->file->extension());
+        // $fileName = time().'.'.$request->file->extension();
+
+        // $request->file->move(public_path('uploads'), $fileName);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads'), $fileName);
+            // Handle file upload logic here
         }
 
-        // return redirect(route('blog.index'));
+        $request->user()->blogs()->create([
+
+            'title' => $request->title,
+            'blog' => $request->blog,
+            'image' => $fileName
+
+        ]);
+
+        return redirect(route('blog.index'));
     }
 
-    public function show(Request $request, $id)
+    public function edit(Request $request, $id)
     {
         $blog_info = Auth::user()
                     ->blogs()
                     ->with('images')
                     ->find($id);
 
-        return Inertia::render('Blog/Show',
+        return Inertia::render('Blog/Edit',
             [
                 'blog_info' => $blog_info
             ]
@@ -75,48 +79,73 @@ class BlogController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Find the blog post
-        $updateBlog = $request->user()->blogs()->where('id', $id)->firstOrFail();
-
-        // Validate the request
-        $request->validate([
+        Validator::make($request->all(), [
             'title' => 'required|string|max:25',
             'blog' => 'required|string',
-        ]);
+            'image' => 'image'
+        ])->validate();
 
-        // Update the blog post
-        $updateBlog->update([
-            'title' => $request->input('title'),
-            'blog' => $request->input('blog'),
-        ]);
+        // dd($request);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads'), $fileName);
 
-        // Check if there are new images to update
-        if ($request->hasFile('images')) {
-            // Loop through each uploaded image
-            foreach ($request->file('images') as $file) {
-                // Store the new image
-                $path = $file->store('images', 'public');
+            // Handle file upload logic here
 
-                // Create a new BlogImage instance
-                $blogImage = new BlogImage([
-                    'filename' => $path,
-                ]);
+            $request->user()->blogs()->where('id', $id)->update([
 
-                // Save the new image association
-                $updateBlog->images()->save($blogImage);
-            }
-        }
+                'title' => $request->title,
+                'blog' => $request->blog,
+                'image' => $fileName
 
-        // Update image information if necessary
-        if ($request->filled('image_id')) {
-            // Find the image to update
-            $image = BlogImage::findOrFail($request->input('image_id'));
+            ]);
+        } else {
+            $request->user()->blogs()->where('id', $id)->update([
 
-            // Update image information
-            $image->update([
-                'filename' => $path, // Update with new filename if necessary
+                'title' => $request->title,
+                'blog' => $request->blog
+
             ]);
         }
 
+        return redirect(route('blog.index'));
+
+    }
+
+    public function show(Request $request, $id)
+    {
+        // $blog = Blog::with('owner')->with('comments')->find($id);
+        // $blogComment = $blog->comments();
+        $comments = BlogsComment::select('*')
+        ->join('users', 'blogs_comments.by_user_id', '=', 'users.id')
+        ->where('blogs_comments.blog_id', '=', $id)
+        ->get();
+
+        $blog_info = Blog::find($id);
+
+        return Inertia::render('Blog/Show',
+            [
+                'blog_info' => $blog_info,
+                'comments' => $comments
+            ]
+        );
+    }
+
+    public function storeComment(Request $request, $id)
+    {
+        // $request->user()->blogs()->create(
+        //     $request->validate([
+        //         'comment' => 'required|max:250'
+        //     ])
+        // );
+        $blog = Blog::find($id);
+        $offer = $blog->comments()->save(
+            BlogsComment::make(
+                $request->validate([
+                    'comment' => 'required|string|max:100'
+                ])
+            )->user()->associate($request->user())
+        );
     }
 }

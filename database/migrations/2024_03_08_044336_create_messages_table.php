@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(
-                \App\Models\User::class,
-                'by_user_id'
-            )->constrained('users');
-            $table->integer('message_to');
-            $table->softDeletes();
+            $table->unsignedBigInteger('from')->comment('own id');
+            $table->unsignedBigInteger('to')->comment('other user id');
+            $table->text('message');
+            $table->boolean('type');
             $table->timestamps();
         });
     }
