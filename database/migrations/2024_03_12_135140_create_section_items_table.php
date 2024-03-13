@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('section_items', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->foreignIdFor(
+                \App\Models\Section::class,
+                'setion_id'
+            );
             $table->timestamps();
         });
     }

@@ -63,7 +63,7 @@ export default function Index({ auth }) {
                             ))}
                         </div>
 
-                        <Pagination todoData={ blog_list.links } todoLength={ blog_list }/>
+                        <Pagination getData={ blog_list.links } getLength={ blog_list }/>
                     </div>
                 </div>
 

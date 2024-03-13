@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('featureds', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('url')->nullable();
+            $table->string('image')->nullable();
+            $table->foreignIdFor(
+                \App\Models\Category::class,
+                'category_id'
+            );
+            $table->softDeletes();
             $table->timestamps();
         });
     }

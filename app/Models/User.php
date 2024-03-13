@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'by_user_id');
     }
+
+    public function categories() : HasMany
+    {
+        return $this->hasMany(Category::class,'by_user_id');
+    }
 }

@@ -56,7 +56,7 @@ function getClassName(active) {
     }
 }
 
-export default function Pagination( { todoData, todoLength } ) {
+export default function Pagination( { getData, getLength } ) {
     // console.log(todoLength);
     // console.log(todoLength.data.length);
   return (
@@ -78,14 +78,14 @@ export default function Pagination( { todoData, todoLength } ) {
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">{ todoLength.from }</span> to <span className="font-medium">{ todoLength.to }</span> of{' '}
-            <span className="font-medium">{ todoLength.total }</span> results
+            Showing <span className="font-medium">{ getLength.from }</span> to <span className="font-medium">{ getLength.to }</span> of{' '}
+            <span className="font-medium">{ getLength.total }</span> results
           </p>
         </div>
         <div>
           <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
             {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
-            { todoData.map((todo, index) => (
+            { getData.map((data, index) => (
                 // <React.Fragment key={index}>
                     // todo.url === null ?
                             // (
@@ -99,15 +99,15 @@ export default function Pagination( { todoData, todoLength } ) {
                             // (
                                 <Link
                                     key={ index }
-                                    className={getClassName(todo.active)}
+                                    className={getClassName(data.active)}
                                     // className="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                    href={ todo.url }
+                                    href={ data.url }
                                 >
-                                    { todo.label === '&laquo; Previous' ?
+                                    { data.label === '&laquo; Previous' ?
                                         <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-                                        : todo.label === 'Next &raquo;' ?
+                                        : data.label === 'Next &raquo;' ?
                                         <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-                                        : todo.label
+                                        : data.label
                                     }
                                 </Link>
                             // )

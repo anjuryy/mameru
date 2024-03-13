@@ -4,11 +4,14 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\FeaturedController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +64,11 @@ Route::middleware('auth')->group(function () {
     Route::get('myblog', [BlogController::class, 'myblog'])->name('blog.myblog');
 
     Route::resource('product', ProductController::class);
+    Route::resource('category', CategoryController::class);
+    Route::resource('featured', FeaturedController::class);
 
+    Route::get('management', [ManagementController::class, 'index'])->name('management.index');
+    
 });
 
 require __DIR__.'/auth.php';

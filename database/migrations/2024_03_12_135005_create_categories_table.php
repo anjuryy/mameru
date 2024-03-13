@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->foreignIdFor(
+                'App\Models\User',
+                'by_user_id'
+            );
+            $table->softDeletes();
             $table->timestamps();
         });
     }
