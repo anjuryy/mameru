@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -57,6 +58,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/blog/update/{id}', [BlogController::class, 'update'])->name('blog.update');
     Route::post('storeComment/{id}', [BlogController::class, 'storeComment'])->name('blog.storeComment');
+    Route::get('myblog', [BlogController::class, 'myblog'])->name('blog.myblog');
+
+    Route::resource('product', ProductController::class);
 
 });
 

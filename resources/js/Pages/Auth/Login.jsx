@@ -6,6 +6,8 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { Divider } from 'antd';
+import SecondaryButton from '@/Components/SecondaryButton';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -77,21 +79,41 @@ export default function Login({ status, canResetPassword }) {
                     </label>
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            Forgot your password?
-                        </Link>
-                    )}
+                <div className="mt-4">
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+
+                    {/* <PrimaryButton className="ms-4" disabled={processing}>
+                        Register
+                    </PrimaryButton> */}
+
+                    <PrimaryButton className="flex items-center justify-center w-full hover:bg-white hover:text-gray-800 hover:rounded-md border-gray-800" disabled={processing}>
                         Log in
                     </PrimaryButton>
+
+                    <div className="flex items-center justify-center mt-2">
+                        {canResetPassword && (
+                            <Link
+                                href={route('password.request')}
+                                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                                Forgot your password?
+                            </Link>
+                        )}
+                    </div>
+
+
+                </div>
+                <Divider> OR </Divider>
+
+                <div className="flex items-center w-full justify-end mt-4">
+                    <Link href={route('register')}  className="w-full">
+                        <SecondaryButton className="flex items-center justify-center w-full hover:bg-gray-800 hover:text-white hover:rounded-md hover:border-white-800" disabled={processing}>
+                            Register
+                        </SecondaryButton>
+                    </Link>
                 </div>
             </form>
+
         </GuestLayout>
     );
 }

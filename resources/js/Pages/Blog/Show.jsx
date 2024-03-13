@@ -95,12 +95,14 @@ export default function Create({ auth }) {
                         </div>
 
                         <div className="flex items-center justify-end mt-4">
-                            <SecondaryButton className="ms-4" disabled={processing}>
-                                <Link href={route('blog.index')} >
-                                Back
-                                </Link>
 
-                            </SecondaryButton>
+                            <Link href={route('blog.index')} >
+                                <SecondaryButton className="ms-4" disabled={processing}>
+                                    Back
+                                </SecondaryButton>
+                            </Link>
+
+
                             <PrimaryButton className="ms-4" disabled={processing}>
                                 Send
                             </PrimaryButton>

@@ -26,6 +26,20 @@ class BlogController extends Controller
         ]);
     }
 
+    public function myblog(Blog $blog)
+    {
+        // dd($blog->load(['images']));
+        $blogs = Auth::user()
+                ->blogs()
+                // ->with('images')
+                ->paginate(6)
+                ->withQueryString();
+        // ddd($blogs);
+        return Inertia::render('Blog/MyBlogs', [
+            'blog_list' => $blogs
+        ]);
+    }
+
     public function create()
     {
         return Inertia::render('Blog/Create');

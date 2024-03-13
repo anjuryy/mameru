@@ -3,7 +3,7 @@ import React from 'react';
 import PrimaryButton from './PrimaryButton';
 import SecondaryButton from './SecondaryButton';
 
-function Card({ title, content, imageUrl, id }) {
+function Card({ title, content, imageUrl, id, buttonValue }) {
     // imageUrl.data == null ? console.log('Hi') : console.log('hello');
     // console.log(id)
     return (
@@ -33,14 +33,15 @@ function Card({ title, content, imageUrl, id }) {
                 </div>
 
                 <div>
-                    <SecondaryButton>
+
                         <Link
-                            href={route('blog.show', id)}
+                            href={buttonValue === 'Edit' ? route('blog.edit', id) : route('blog.show', id)}
                         >
-                            View
+                            <SecondaryButton>
+                                { buttonValue }
+                            </SecondaryButton>
                         </Link>
 
-                    </SecondaryButton>
                 </div>
             </div>
         </div>

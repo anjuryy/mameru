@@ -8,7 +8,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 
-export default function Index({ auth }) {
+export default function MyBlogs({ auth }) {
 
     const { blog_list } = usePage().props;
     // console.log(blog_list.data);
@@ -43,8 +43,8 @@ export default function Index({ auth }) {
                     <div className=" overflow-hidden shadow-sm sm:rounded-lg">
 
                         <div className="flex justify-between">
-                            <Link href={route('blog.myblog')} className="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 mr-4 mb-4 rounded-full focus:outline-none focus:shadow-outline flex items-center">
-                                    My Blog
+                            <Link href={route('blog.index')} className="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 mr-4 mb-4 rounded-full focus:outline-none focus:shadow-outline flex items-center">
+                                    Blogs
                             </Link>
                             <Link href={route('blog.create')} className="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 mr-4 mb-4 rounded-full focus:outline-none focus:shadow-outline flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
@@ -59,7 +59,7 @@ export default function Index({ auth }) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 p-2">
                             {/* Map through the cards data and render a Card component for each */}
                             {blog_list.data.map(blog => (
-                                <Card key={blog.id} title={blog.title} content={blog.blog} imageUrl={blog.image} id={blog.id} buttonValue={'View'}/>
+                                <Card key={blog.id} title={blog.title} content={blog.blog} imageUrl={blog.image} id={blog.id} buttonValue={'Edit'} />
                             ))}
                         </div>
 
