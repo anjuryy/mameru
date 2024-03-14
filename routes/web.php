@@ -12,6 +12,8 @@ use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SectionItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,11 +66,13 @@ Route::middleware('auth')->group(function () {
     Route::get('myblog', [BlogController::class, 'myblog'])->name('blog.myblog');
 
     Route::resource('product', ProductController::class);
-    Route::resource('category', CategoryController::class);
-    Route::resource('featured', FeaturedController::class);
+    Route::resource('category', CategoryController::class)->only(['create','store','edit','update']);
+    Route::resource('featured', FeaturedController::class)->only(['create','store','edit','update']);
+    Route::resource('section', SectionController::class)->only(['create','store','edit','update']);
+    Route::resource('item', SectionItemController::class)->only(['create','store','edit','update']);
 
     Route::get('management', [ManagementController::class, 'index'])->name('management.index');
-    
+
 });
 
 require __DIR__.'/auth.php';

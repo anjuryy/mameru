@@ -14,9 +14,10 @@ export default function Index({ auth }) {
 
     const { category } = usePage().props;
     const { featured } = usePage().props;
+    const { section } = usePage().props;
+    const { sectionItem } = usePage().props;
 
     console.log(featured);
-
     const submit = (e) => {
         e.preventDefault();
 
@@ -35,6 +36,8 @@ export default function Index({ auth }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                         <GridList gridCount={ 3 } title={ 'Categories' } urlForCreate={ 'category.create' } postData={ category } urlForEdit={ 'category.edit' }/>
                         <GridList gridCount={ 3 } title={ 'Features' } urlForCreate={ 'featured.create' } postData={ featured } urlForEdit={ 'featured.edit' }/>
+                        <GridList gridCount={ 3 } title={ 'Sections' } urlForCreate={ 'section.create' } postData={ section } urlForEdit={ 'section.edit' }/>
+                        <GridList gridCount={ 3 } title={ 'Items' } urlForCreate={ 'item.create' } postData={ sectionItem } urlForEdit={ 'item.edit' }/>
                     </div>
                 </div>
 

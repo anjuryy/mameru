@@ -8,19 +8,25 @@ import { PhotoIcon } from '@heroicons/react/20/solid';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 
-export default function Create({ auth }) {
+export default function Edit({ auth }) {
+    const { section } = usePage().props
     const { category } = usePage().props
 
-    const { data, setData, post, processing, errors, reset } = useForm({
-        category_id: '',
-        name: '',
-        urlLink: '',
+    // console.log(featured[0].category_id);
+
+    const { data, setData, put, processing, errors, reset } = useForm({
+        category_id: section[0].category_id,
+        name: section[0].name,
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('featured.store'));
+        put(route('section.update', section[0].id));
+    };
+
+    const handleGoBack = () => {
+        window.history.back();
     };
 
     return (
@@ -28,7 +34,7 @@ export default function Create({ auth }) {
             user={auth.user}
             // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">To Do List</h2>}
         >
-            <Head title="Feature - Create" />
+            <Head title="Blog - Create" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -66,6 +72,7 @@ export default function Create({ auth }) {
                                 value={data.name}
                                 className="mt-1 block w-full"
                                 autoComplete="name"
+                                isFocused={true}
                                 onChange={(e) => setData('name', e.target.value)}
                                 required
                             />
@@ -73,24 +80,9 @@ export default function Create({ auth }) {
                             <InputError message={errors.name} className="mt-2" />
                         </div>
 
-                        <div className="mt-2">
-                            <InputLabel htmlFor="urlLink" value="URL" />
-
-                            <TextInput
-                                id="urlLink"
-                                name="url"
-                                value={data.urlLink}
-                                className="mt-1 block w-full"
-                                autoComplete="urlLink"
-                                onChange={(e) => setData('urlLink', e.target.value)}
-                            />
-
-                            <InputError message={errors.urlLink} className="mt-2" />
-                        </div>
-
                         <div className="flex items-center justify-end mt-4">
 
-                            <Link href={route('management.index')} >
+                            <Link onClick={handleGoBack} >
                                 <SecondaryButton className="ms-4" disabled={processing}>
                                     Back
                                 </SecondaryButton>

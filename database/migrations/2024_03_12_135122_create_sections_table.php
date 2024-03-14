@@ -18,6 +18,7 @@ return new class extends Migration
                 \App\Models\Category::class,
                 'category_id'
             );
+            $table->softDeletes();
             $table->timestamps();
         });
     }

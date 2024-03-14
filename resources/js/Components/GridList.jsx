@@ -6,6 +6,9 @@ import Modal from './Modal';
 const GridItem = ({ data, id, urlForEdit }) => {
     const [isHovered, setIsHovered] = useState(false);
 
+    console.log(data.under_name);
+    var underName = data.under_name ? data.under_name+': '  : ''
+
     const handleMouseEnter = () => {
         setIsHovered(true);
     };
@@ -18,7 +21,7 @@ const GridItem = ({ data, id, urlForEdit }) => {
         <Link href={route(urlForEdit, id)}>
             <div
                 key={data.id}
-                className={`bg-white p-4 text-center border rounded-lg border-gray-800`}
+                className={`bg-white p-2 text-center border rounded-lg border-gray-800`}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 style={{
@@ -27,7 +30,7 @@ const GridItem = ({ data, id, urlForEdit }) => {
                     color: isHovered ? 'white' : 'rgb(31 41 55)', // Change text color on hover
                 }}
             >
-                {isHovered ? 'Edit' : data.name} {/* Change text when hovered */}
+                {isHovered ? 'Edit' : underName + data.name} {/* Change text when hovered */}
             </div>
         </Link>
     );
@@ -48,7 +51,7 @@ const GridList = ({ gridCount, title, urlForCreate, postData, urlForEdit }) => {
     return (
         <div>
             <div className="text-lg p-2 flex items-center">
-                {title} 
+                {title}
 
                 <Link href={route(urlForCreate)}>
                     <PlusCircleIcon className='w-5 ml-1'/>
@@ -63,7 +66,7 @@ const GridList = ({ gridCount, title, urlForCreate, postData, urlForEdit }) => {
                     </Modal> */}
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-6 gap-3">
                 {/* Render GridItems */}
                 {postData.map(data => (
                     <GridItem key={data.id} data={data} id={data.id} urlForEdit={ urlForEdit }/>

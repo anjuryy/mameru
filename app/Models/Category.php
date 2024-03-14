@@ -26,4 +26,9 @@ class Category extends Model
     {
         return $this->hasMany(Featured::class, 'category_id');
     }
+
+    public function sections(): HasMany
+    {
+        return $this->hasMany(Section::class, 'category_id');
+    }
 }

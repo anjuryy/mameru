@@ -6,13 +6,14 @@ import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { PhotoIcon } from '@heroicons/react/20/solid';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { SELECTION_COLUMN } from 'antd/es/table/hooks/useSelection';
 import { useEffect } from 'react';
 
 export default function Create({ auth }) {
-    const { category } = usePage().props
+    const { section } = usePage().props
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        category_id: '',
+        section_id: '',
         name: '',
         urlLink: '',
     });
@@ -20,7 +21,7 @@ export default function Create({ auth }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('featured.store'));
+        post(route('item.store'));
     };
 
     return (
@@ -35,26 +36,26 @@ export default function Create({ auth }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                     <form onSubmit={submit} encType="multipart/form-data">
                         <div>
-                            <InputLabel htmlFor="category_id" value="Categories" />
+                            <InputLabel htmlFor="section_id" value="Sections" />
 
                             <select
-                                id="category_id"
-                                name="category_id"
-                                value={data.category_id}
+                                id="section_id"
+                                name="section_id"
+                                value={data.section_id}
                                 className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
-                                autoComplete="category_id"
-                                onChange={(e) => setData('category_id', e.target.value)}
+                                autoComplete="section_id"
+                                onChange={(e) => setData('section_id', e.target.value)}
                                 required
                             >
-                                <option> Select a category ...</option>
+                                <option> Select a section ...</option>
                                 {
-                                    category.map(data => (
+                                    section.map(data => (
                                         <option key={ data.id } value={ data.id }> { data.name } </option>
                                     ))
                                 }
                             </select>
 
-                            <InputError message={errors.category_id} className="mt-2" />
+                            <InputError message={errors.section_id} className="mt-2" />
                         </div>
 
                         <div className="mt-2">

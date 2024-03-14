@@ -14,13 +14,12 @@ export default function Create({ auth }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         category_id: '',
         name: '',
-        urlLink: '',
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('featured.store'));
+        post(route('section.store'));
     };
 
     return (
@@ -71,21 +70,6 @@ export default function Create({ auth }) {
                             />
 
                             <InputError message={errors.name} className="mt-2" />
-                        </div>
-
-                        <div className="mt-2">
-                            <InputLabel htmlFor="urlLink" value="URL" />
-
-                            <TextInput
-                                id="urlLink"
-                                name="url"
-                                value={data.urlLink}
-                                className="mt-1 block w-full"
-                                autoComplete="urlLink"
-                                onChange={(e) => setData('urlLink', e.target.value)}
-                            />
-
-                            <InputError message={errors.urlLink} className="mt-2" />
                         </div>
 
                         <div className="flex items-center justify-end mt-4">

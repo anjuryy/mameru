@@ -8,19 +8,24 @@ import { PhotoIcon } from '@heroicons/react/20/solid';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 
-export default function Create({ auth }) {
-    const { category } = usePage().props
+export default function Edit({ auth }) {
+    const { sectionItem } = usePage().props
+    const { section } = usePage().props
 
-    const { data, setData, post, processing, errors, reset } = useForm({
-        category_id: '',
-        name: '',
-        urlLink: '',
+    const { data, setData, put, processing, errors, reset } = useForm({
+        section_id: sectionItem[0].section_id,
+        name: sectionItem[0].name,
+        url: sectionItem[0].url,
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('featured.store'));
+        put(route('item.update', sectionItem[0].id));
+    };
+
+    const handleGoBack = () => {
+        window.history.back();
     };
 
     return (
@@ -28,33 +33,33 @@ export default function Create({ auth }) {
             user={auth.user}
             // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">To Do List</h2>}
         >
-            <Head title="Feature - Create" />
+            <Head title="Blog - Create" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                     <form onSubmit={submit} encType="multipart/form-data">
                         <div>
-                            <InputLabel htmlFor="category_id" value="Categories" />
+                            <InputLabel htmlFor="section_id" value="Sections" />
 
                             <select
-                                id="category_id"
-                                name="category_id"
-                                value={data.category_id}
+                                id="section_id"
+                                name="section_id"
+                                value={data.section_id}
                                 className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
-                                autoComplete="category_id"
-                                onChange={(e) => setData('category_id', e.target.value)}
+                                autoComplete="section_id"
+                                onChange={(e) => setData('section_id', e.target.value)}
                                 required
                             >
-                                <option> Select a category ...</option>
+                                <option> Select a section ...</option>
                                 {
-                                    category.map(data => (
+                                    section.map(data => (
                                         <option key={ data.id } value={ data.id }> { data.name } </option>
                                     ))
                                 }
                             </select>
 
-                            <InputError message={errors.category_id} className="mt-2" />
+                            <InputError message={errors.section_id} className="mt-2" />
                         </div>
 
                         <div className="mt-2">
@@ -82,6 +87,7 @@ export default function Create({ auth }) {
                                 value={data.urlLink}
                                 className="mt-1 block w-full"
                                 autoComplete="urlLink"
+                                isFocused={true}
                                 onChange={(e) => setData('urlLink', e.target.value)}
                             />
 
@@ -90,7 +96,7 @@ export default function Create({ auth }) {
 
                         <div className="flex items-center justify-end mt-4">
 
-                            <Link href={route('management.index')} >
+                            <Link onClick={handleGoBack} >
                                 <SecondaryButton className="ms-4" disabled={processing}>
                                     Back
                                 </SecondaryButton>

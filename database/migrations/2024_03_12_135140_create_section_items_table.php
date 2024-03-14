@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->foreignIdFor(
                 \App\Models\Section::class,
-                'setion_id'
+                'section_id'
             );
+            $table->string('url')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
