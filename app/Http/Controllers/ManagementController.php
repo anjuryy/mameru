@@ -20,10 +20,12 @@ class ManagementController extends Controller
             ->get();
 
         $sectionWithCategory = Section::join('categories', 'sections.category_id', '=', 'categories.id')
-        ->select('sections.*', 'categories.name as under_name')
-        ->get();
+            ->select('sections.*', 'categories.name as under_name')
+            ->get();
 
-        $sectionItem = SectionItem::all();
+        $sectionItemWithSection = SectionItem::join('sections', 'section_items.section_id', '=', 'sections.id')
+            ->select('section_items.*', 'sections.name as under_name')
+            ->get();
 
         return Inertia::render(
             'Management/Index',
@@ -31,7 +33,7 @@ class ManagementController extends Controller
                 'category' => $category,
                 'featured' => $featuredWithCategory,
                 'section' => $sectionWithCategory,
-                'sectionItem' => $sectionItem
+                'sectionItem' => $sectionItemWithSection
             ]);
     }
 }

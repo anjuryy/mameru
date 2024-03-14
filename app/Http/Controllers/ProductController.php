@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Inertia\Inertia;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -13,7 +15,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Shop/Index');
+        $categories = Category::with('features', 'sections.sectionItems')->get();
+
+        // $category = DB::table('categories')
+        //     ->join('featureds', 'categories.id', '=', 'featureds.category_id')
+        //     ->select('featureds.name as featureds_name','categories.name as categories_name')
+        //     ->get();
+
+        return Inertia::render('Shop/Index',
+        [
+           'category' => $categories
+        ]);
     }
 
     /**
