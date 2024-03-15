@@ -133,14 +133,14 @@ function classNames(...classes) {
 }
 
 export default function Index({ auth }) {
-    const category = usePage().props
-    console.log(category.category);
+    const { category } = usePage().props
+    console.log(category);
 
-    const navigations = {
-        categories: [{
+    // const navigation = {
+    //     categories: [{
 
-        }]
-    }
+    //     }]
+    // }
 
     const [open, setOpen] = useState(false)
 
@@ -325,7 +325,7 @@ export default function Index({ auth }) {
                         {/* Flyout menus */}
                         <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                             <div className="flex h-full space-x-8">
-                            {navigation.categories.map((category) => (
+                            {category.map((category) => (
                                 <Popover key={category.name} className="flex">
                                 {({ open }) => (
                                     <>
@@ -358,8 +358,10 @@ export default function Index({ auth }) {
                                         <div className="relative bg-white">
                                             <div className="mx-auto max-w-7xl px-8">
                                             <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
+
+                                                {/* Featureds */}
                                                 <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                                {category.featured.map((item) => (
+                                                {category.features.map((item) => (
                                                     <div key={item.name} className="group relative text-base sm:text-sm">
                                                     <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                                         <img
@@ -378,6 +380,8 @@ export default function Index({ auth }) {
                                                     </div>
                                                 ))}
                                                 </div>
+
+                                                {/* SECTION */}
                                                 <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
                                                 {category.sections.map((section) => (
                                                     <div key={section.name}>
@@ -389,7 +393,7 @@ export default function Index({ auth }) {
                                                         aria-labelledby={`${section.name}-heading`}
                                                         className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                                     >
-                                                        {section.items.map((item) => (
+                                                        {section.section_items.map((item) => (
                                                         <li key={item.name} className="flex">
                                                             <a href={item.href} className="hover:text-gray-800">
                                                             {item.name}
