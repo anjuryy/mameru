@@ -22,7 +22,9 @@ class SectionItemController extends Controller
      */
     public function create()
     {
-        $section = Section::get();
+        $section = Section::join('categories', 'sections.category_id' ,'=', 'categories.id')
+            ->select('sections.*', 'categories.name as under_name')
+            ->get();
 
         return Inertia::render(
             'Item/Create',
@@ -64,7 +66,11 @@ class SectionItemController extends Controller
      */
     public function edit(SectionItem $sectionItem)
     {
-        $section = Section::get();
+        
+        $section = Section::join('categories', 'sections.category_id' ,'=', 'categories.id')
+            ->select('sections.*', 'categories.name as under_name')
+            ->get();
+
         $sectionItem = SectionItem::get();
 
         return Inertia::render(
@@ -88,11 +94,11 @@ class SectionItemController extends Controller
         ]);
 
         // $sectionItem->whereKey($sectionItem->getKey())->update($validate);
-        ddd($updated = $sectionItems->whereKey($id)->update([
+        $updated = $sectionItems->whereKey($id)->update([
             'section_id' => $validate['section_id'],
             'name' => $validate['name'],
             'url' => $validate['url'] ?? null
-        ]));
+        ]);
         // $updated = $sectionItem->whereKey($sectionItem->getKey())->update($validate);
     }
 

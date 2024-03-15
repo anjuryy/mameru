@@ -15,7 +15,18 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('features', 'sections.sectionItems')->get();
+        $categories = Category::with(
+            ['features' => function ($features_query) 
+                { 
+                    $features_query->limit(4); 
+                }
+            , 
+            'sections' =>function ($section_query)
+                {
+                    $section_query->limit(6)->with('sectionItems');
+                }
+            ])
+        ->get();
 
         // $category = DB::table('categories')
         //     ->join('featureds', 'categories.id', '=', 'featureds.category_id')

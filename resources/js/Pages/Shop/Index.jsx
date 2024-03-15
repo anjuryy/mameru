@@ -4,6 +4,8 @@ import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head, usePage } from '@inertiajs/react'
+import ProductList from './ProductList'
+import ShoppingCart from './ShoppingCart'
 
 const navigation = {
   categories: [
@@ -143,6 +145,7 @@ export default function Index({ auth }) {
     // }
 
     const [open, setOpen] = useState(false)
+    const [openCart, setOpenCart] = useState(false)
 
     return (
         <AuthenticatedLayout
@@ -293,9 +296,9 @@ export default function Index({ auth }) {
                 </Transition.Root>
 
                 <header className="relative bg-white">
-                    <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
+                    {/* <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
                     Get free delivery on orders over $100
-                    </p>
+                    </p> */}
 
                     <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="border-b border-gray-200">
@@ -316,7 +319,7 @@ export default function Index({ auth }) {
                             <span className="sr-only">Your Company</span>
                             <img
                                 className="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                src="../images/ap_clothing_store.png"
                                 alt=""
                             />
                             </a>
@@ -459,11 +462,15 @@ export default function Index({ auth }) {
 
                             {/* Cart */}
                             <div className="ml-4 flow-root lg:ml-6">
-                            <a href="#" className="group -m-2 flex items-center p-2">
-                                <ShoppingBagIcon
-                                className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                                aria-hidden="true"
+                                <a href="#" className="group -m-2 flex items-center p-2">
+                                    <ShoppingBagIcon
+                                    className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                    aria-hidden="true"
+                                    onClick={() => setOpenCart(true)}
                                 />
+    
+                                <ShoppingCart openCart={openCart} setOpenCart={setOpenCart} />
+                                
                                 <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
                                 <span className="sr-only">items in cart, view bag</span>
                             </a>
@@ -474,6 +481,7 @@ export default function Index({ auth }) {
                     </nav>
                 </header>
                 </div>
+                <ProductList/>
         </AuthenticatedLayout>
 
     )

@@ -25,6 +25,7 @@ class FeaturedController extends Controller
     public function create()
     {
         $category = Category::get();
+
         return Inertia::render(
             'Featured/Create', 
             [ 

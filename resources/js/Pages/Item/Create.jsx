@@ -50,7 +50,7 @@ export default function Create({ auth }) {
                                 <option> Select a section ...</option>
                                 {
                                     section.map(data => (
-                                        <option key={ data.id } value={ data.id }> { data.name } </option>
+                                        <option key={ data.id } value={ data.id }> { data.under_name } - { data.name } </option>
                                     ))
                                 }
                             </select>
