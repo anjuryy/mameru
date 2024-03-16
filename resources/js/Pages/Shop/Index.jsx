@@ -151,7 +151,7 @@ export default function Index({ auth }) {
         <AuthenticatedLayout
             user={auth.user}
         >
-            <Head title="Blog Posts" />
+            <Head title="Shop" />
 
             <div className="bg-white">
                 {/* Mobile menu */}
@@ -285,7 +285,7 @@ export default function Index({ auth }) {
                                 alt=""
                                 className="block h-auto w-5 flex-shrink-0"
                                 />
-                                <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>
+                                <span className="ml-3 block text-base font-medium text-gray-900">PHP</span>
                                 <span className="sr-only">, change currency</span>
                             </a>
                             </div>
@@ -468,9 +468,9 @@ export default function Index({ auth }) {
                                     aria-hidden="true"
                                     onClick={() => setOpenCart(true)}
                                 />
-    
+
                                 <ShoppingCart openCart={openCart} setOpenCart={setOpenCart} />
-                                
+
                                 <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
                                 <span className="sr-only">items in cart, view bag</span>
                             </a>
@@ -481,7 +481,9 @@ export default function Index({ auth }) {
                     </nav>
                 </header>
                 </div>
+
                 <ProductList/>
+
         </AuthenticatedLayout>
 
     )

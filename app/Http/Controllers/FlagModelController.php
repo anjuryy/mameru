@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ShopModel;
+use App\Models\FlagModel;
 use Illuminate\Http\Request;
 
-class ShopModelController extends Controller
+class FlagModelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class ShopModelController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ShopModel $shopModel)
+    public function show(FlagModel $flagModel)
     {
         //
     }
@@ -42,7 +42,7 @@ class ShopModelController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ShopModel $shopModel)
+    public function edit(FlagModel $flagModel)
     {
         //
     }
@@ -50,7 +50,7 @@ class ShopModelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ShopModel $shopModel)
+    public function update(Request $request, FlagModel $flagModel)
     {
         //
     }
@@ -58,7 +58,7 @@ class ShopModelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ShopModel $shopModel)
+    public function destroy(FlagModel $flagModel)
     {
         //
     }

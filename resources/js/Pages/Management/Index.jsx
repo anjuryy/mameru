@@ -1,14 +1,6 @@
 import GridList from '@/Components/GridList';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import Pagination from '@/Components/Pagination';
-import PrimaryButton from '@/Components/PrimaryButton';
-import Sidebar from '@/Components/SideBar';
-import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
-import { Divider } from 'antd';
-import { useEffect } from 'react';
+import { Head, usePage } from '@inertiajs/react';
 
 export default function Index({ auth }) {
 

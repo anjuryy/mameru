@@ -14,6 +14,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SectionItemController;
+use App\Http\Controllers\ShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('featured', FeaturedController::class)->only(['create','store','edit','update']);
     Route::resource('section', SectionController::class)->only(['create','store','edit','update']);
     Route::resource('item', SectionItemController::class)->only(['create','store','edit','update']);
+    Route::resource('myshop', ShopController::class);
 
     Route::get('management', [ManagementController::class, 'index'])->name('management.index');
 
