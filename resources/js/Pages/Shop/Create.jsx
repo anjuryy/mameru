@@ -11,6 +11,9 @@ export default function Create({ auth })
     const { data, setData, post, processing, errors, reset } = useForm({
         section_id: '',
         name: '',
+        description: '',
+        quantity: '',
+        category: '',
         urlLink: '',
     });
 
@@ -46,6 +49,22 @@ export default function Create({ auth })
                             />
 
                             <InputError message={errors.name} className="mt-2" />
+                        </div>
+
+                        <div className="mt-2">
+                            <InputLabel htmlFor="shortDescription" value="Short Description" />
+
+                            <TextInput
+                                id="shortDescription"
+                                name="description"
+                                value={data.description}
+                                className="mt-1 block w-full"
+                                autoComplete="description"
+                                onChange={(e) => setData('description', e.target.value)}
+                                required
+                            />
+
+                            <InputError message={errors.description} className="mt-2" />
                         </div>
 
                         <div className="mt-2">
