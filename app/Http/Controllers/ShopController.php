@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use Inertia\Inertia;
+use App\Models\Product;
+use App\Models\SectionItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -13,7 +16,12 @@ class ShopController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Shop/MyShop');
+        $shop = Auth::user()
+                ->products()
+                ->paginate(10)
+                ->withQueryString();
+
+        return Inertia::render('Shop/MyShop', [ 'shop' => $shop ]);
     }
 
     /**
@@ -21,7 +29,12 @@ class ShopController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Shop/Create');
+        $sectionItems = SectionItem::join('sections', 'section_items.section_id', '=', 'sections.id')
+            ->join('categories', 'sections.category_id', '=', 'categories.id')
+            ->select('section_items.*', 'categories.name as under_name')
+            ->get();
+
+        return Inertia::render('Shop/Create', [ 'sectionItems' => $sectionItems ]);
     }
 
     /**
@@ -29,21 +42,29 @@ class ShopController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->user()->products()->create(
+            $request->validate([
+                'name' => 'required|string|max:50',
+                'description' => 'required|string|max:50',
+                'category' => 'required',
+                'quantity' => 'required|max:999',
+                'price' => 'required|min:1|max:100000',
+            ])
+        );
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ShopModel $shopModel)
+    public function show(Product $product)
     {
-        //
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ShopModel $shopModel)
+    public function edit(Product $product)
     {
         //
     }
@@ -51,7 +72,7 @@ class ShopController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ShopModel $shopModel)
+    public function update(Request $request, Product $product)
     {
         //
     }
@@ -59,7 +80,7 @@ class ShopController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ShopModel $shopModel)
+    public function destroy(Product $product)
     {
         //
     }

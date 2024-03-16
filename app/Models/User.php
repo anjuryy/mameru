@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Category::class,'by_user_id');
     }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'by_user_id');
+    }
 }

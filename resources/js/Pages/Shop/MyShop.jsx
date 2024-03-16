@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 
 export default function MyShop({ auth }) {
 
-    const { todo_list } = usePage().props;
+    const { shop } = usePage().props;
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
@@ -48,17 +48,20 @@ export default function MyShop({ auth }) {
                             </svg>
                         </Link>
                     </div>
-                    {/* <ul role="list" className="divide-y divide-gray-100">
-                        {todo_list.data.map(todo => (
-                            <li key={todo.name} className="flex justify-between gap-x-6 py-5">
+                    <ul role="list" className="divide-y divide-gray-100">
+                        <li>
+
+                        </li>
+                        {shop.data.map(shodData => (
+                            <li key={shodData.name} className="flex justify-between gap-x-6 py-5">
                             <div className="flex min-w-0 gap-x-4">
                                 <div className="min-w-0 flex-auto">
-                                    <p className="text-sm font-semibold leading-6 text-gray-900"> <Link key={ todo.id } href={route('todo.edit', todo.id )} > {todo.name} </Link> </p>
-                                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">{todo.task_desc}</p>
+                                    <p className="text-sm font-semibold leading-6 text-gray-900"> <Link key={ shodData.id } href={route('todo.edit', shodData.id )} > {shodData.name} </Link> </p>
+                                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">{shodData.description}</p>
                                 </div>
                             </div>
                             <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                                {todo.completed ? (
+                                {/* {todo.completed ? (
                                 <div className="mt-1 flex items-center gap-x-1.5">
                                     <div className="flex-none rounded-full bg-gray-500/20 p-1">
                                     <div className="h-1.5 w-1.5 rounded-full bg-gray-500" />
@@ -72,12 +75,12 @@ export default function MyShop({ auth }) {
                                     </div>
                                     <p className="text-xs leading-5 text-gray-500">Active</p>
                                 </div>
-                                )}
+                                )} */}
                             </div>
                             </li>
                         ))}
                         </ul>
-                        <Pagination getData={ todo_list.links } getLength={ todo_list }/> */}
+                        <Pagination getData={ shop.links } getLength={ shop }/>
                     </div>
                 </div>
 

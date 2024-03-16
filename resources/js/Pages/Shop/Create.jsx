@@ -4,15 +4,18 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 
 export default function Create({ auth })
 {
+    const { sectionItems } = usePage().props
+
     const { data, setData, post, processing, errors, reset } = useForm({
-        section_id: '',
+        category: '',
         name: '',
         description: '',
         quantity: '',
+        price: '',
         category: '',
         urlLink: '',
     });
@@ -20,7 +23,7 @@ export default function Create({ auth })
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('item.store'));
+        post(route('myshop.store'));
     };
 
     return (
@@ -67,20 +70,67 @@ export default function Create({ auth })
                             <InputError message={errors.description} className="mt-2" />
                         </div>
 
-                        <div className="mt-2">
-                            <InputLabel htmlFor="urlLink" value="URL" />
+                        <div>
+                            <InputLabel htmlFor="category" value="Sections" />
 
-                            <TextInput
-                                id="urlLink"
-                                name="url"
-                                value={data.urlLink}
-                                className="mt-1 block w-full"
-                                autoComplete="urlLink"
-                                onChange={(e) => setData('urlLink', e.target.value)}
-                            />
+                            <select
+                                id="category"
+                                name="category"
+                                value={data.category}
+                                type="text"
+                                className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm "
+                                autoComplete="category"
+                                onChange={(e) => setData('category', e.target.value)}
+                                required
+                            >
+                                <option> Select a item section ...</option>
+                                {
+                                    sectionItems.map(data => (
+                                        <option key={ data.id } value={ data.id }>{ data.under_name }: { data.name } </option>
+                                    ))
+                                }
+                            </select>
 
-                            <InputError message={errors.urlLink} className="mt-2" />
+                            <InputError message={errors.category} className="mt-2" />
                         </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                            <div className="mt-2">
+                                <InputLabel htmlFor="quantity" value="Quantity" />
+
+                                <TextInput
+                                    id="quantity"
+                                    name="quantity"
+                                    type="number"
+                                    max="999"
+                                    value={data.quantity}
+                                    className="mt-1 block w-full"
+                                    autoComplete="quantity"
+                                    onChange={(e) => setData('quantity', e.target.value)}
+                                    required
+                                />
+
+                                <InputError message={errors.quantity} className="mt-2" />
+                            </div>
+
+                            <div className="mt-2">
+                                <InputLabel htmlFor="price" value="Price" />
+
+                                <TextInput
+                                    id="price"
+                                    name="price"
+                                    type="number"
+                                    value={data.price}
+                                    className="mt-1 block w-full"
+                                    autoComplete="price"
+                                    onChange={(e) => setData('price', e.target.value)}
+                                    required
+                                />
+
+                                <InputError message={errors.price} className="mt-2" />
+                            </div>
+                        </div>
+
 
                         <div className="flex items-center justify-end mt-4">
 

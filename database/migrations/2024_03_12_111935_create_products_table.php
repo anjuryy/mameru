@@ -22,6 +22,7 @@ return new class extends Migration
                 'App\Models\User',
                 'by_user_id'
             );
+            $table->softDeletes();
             $table->timestamps();
         });
     }

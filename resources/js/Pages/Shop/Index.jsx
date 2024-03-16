@@ -136,6 +136,7 @@ function classNames(...classes) {
 
 export default function Index({ auth }) {
     const { category } = usePage().props
+
     console.log(category);
 
     // const navigation = {
