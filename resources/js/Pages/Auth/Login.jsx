@@ -8,6 +8,7 @@ import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Divider } from 'antd';
 import SecondaryButton from '@/Components/SecondaryButton';
+import BoxThree from '../../ReactFiber/Box.jsx'
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -113,6 +114,8 @@ export default function Login({ status, canResetPassword }) {
                     </Link>
                 </div>
             </form>
+
+            {/* <BoxThree /> */}
 
         </GuestLayout>
     );

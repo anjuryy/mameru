@@ -15,6 +15,7 @@ use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SectionItemController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\UploadedImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,6 +73,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('section', SectionController::class)->only(['create','store','edit','update']);
     Route::resource('item', SectionItemController::class)->only(['create','store','edit','update']);
     Route::resource('myshop', ShopController::class);
+    Route::put('myshop/{id}/restore', [ShopController::class,'restore'])->name('myshop.restore');
+
+    Route::resource('uploaded_images', UploadedImageController::class)->only(['edit','update','destroy']);
+
+    Route::get('uploaded_images/{id}', [UploadedImageController::class,'create'])->name('uploaded_images.create');
+    Route::post('uploaded_images/{id}/store', [UploadedImageController::class,'store'])->name('uploaded_images.store');
+    Route::put('uploaded_images/{id}/restore', [UploadedImageController::class,'restore'])->name('uploaded_images.restore');
 
     Route::get('management', [ManagementController::class, 'index'])->name('management.index');
 

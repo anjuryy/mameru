@@ -8,21 +8,22 @@ import { Head, Link, useForm, usePage } from "@inertiajs/react";
 
 export default function Create({ auth })
 {
-    const { sectionItems } = usePage().props
+    const { shop } = usePage().props
+    const { product } = usePage().props
 
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        description: '',
-        quantity: '',
-        price: '',
-        category: '',
-        urlLink: '',
+    console.log(product);
+    const { data, setData, put, processing, errors, reset } = useForm({
+        name: product.name,
+        description: product.description,
+        quantity: product.quantity,
+        price: product.price,
+        category: product.category,
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('myshop.store'));
+        put(route('myshop.update', product.id));
     };
 
     return (
@@ -84,7 +85,7 @@ export default function Create({ auth })
                             >
                                 <option> Select a item section ...</option>
                                 {
-                                    sectionItems.map(data => (
+                                    shop.map(data => (
                                         <option key={ data.id } value={ data.id }>{ data.under_name }: { data.name } </option>
                                     ))
                                 }
