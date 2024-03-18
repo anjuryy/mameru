@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\UploadedImage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UploadedImageController extends Controller
 {
@@ -51,8 +52,8 @@ class UploadedImageController extends Controller
 
             $userId = Auth::id();
 
-            $product = Product::find($id);
-
+            $product = Product::withTrashed()->find($id);
+            
             foreach($request->file('filename') as $file)
             {
                 $path = $file->store('images','public');
@@ -92,8 +93,11 @@ class UploadedImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UploadedImage $uploadedImage)
+    public function destroy($id)
     {
-        //
+        $uploadedImage = UploadedImage::find($id);
+        
+        Storage::disk('public')->delete($uploadedImage->filename);
+        $uploadedImage->delete();
     }
 }

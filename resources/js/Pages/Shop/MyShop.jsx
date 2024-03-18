@@ -6,6 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 
@@ -13,7 +14,6 @@ export default function MyShop({ auth }) {
 
     const { shop } = usePage().props;
 
-    console.log(shop.data);
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -43,10 +43,18 @@ export default function MyShop({ auth }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                    
+                    <Link
+                        href={route('myshop.create')}
+                    >
+                        <SecondaryButton className="mb-4 flex justify-center items-center">
+                            Add Product <PlusCircleIcon className="w-4 ml-1"/>
+                        </SecondaryButton>
+                    </Link>
                     <section className="grid grid-cols-1 lg:grid-cols-2 gap-2">
                         {
                             shop.data.map(data => (
-                                <Box key={data.id}>
+                                <Box key={ data.id }>
                                     <div className="flex flex-col md:flex-row gap-2 md:items-center justify-between">
                                         <div> {/* className="opacity-25" */}
                                             {/* <div
@@ -62,7 +70,7 @@ export default function MyShop({ auth }) {
                                             { data.description }
                                         </div>
                                         <section>
-                                            <div className="flex items-center gap-1 text-gray-600 dark:text-gray-300">
+                                            <div className="flex items-center gap-1 text-gray-900">
                                                 <a
                                                     className="btn-outline text-xs font-medium"
                                                     target="_blank"
@@ -98,7 +106,7 @@ export default function MyShop({ auth }) {
 
                                             <div className="mt-2">
                                                 <Link
-                                                    href={route('uploaded_images.create', 1)}
+                                                    href={route('uploaded_images.create', data.id)}
                                                     className="block w-full btn-outline text-xs font-medium text-center"
                                                     >
                                                     Images ({ data.images_count })

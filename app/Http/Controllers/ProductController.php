@@ -28,6 +28,7 @@ class ProductController extends Controller
             ])
         ->get();
 
+        $products = Product::with('images')->get();
         // $category = DB::table('categories')
         //     ->join('featureds', 'categories.id', '=', 'featureds.category_id')
         //     ->select('featureds.name as featureds_name','categories.name as categories_name')
@@ -35,7 +36,8 @@ class ProductController extends Controller
 
         return Inertia::render('Shop/Index',
         [
-           'category' => $categories
+           'category' => $categories,
+           'products' => $products
         ]);
     }
 
@@ -58,9 +60,33 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        $categories = Category::with(
+            ['features' => function ($features_query) 
+                { 
+                    $features_query->limit(4); 
+                }
+            , 
+            'sections' =>function ($section_query)
+                {
+                    $section_query->limit(6)->with('sectionItems');
+                }
+            ])
+        ->get();
+
+        $products = Product::with('images')->get();
+
+        $product = Product::with('images')->withTrashed()->find($id);
+
+        return Inertia::render(
+            'Shop/Show',
+            [
+                'product_detail' => $product,
+                'category' => $categories,
+                'products' => $products
+            ]
+        );
     }
 
     /**

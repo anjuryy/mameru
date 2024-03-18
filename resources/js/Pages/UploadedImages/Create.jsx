@@ -37,7 +37,7 @@ export default function Create({ auth })
                             <form onSubmit={ submit } encType="multipart/form-data">
                                 <section className="flex items-center gap-2 my-4">
                                     <input
-                                        className="border rounded-md file:ox-4 file:py-2 border-gray-200 dark:border-gray-700 file:text-gray-700 file: dark:text-gray-400 file:border-0 file:bg-gray-100 file:dark:bg-gray-800 file:font-medium file:hover:bg-gray-200 file:dark:hover:bg-gray-700 file:hover:cursor-pointer file:mr-4"
+                                        className="border rounded-md file:ox-4 file:py-2 border-gray-200 file:text-gray-700 file: file:border-0 file:bg-gray-100 file:font-medium file:hover:bg-gray-200 file:hover:cursor-pointer file:mr-4"
                                         type="file"
                                         name="filename"
                                         onChange={(e) => setData('filename', e.target.files)}
@@ -63,7 +63,15 @@ export default function Create({ auth })
                                         <div key={data.id} className="flex flex-col justify-between">
                                             <img width="400" height="" src={ '../images/' + data.filename } className="rounded-md h-80" />
                                             {/* <Link href="route('realtor.listing.image.destroy', { listing: props.listing.id, image:image.id })" method="delete" as="button" type="button" class="mt-2 btn-outline text-xs"> Delete </Link> */}
-                                            <Link method="delete" as="button" type="button" class="mt-2 btn-outline text-xs"> Delete </Link>
+                                            <Link 
+                                                href={route('uploaded_images.destroy', data.id)}
+                                                method="delete" 
+                                                as="button" 
+                                                type="button" 
+                                                className="mt-2 btn-outline text-xs"
+                                            > 
+                                                Delete 
+                                            </Link>
                                         </div>
                                     ))
                                 }
