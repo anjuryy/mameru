@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
@@ -26,9 +28,22 @@ class PurchaseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        // ddd();
+        $product = Product::find($id);
+
+        $userId = Auth::id();
+
+        $validated = $request->validate([
+            'quantity' => 'required|integer',
+        ]);
+
+        // dd($validated['quantity']);
+        $product->purchases()->create([
+                'quantity' => $validated['quantity'],
+                'by_user_id' => $userId
+        ]);
     }
 
     /**

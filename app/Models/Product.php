@@ -30,4 +30,9 @@ class Product extends Model
     {
         return $this->hasMany(UploadedImage::class, 'product_id');
     }
+
+    public function purchases(): HasMany
+    {
+        return $this->hasMany(Purchase::class, 'product_id');
+    }
 }

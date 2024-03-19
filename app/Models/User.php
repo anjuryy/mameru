@@ -73,4 +73,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(UploadedImage::class, 'by_user_id');
     }
+
+    public function purchases(): HasMany
+    {
+        return $this->hasMany(Purchase::class, 'by_user_id');
+    }
 }

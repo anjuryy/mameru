@@ -139,6 +139,34 @@ export default function ShopNavLink({ auth, category, products })
     const [open, setOpen] = useState(false)
     const [openCart, setOpenCart] = useState(false)
     
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedCurrency, setSelectedCurrency] = useState('CAD');
+
+    const togglePopover = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const handleCurrencySelect = (currency) => {
+        setSelectedCurrency(currency);
+        setIsOpen(false); // Close the popover after selecting a currency
+    };
+
+    const getFlagImageUrl = (currency) => {
+        // You can replace this switch statement with a mapping of currency codes to flag image URLs
+        switch (currency) {
+          case 'USD':
+            return 'https://tailwindui.com/img/flags/flag-united-states.svg';
+          case 'EUR':
+            return 'https://tailwindui.com/img/flags/flag-european-union.svg';
+          case 'GBP':
+            return 'https://tailwindui.com/img/flags/flag-united-kingdom.svg';
+          case 'JPY':
+            return 'https://flagicons.lipis.dev/flags/4x3/jp.svg';
+          default:
+            return ''; // Return an empty string for unsupported currencies
+        }
+    };
+
     return(
         <div>
             <Head title="Shop" />
@@ -430,16 +458,29 @@ export default function ShopNavLink({ auth, category, products })
                             </a>
                             </div> */}
 
-                            <div className="hidden lg:ml-8 lg:flex">
-                            <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
-                                <img
-                                src="https://tailwindui.com/img/flags/flag-canada.svg"
-                                alt=""
-                                className="block h-auto w-5 flex-shrink-0"
-                                />
-                                <span className="ml-3 block text-sm font-medium">CAD</span>
-                                <span className="sr-only">, change currency</span>
-                            </a>
+                            <div className="relative inline-block text-left">
+                                <button
+                                    onClick={togglePopover}
+                                    className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    <img src={getFlagImageUrl(selectedCurrency)} alt="" className="block h-4 w-auto" />
+                                    <span className="ml-2">{selectedCurrency}</span>
+                                    <svg className="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fillRule="evenodd" d="M10 12a1 1 0 01-.7-.3l-4-4a1 1 0 111.4-1.4L10 10.6l3.3-3.3a1 1 0 111.4 1.4l-4 4a1 1 0 01-.7.3z" clipRule="evenodd" />
+                                    </svg>
+                                </button>
+
+                                {isOpen && (
+                                    <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                                    <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={() => handleCurrencySelect('USD')}>USD - United States Dollar</a>
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={() => handleCurrencySelect('EUR')}>EUR - Euro</a>
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={() => handleCurrencySelect('GBP')}>GBP - British Pound Sterling</a>
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={() => handleCurrencySelect('JPY')}>JPY - Japanese Yen</a>
+                                        {/* Add more currency options as needed */}
+                                    </div>
+                                    </div>
+                                )}
                             </div>
 
                             {/* Search */}

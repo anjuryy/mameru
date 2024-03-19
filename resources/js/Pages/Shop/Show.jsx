@@ -1,9 +1,14 @@
 import Box from "@/Components/Box";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Link, usePage } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 import ShopNavLink from "./ShopNavLink";
 import SecondaryButton from "@/Components/SecondaryButton";
 import { HeartIcon } from "@heroicons/react/24/outline";
+import InputLabel from "@/Components/InputLabel";
+import TextInput from "@/Components/TextInput";
+import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { useEffect, useState } from "react";
+import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function Show({ auth })
 {
@@ -11,7 +16,32 @@ export default function Show({ auth })
     const { category } = usePage().props
     const { products } = usePage().props
 
-    console.log(product_detail);
+    const { data, setData, post } = useForm({
+        quantity: '',
+    });
+
+    const [count, setCount] = useState(0);
+
+    const handleIncrement = () => {
+        if (count < product_detail.quantity) {
+            setCount(count + 1);
+            setData('quantity', count + 1); // Update quantity in form data
+        }
+    };
+
+    const handleDecrement = () => {
+        if (count > 0) {
+            setCount(count - 1);
+            setData('quantity', count - 1); // Update quantity in form data
+        }
+    };
+
+    const submit = (e) => {
+        e.preventDefault()
+
+        post(route('purchase.store', product_detail.id ));
+    }
+    
     return (
         <AuthenticatedLayout
             user={ auth.user }
@@ -59,14 +89,40 @@ export default function Show({ auth })
                                         </span>
                                     </div>
 
-                                    <Link className="mt-4 w-full flex items-center justify-center gap-2">
-                                        <SecondaryButton className="w-4/6 items-center justify-center hover:bg-gray-800 hover:text-white">
-                                            Add to cart
-                                        </SecondaryButton>
-                                        <SecondaryButton className="w-2/6 items-center justify-center hover:bg-gray-800 hover:text-white">
-                                            <HeartIcon className="w-4"/>
-                                        </SecondaryButton>
-                                    </Link>
+                                    <form onSubmit={submit}>
+                                        <div className="flex justify-start items-center gap-2">
+
+                                        <InputLabel htmlFor="quantity" value="Quantity" />
+
+                                            <div onClick={handleDecrement}><MinusIcon className="w-4 cursor-pointer"/></div>
+                                                <TextInput 
+                                                    id="quantity"
+                                                    name="quantity"
+                                                    type="text" 
+                                                    className="w-16" 
+                                                    value={ count } 
+                                                    onChange={(e) => setData('quantity', e.target.value)}
+                                                    style={{ textAlign: 'center' }}
+                                                >
+                                                </TextInput>
+                                            <div onClick={handleIncrement}><PlusIcon className="w-4 cursor-pointer"/></div>
+
+                                        </div>
+                                    
+                                        <div 
+                                            // href={route('')}
+                                            className="mt-4 w-full flex items-center justify-center gap-2"
+                                        >
+                                            <PrimaryButton className="w-4/6 items-center justify-center hover:bg-gray-800 hover:text-white">
+                                                Add to cart
+                                            </PrimaryButton>
+                                            
+                                            <SecondaryButton className="w-2/6 items-center justify-center hover:bg-gray-200 hover:text-black">
+                                                <HeartIcon className="w-4"/>
+                                            </SecondaryButton>
+                                            
+                                        </div>
+                                    </form>
 
                                     {/* <Price :price="listing.price" class="text-2xl font-bold" />
                                     <ListingSpace :listing="listing" class="text-lg" />

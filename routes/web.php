@@ -12,6 +12,7 @@ use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SectionItemController;
 use App\Http\Controllers\ShopController;
@@ -81,6 +82,8 @@ Route::middleware('auth')->group(function () {
     Route::post('uploaded_images/{id}/store', [UploadedImageController::class,'store'])->name('uploaded_images.store');
     Route::put('uploaded_images/{id}/restore', [UploadedImageController::class,'restore'])->name('uploaded_images.restore');
 
+    Route::post('purchase/{id}/store', [PurchaseController::class,'store'])->name('purchase.store');
+    
     Route::get('management', [ManagementController::class, 'index'])->name('management.index');
 
 });
