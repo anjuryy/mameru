@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
 
 class PurchaseController extends Controller
 {
@@ -15,8 +16,16 @@ class PurchaseController extends Controller
      */
     public function index()
     {
+        $purchases = Auth::user()
+            ->purchases()
+            ->with('products.images')
+            ->get();
+
         return Inertia::render(
-            'Shop/Checkout'
+            'Shop/Checkout',
+            [
+                'purchases' => $purchases
+            ]
         );
     }
 
@@ -47,6 +56,8 @@ class PurchaseController extends Controller
                 'quantity' => $validated['quantity'],
                 'by_user_id' => $userId
         ]);
+
+        return Redirect::back()->with('success','Successfully added to your cart');
     }
 
     /**

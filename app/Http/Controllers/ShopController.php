@@ -57,6 +57,8 @@ class ShopController extends Controller
                 'price' => 'required|min:1|max:100000',
             ])
         );
+        
+        return redirect(route('myshop.index'))->with('success','Successfully Added');
     }
 
     /**
@@ -98,6 +100,8 @@ class ShopController extends Controller
                 'price' => 'required|min:1|max:100000',
             ])
         );
+
+        return redirect(route('myshop.index'))->with('success','Successfully Edited');
     }
 
     /**
@@ -108,6 +112,8 @@ class ShopController extends Controller
         // dd($product);
         $product = Product::find($id);
         $product->deleteOrFail();
+
+        return redirect(route('myshop.index'))->with('success','Successfully Deleted');
     }
 
     public function restore($id)
@@ -115,5 +121,7 @@ class ShopController extends Controller
         $product = Product::withTrashed()->find($id);
         // dd($product);
         $product->restore();
+
+        return redirect(route('myshop.index'))->with('success','Successfully Restored');
     }
 }

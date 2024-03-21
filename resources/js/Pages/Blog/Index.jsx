@@ -1,3 +1,4 @@
+import Alert from '@/Components/Alert';
 import Card from '@/Components/Card';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
@@ -8,7 +9,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 
-export default function Index({ auth }) {
+export default function Index({ auth, flash }) {
 
     const { blog_list } = usePage().props;
     // console.log(blog_list.data);
@@ -34,8 +35,10 @@ export default function Index({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Blogs List</h2>}
+            // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Blogs List</h2>}
         >
+            <Alert flash={ flash } />
+
             <Head title="Blog Posts" />
 
             <div className="py-6">

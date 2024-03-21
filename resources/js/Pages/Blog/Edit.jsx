@@ -7,11 +7,13 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { PhotoIcon } from '@heroicons/react/20/solid';
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
+import DeleteForm from '../Blog/DeleteForm';
 
 export default function Create({ auth }) {
     const blog_list = usePage().props
 
     const { data, setData, post, processing, errors, reset } = useForm({
+        id: blog_list.blog_info.id,
         title: blog_list.blog_info.title,
         blog: blog_list.blog_info.blog,
         image: '',
@@ -99,6 +101,18 @@ export default function Create({ auth }) {
                             </PrimaryButton>
                         </div>
                     </form>
+                    </div>
+                </div>
+            </div>
+
+            <div className="pb-2">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                        {/* <form onSubmit={ deleteTask } > */}
+                            <DeleteForm title="Delete Blog" desc="Blog will be deleted." dataId = { data.id }>
+
+                            </DeleteForm>
+                        {/* </form> */}
                     </div>
                 </div>
             </div>

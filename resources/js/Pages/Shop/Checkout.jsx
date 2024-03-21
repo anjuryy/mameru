@@ -4,14 +4,16 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { Divider } from 'antd';
 import React, { useState } from 'react';
 
-
-
-
 const Checkout = ({ auth }) => {
+
+const { purchases } = usePage().props
+
+const totalPrices = purchases.map(item => item.products.price * item.quantity);
+const totalPrice = totalPrices.reduce((acc, curr) => parseInt(acc) + parseInt(curr), 0).toLocaleString();
 
 const submit = (e) => {
     e.preventDefault()
@@ -125,14 +127,9 @@ return (
                                         <div>
                                             <InputLabel value="Postal code"></InputLabel>
 
-                                            <select
-                                                className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-2"
-                                                type="text"
-                                            >
-                                                <option value="">Philippines</option>
-                                                <option value="">United States</option>
-                                                <option value="">Japan</option>
-                                            </select>
+                                            <TextInput
+                                                className="w-full mt-2"
+                                            />
                                         </div>
                                     </div>
 
@@ -161,7 +158,7 @@ return (
                                             checked={selectedOption === 'option1'}
                                             onChange={() => setSelectedOption('option1')}
                                         />
-                                        <span className="ml-2">Option 1</span>
+                                        <span className="ml-2">Credit Card</span>
                                         </InputLabel>
                                         <InputLabel className="inline-flex items-center">
                                         <TextInput
@@ -172,7 +169,7 @@ return (
                                             checked={selectedOption === 'option2'}
                                             onChange={() => setSelectedOption('option2')}
                                         />
-                                        <span className="ml-2">Option 2</span>
+                                        <span className="ml-2">Cash On Delivery (COD)</span>
                                         </InputLabel>
                                     </div>
 
@@ -231,31 +228,44 @@ return (
                                 </div>
                                 <Divider></Divider>
                                 <ul role="list" className="-my-6 divide-y divide-gray-200 pt-2">
-                                    <li className="flex py-6">
-                                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                            <img
-                                                src={"images/profilePic.jpeg"}
-                                                // alt={product.imageAlt}
-                                                className="h-full w-full object-cover object-center"
-                                            />
-                                        </div>
-                                        <div className="ml-4 flex flex-1 flex-col">
-                                            <div>
-                                                <div className="flex justify-between text-base font-medium text-gray-900">
-                                                <h3>
-                                                    <Link
-                                                        href={route('purchase.index')}
-                                                    >
-                                                        T-Shirt
-                                                    </Link>
-                                                </h3>
-                                                <p className="ml-4">999</p>
+                                    {
+                                        purchases.map(product => (
+                                            <li key={ product.id } className="flex py-6">
+                                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                <img
+                                                    src={"../images/"+ product.products.images[0].filename}
+                                                    // alt={product.imageAlt}
+                                                    className="h-full w-full object-cover object-center"
+                                                />
                                                 </div>
-                                                <p className="mt-1 text-sm text-gray-500">Description</p>
-                                            </div>
-                                        </div>
-                                    </li>
+                                                <div className="ml-4 flex flex-1 flex-col">
+                                                    <div>
+                                                        <div className="flex justify-between text-base font-medium text-gray-900">
+                                                        <h3>
+                                                            <Link
+                                                                href={route('purchase.index')}
+                                                            >
+                                                                { product.products.name }
+                                                            </Link>
+                                                        </h3>
+                                                        <p className="ml-4">{ (product.products.price * product.quantity).toLocaleString() }</p>
+                                                        </div>
+                                                        <p className="mt-1 text-sm text-gray-500">{ product.products.description }</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        ))
+                                    }
                                 </ul>
+                                <Divider></Divider>
+                                <div className="flex justify-between items-center">
+                                    <div className="text-base font-medium text-gray-900 bold">
+                                        Total:
+                                    </div>
+                                    <div className="text-base font-medium text-gray-900">
+                                        { totalPrice }
+                                    </div>
+                                </div>
                                 <Divider></Divider>
                                 <div className="mt-4 w-full">
                                     <Link>

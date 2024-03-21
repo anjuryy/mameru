@@ -31,8 +31,11 @@ const products = [
 
 export default function ShoppingCart({openCart, setOpenCart, purchases})
 {
-    console.log(purchases[0]);
+    console.log(purchases);
 //   const [openCart, setOpenCart] = useState(true)
+  const totalPrices = purchases.map(item => item.products.price * item.quantity);
+
+  const totalPrice = totalPrices.reduce((acc, curr) => parseInt(acc) + parseInt(curr), 0).toLocaleString();
 
   return (
     <Transition.Root show={openCart} as={Fragment}>
@@ -102,7 +105,7 @@ export default function ShoppingCart({openCart, setOpenCart, purchases})
                                             {product.products.name}
                                         </Link>
                                       </h3>
-                                      <p className="ml-4">{product.products.price}</p>
+                                      <p className="ml-4">{(product.products.price).toLocaleString()}</p>
                                     </div>
                                     <p className="mt-1 text-sm text-gray-500">{product.products.description}</p>
                                   </div>
@@ -132,9 +135,9 @@ export default function ShoppingCart({openCart, setOpenCart, purchases})
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>$262.00</p>
+                        <p>{ totalPrice }</p>
                       </div>
-                      <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                      <p className="mt-0.5 text-sm text-gray-500">Shipping calculated at checkout.</p>
                       <div className="mt-6">
                         {/* <a
                           href="#"

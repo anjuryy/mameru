@@ -1,3 +1,4 @@
+import Alert from '@/Components/Alert';
 import Box from '@/Components/Box';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
@@ -10,7 +11,7 @@ import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 
-export default function MyShop({ auth }) {
+export default function MyShop({ auth, flash }) {
 
     const { shop } = usePage().props;
 
@@ -39,6 +40,8 @@ export default function MyShop({ auth }) {
             // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">My Shop</h2>}
         >
             <Head title="My Shop" />
+            
+            <Alert flash={ flash } />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

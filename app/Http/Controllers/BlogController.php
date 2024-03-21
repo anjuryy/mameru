@@ -28,13 +28,12 @@ class BlogController extends Controller
 
     public function myblog(Blog $blog)
     {
-        // dd($blog->load(['images']));
         $blogs = Auth::user()
                 ->blogs()
                 // ->with('images')
                 ->paginate(6)
                 ->withQueryString();
-        // ddd($blogs);
+
         return Inertia::render('Blog/MyBlogs', [
             'blog_list' => $blogs
         ]);
@@ -74,7 +73,8 @@ class BlogController extends Controller
 
         ]);
 
-        return redirect(route('blog.index'));
+        return redirect(route('blog.index'))->with('success','Successfully Added');
+        // return redirect(route('blog.index'));
     }
 
     public function edit(Request $request, $id)
@@ -96,7 +96,7 @@ class BlogController extends Controller
         Validator::make($request->all(), [
             'title' => 'required|string|max:25',
             'blog' => 'required|string',
-            'image' => 'image'
+            // 'image' => 'image'
         ])->validate();
 
         // dd($request);
@@ -123,7 +123,8 @@ class BlogController extends Controller
             ]);
         }
 
-        return redirect(route('blog.index'));
+        return redirect(route('blog.index'))->with('success','Successfully Edited');
+        // return redirect(route('blog.index'));
 
     }
 
@@ -161,5 +162,17 @@ class BlogController extends Controller
                 ])
             )->user()->associate($request->user())
         );
+    }
+
+    public function destroy(Request $request, $id)
+    {
+
+        Blog::where('id', $id)->delete();
+
+        return redirect(route('blog.index'))->with('success','Successfully Deleted');
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
+
+        // return Redirect::to('/');
     }
 }

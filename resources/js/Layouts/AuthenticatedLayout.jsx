@@ -15,13 +15,13 @@ export default function Authenticated({ user, header, children }) {
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
-                                <Link href="/dashboard">
+                                <Link href={route('dashboard.index')}>
                                     <ApplicationLogo className="block fill-current text-gray-800" />
                                 </Link>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                <NavLink href={route('dashboard.index')} active={route().current('dashboard.index')}>
                                     Dashboard
                                 </NavLink>
                             </div>
@@ -123,7 +123,7 @@ export default function Authenticated({ user, header, children }) {
 
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                        <ResponsiveNavLink href={route('dashboard.index')} active={route().current('dashboard.index')}>
                             Dashboard
                         </ResponsiveNavLink>
                     </div>
@@ -151,6 +151,7 @@ export default function Authenticated({ user, header, children }) {
             )}
 
             <main>{children}</main>
+            
         </div>
     );
 }

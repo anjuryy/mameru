@@ -71,7 +71,7 @@ class TodoController extends Controller
             ])
         );
 
-        // return redirect(route('todo.index'));
+        return redirect(route('todo.index'))->with('success','Successfully Edited');
     }
 
     public function destroy(Request $request, $id)
@@ -79,7 +79,7 @@ class TodoController extends Controller
 
         Todo::where('id', $id)->delete();
 
-        return redirect(route('todo.index'));
+        return redirect(route('todo.index'))->with('success','Successfully Deleted');
         // $request->session()->invalidate();
         // $request->session()->regenerateToken();
 

@@ -87,7 +87,7 @@ export default function Login({ status, canResetPassword }) {
                         Register
                     </PrimaryButton> */}
 
-                    <PrimaryButton className="flex items-center justify-center w-full hover:bg-white hover:text-gray-800 hover:rounded-md border-gray-800" disabled={processing}>
+                    <PrimaryButton className="flex items-center justify-center w-full hover:bg-white hover:text-gray-800 hover:rounded-md border-gray-800 hover:border-gray-500" disabled={processing}>
                         Log in
                     </PrimaryButton>
 
@@ -108,7 +108,7 @@ export default function Login({ status, canResetPassword }) {
 
                 <div className="flex items-center w-full justify-end mt-4">
                     <Link href={route('register')}  className="w-full">
-                        <SecondaryButton className="flex items-center justify-center w-full hover:bg-gray-800 hover:text-white hover:rounded-md hover:border-white-800" disabled={processing}>
+                        <SecondaryButton className="flex items-center justify-center w-full hover:text-black hover:rounded-md hover:border-white-800" disabled={processing}>
                             Register
                         </SecondaryButton>
                     </Link>

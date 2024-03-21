@@ -25,7 +25,7 @@ export default function Alert({ flash })
     return(
         <div className="relative">
             {showAlert && (
-                <div className="absolute top-0 right-5 bg-white text-gray-800 p-4 text-sm rounded-lg shadow-md w-80 h-19 flex justify-between items-center">
+                <div className="fixed top-10 right-5 bg-white text-gray-800 p-4 text-sm rounded-lg shadow-md w-80 h-19 flex justify-between items-center">
                     <span className="flex justify-center items-center mr-4">
                         <CheckBadgeIcon className="w-10 pr-2"/>
                         { flash.success }

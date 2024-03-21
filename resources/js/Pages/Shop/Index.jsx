@@ -5,7 +5,6 @@ import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@her
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head, usePage } from '@inertiajs/react'
 import ProductList from './ProductList'
-import ShoppingCart from './ShoppingCart'
 import ShopNavLink from './ShopNavLink'
 
 export default function Index({ auth }) {

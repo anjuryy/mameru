@@ -10,15 +10,17 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import InputError from "@/Components/InputError";
+import Alert from "@/Components/Alert";
 
-export default function Show({ auth })
+export default function Show({ auth, flash })
 {
     const { product_detail } = usePage().props
     const { category } = usePage().props
     const { products } = usePage().props
     const { purchases } = usePage().props
-
-    // console.log(purchases);
+    
+    var disableButton = ''
+    var disableButtonMessage = ''
 
     const { data, setData, post, errors } = useForm({
         quantity: '',
@@ -49,9 +51,11 @@ export default function Show({ auth })
     return (
         <AuthenticatedLayout
             user={ auth.user }
-        >
-            <ShopNavLink category={ category } products={ products } purchases={ purchases }/>
+        >   
+            
 
+            <ShopNavLink category={ category } products={ products } purchases={ purchases }/>
+            <Alert flash={ flash } />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
@@ -114,15 +118,24 @@ export default function Show({ auth })
                                             <InputError message={errors.quantity} className="mt-2"/>
                                         </div>
 
+                                        <div className="mt-4 text-red-600 italic text-sm">
+                                            {
+                                                product_detail.by_user_id == auth.user.id 
+                                                    ? 
+                                                disableButton = '* This is your product'
+                                                    : 
+                                                disableButton = ''
+                                            }
+                                        </div>
                                         <div
                                             // href={route('')}
                                             className="mt-4 w-full flex items-center justify-center gap-2"
-                                        >
-                                            <PrimaryButton className="w-4/6 items-center justify-center hover:bg-gray-800 hover:text-white">
+                                        >   
+                                            <PrimaryButton className="w-4/6 items-center justify-center hover:bg-gray-800 hover:text-white" disabled={disableButton}>
                                                 Add to cart
                                             </PrimaryButton>
 
-                                            <SecondaryButton className="w-2/6 items-center justify-center hover:bg-gray-200 hover:text-black">
+                                            <SecondaryButton className="w-2/6 items-center justify-center hover:bg-gray-200 hover:text-black" disabled={disableButton}>
                                                 <HeartIcon className="w-4"/>
                                             </SecondaryButton>
 
@@ -134,7 +147,7 @@ export default function Show({ auth })
                                     <ListingAddress :listing="listing" class="text-gray-500" /> */}
                                 </Box>
 
-                                <Box>
+                                {/* <Box> */}
 
                                     {/* <div>
                                         <label class="label">Interest Rate ({{ interestRate }}%)</label>
@@ -172,7 +185,7 @@ export default function Show({ auth })
                                         </div>
 
                                     </div> */}
-                                </Box>
+                                {/* </Box> */}
 
                                 {/* <MakeOffer
                                     v-if="user && !offerMade"
