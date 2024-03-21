@@ -83,8 +83,10 @@ Route::middleware('auth')->group(function () {
     Route::put('uploaded_images/{id}/restore', [UploadedImageController::class,'restore'])->name('uploaded_images.restore');
 
     Route::post('purchase/{id}/store', [PurchaseController::class,'store'])->name('purchase.store');
-    
+    Route::resource('purchase', PurchaseController::class)->only(['destroy','index']);
+
     Route::get('management', [ManagementController::class, 'index'])->name('management.index');
+
 
 });
 

@@ -38,7 +38,7 @@ const products = [
 
   export default function ProductList({ productLists }) {
 
-    console.log(productLists);
+    // console.log(productLists);
 
     return (
       <div className="bg-white">
@@ -49,13 +49,23 @@ const products = [
             {productLists.map((product) => (
               <div key={product.id}>
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                  <Link 
+                  <Link
                     href={route('product.show', product.id)} >
-                    <img
-                      src={"images/" + product.images[0].filename}
-                      // alt={product.imageAlt}
-                      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                    />
+                    {
+                        product.images.length > 0 ?
+                        <img
+                            src={"images/" + product.images[0].filename}
+                            // alt={product.imageAlt}
+                            className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                        />
+                        :
+                        <img
+                            src={"images/profilePic.jpeg"}
+                            // alt={product.imageAlt}
+                            className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                        />
+                    }
+
                   </Link>
                 </div>
                 <div className="mt-4 flex justify-between">

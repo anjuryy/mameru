@@ -45,7 +45,8 @@ class TodoController extends Controller
             ])
         );
 
-        return redirect(route('todo.index'));
+        // return redirect(route('todo.index'));
+        return redirect(route('todo.index'))->with('success','Successfully Added');
     }
 
     public function edit($id)

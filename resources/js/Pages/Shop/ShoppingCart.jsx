@@ -1,6 +1,8 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import PrimaryButton from '@/Components/PrimaryButton'
+import { Link } from '@inertiajs/react'
 
 const products = [
   {
@@ -27,7 +29,9 @@ const products = [
   // More products...
 ]
 
-export default function ShoppingCart({openCart, setOpenCart}) {
+export default function ShoppingCart({openCart, setOpenCart, purchases})
+{
+    console.log(purchases[0]);
 //   const [openCart, setOpenCart] = useState(true)
 
   return (
@@ -78,12 +82,12 @@ export default function ShoppingCart({openCart, setOpenCart}) {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
-                            {products.map((product) => (
+                            {purchases.map((product) => (
                               <li key={product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
-                                    src={product.imageSrc}
-                                    alt={product.imageAlt}
+                                    src={"../images/"+ product.products.images[0].filename}
+                                    // alt={product.imageAlt}
                                     className="h-full w-full object-cover object-center"
                                   />
                                 </div>
@@ -92,22 +96,29 @@ export default function ShoppingCart({openCart, setOpenCart}) {
                                   <div>
                                     <div className="flex justify-between text-base font-medium text-gray-900">
                                       <h3>
-                                        <a href={product.href}>{product.name}</a>
+                                        <Link
+                                            href={route('product.show', product.id)}
+                                        >
+                                            {product.products.name}
+                                        </Link>
                                       </h3>
-                                      <p className="ml-4">{product.price}</p>
+                                      <p className="ml-4">{product.products.price}</p>
                                     </div>
-                                    <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                                    <p className="mt-1 text-sm text-gray-500">{product.products.description}</p>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
-                                    <p className="text-gray-500">Qty {product.quantity}</p>
+                                    <p className="text-gray-500">Qty: {product.quantity}</p>
 
                                     <div className="flex">
-                                      <button
-                                        type="button"
+
+                                      <Link
+                                        href={route('purchase.destroy', product.id)}
+                                        method="delete"
+                                        as="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
                                       >
                                         Remove
-                                      </button>
+                                      </Link>
                                     </div>
                                   </div>
                                 </div>
@@ -125,12 +136,21 @@ export default function ShoppingCart({openCart, setOpenCart}) {
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                       <div className="mt-6">
-                        <a
+                        {/* <a
                           href="#"
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
                           Checkout
-                        </a>
+                        </a> */}
+                        <Link
+                            href={route('purchase.index')}
+                        >
+                            <PrimaryButton
+                                className='w-full flex items-center justify-center rounded-md border border-transparent px-6 py-3 text-base font-medium shadow-sm'
+                            >
+                                Checkout
+                            </PrimaryButton>
+                        </Link>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
@@ -145,7 +165,7 @@ export default function ShoppingCart({openCart, setOpenCart}) {
                           </button>
                         </p>
                       </div>
-                      
+
                     </div>
                   </div>
                 </Dialog.Panel>

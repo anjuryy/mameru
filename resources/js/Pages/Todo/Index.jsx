@@ -1,3 +1,4 @@
+import Alert from '@/Components/Alert';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import Pagination from '@/Components/Pagination';
@@ -7,7 +8,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 
-export default function Index({ auth }) {
+export default function Index({ auth, flash }) {
 
     const { todo_list } = usePage().props;
 
@@ -33,8 +34,10 @@ export default function Index({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">To Do List</h2>}
+            // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">To Do List</h2>}
         >
+            <Alert flash={ flash } />
+
             <Head title="To Do - Create" />
 
             <div className="py-12">

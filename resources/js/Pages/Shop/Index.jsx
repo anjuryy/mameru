@@ -11,6 +11,7 @@ import ShopNavLink from './ShopNavLink'
 export default function Index({ auth }) {
     const { category } = usePage().props
     const { products } = usePage().props
+    const { purchases } = usePage().props
 
     const [open, setOpen] = useState(false)
     const [openCart, setOpenCart] = useState(false)
@@ -21,7 +22,7 @@ export default function Index({ auth }) {
         >
             <Head title="Shop" />
 
-            <ShopNavLink category={ category } products={ products } />
+            <ShopNavLink category={ category } products={ products } purchases={ purchases }/>
 
             <ProductList productLists={ products }/>
 

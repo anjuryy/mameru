@@ -28,7 +28,7 @@ export default function Authenticated({ user, header, children }) {
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('todo.index')} active={route().current('todo.index')}>
-                                    To Do
+                                    Task
                                 </NavLink>
                             </div>
 

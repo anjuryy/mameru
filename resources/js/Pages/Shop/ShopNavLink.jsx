@@ -129,18 +129,18 @@ const navigation = {
       { name: 'Stores', href: '#' },
     ],
   }
-  
+
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
 
-export default function ShopNavLink({ auth, category, products })
+export default function ShopNavLink({ auth, category, products, purchases })
 {
     const [open, setOpen] = useState(false)
     const [openCart, setOpenCart] = useState(false)
-    
+
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedCurrency, setSelectedCurrency] = useState('CAD');
+    const [selectedCurrency, setSelectedCurrency] = useState('USD');
 
     const togglePopover = () => {
         setIsOpen(!isOpen);
@@ -500,9 +500,9 @@ export default function ShopNavLink({ auth, category, products })
                                     onClick={() => setOpenCart(true)}
                                 />
 
-                                <ShoppingCart openCart={openCart} setOpenCart={setOpenCart} />
+                                <ShoppingCart openCart={openCart} setOpenCart={setOpenCart} purchases={ purchases } />
 
-                                <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{ purchases.length }</span>
                                 <span className="sr-only">items in cart, view bag</span>
                             </a>
                             </div>

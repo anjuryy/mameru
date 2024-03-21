@@ -26,4 +26,9 @@ class UploadedImage extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
+    public function purchases(): BelongsTo
+    {
+        return $this->belongsTo(Purchase::class, 'product_id');
+    }
 }

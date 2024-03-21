@@ -9,14 +9,18 @@ import TextInput from "@/Components/TextInput";
 import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 import PrimaryButton from "@/Components/PrimaryButton";
+import InputError from "@/Components/InputError";
 
 export default function Show({ auth })
 {
     const { product_detail } = usePage().props
     const { category } = usePage().props
     const { products } = usePage().props
+    const { purchases } = usePage().props
 
-    const { data, setData, post } = useForm({
+    // console.log(purchases);
+
+    const { data, setData, post, errors } = useForm({
         quantity: '',
     });
 
@@ -41,12 +45,12 @@ export default function Show({ auth })
 
         post(route('purchase.store', product_detail.id ));
     }
-    
+
     return (
         <AuthenticatedLayout
             user={ auth.user }
         >
-            <ShopNavLink category={ category } products={ products } />
+            <ShopNavLink category={ category } products={ products } purchases={ purchases }/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -95,32 +99,33 @@ export default function Show({ auth })
                                         <InputLabel htmlFor="quantity" value="Quantity" />
 
                                             <div onClick={handleDecrement}><MinusIcon className="w-4 cursor-pointer"/></div>
-                                                <TextInput 
+                                                <TextInput
                                                     id="quantity"
                                                     name="quantity"
-                                                    type="text" 
-                                                    className="w-16" 
-                                                    value={ count } 
+                                                    type="text"
+                                                    className="w-16"
+                                                    value={ count }
                                                     onChange={(e) => setData('quantity', e.target.value)}
                                                     style={{ textAlign: 'center' }}
                                                 >
                                                 </TextInput>
                                             <div onClick={handleIncrement}><PlusIcon className="w-4 cursor-pointer"/></div>
 
+                                            <InputError message={errors.quantity} className="mt-2"/>
                                         </div>
-                                    
-                                        <div 
+
+                                        <div
                                             // href={route('')}
                                             className="mt-4 w-full flex items-center justify-center gap-2"
                                         >
                                             <PrimaryButton className="w-4/6 items-center justify-center hover:bg-gray-800 hover:text-white">
                                                 Add to cart
                                             </PrimaryButton>
-                                            
+
                                             <SecondaryButton className="w-2/6 items-center justify-center hover:bg-gray-200 hover:text-black">
                                                 <HeartIcon className="w-4"/>
                                             </SecondaryButton>
-                                            
+
                                         </div>
                                     </form>
 

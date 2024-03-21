@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class PurchaseController extends Controller
 {
@@ -14,7 +15,9 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render(
+            'Shop/Checkout'
+        );
     }
 
     /**
@@ -75,6 +78,6 @@ class PurchaseController extends Controller
      */
     public function destroy(Purchase $purchase)
     {
-        //
+        $purchase->delete();
     }
 }

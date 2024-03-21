@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Inertia\Inertia;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -16,11 +17,11 @@ class ProductController extends Controller
     public function index()
     {
         $categories = Category::with(
-            ['features' => function ($features_query) 
-                { 
-                    $features_query->limit(4); 
+            ['features' => function ($features_query)
+                {
+                    $features_query->limit(4);
                 }
-            , 
+            ,
             'sections' =>function ($section_query)
                 {
                     $section_query->limit(6)->with('sectionItems');
@@ -29,6 +30,11 @@ class ProductController extends Controller
         ->get();
 
         $products = Product::with('images')->get();
+
+        $purchases = Auth::user()
+            ->purchases()
+            ->with('products.images')
+            ->get();
         // $category = DB::table('categories')
         //     ->join('featureds', 'categories.id', '=', 'featureds.category_id')
         //     ->select('featureds.name as featureds_name','categories.name as categories_name')
@@ -37,7 +43,8 @@ class ProductController extends Controller
         return Inertia::render('Shop/Index',
         [
            'category' => $categories,
-           'products' => $products
+           'products' => $products,
+           'purchases' => $purchases
         ]);
     }
 
@@ -63,11 +70,11 @@ class ProductController extends Controller
     public function show($id)
     {
         $categories = Category::with(
-            ['features' => function ($features_query) 
-                { 
-                    $features_query->limit(4); 
+            ['features' => function ($features_query)
+                {
+                    $features_query->limit(4);
                 }
-            , 
+            ,
             'sections' =>function ($section_query)
                 {
                     $section_query->limit(6)->with('sectionItems');
@@ -79,12 +86,18 @@ class ProductController extends Controller
 
         $product = Product::with('images')->withTrashed()->find($id);
 
+        $purchases = Auth::user()
+            ->purchases()
+            ->with('products.images')
+            ->get();
+
         return Inertia::render(
             'Shop/Show',
             [
                 'product_detail' => $product,
                 'category' => $categories,
-                'products' => $products
+                'products' => $products,
+                'purchases' => $purchases
             ]
         );
     }
