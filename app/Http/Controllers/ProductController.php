@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class ProductController extends Controller
 {
@@ -124,5 +125,45 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function filter()
+    {
+        $categories = Category::with(
+            ['features' => function ($features_query)
+                {
+                    $features_query->limit(4);
+                }
+            ,
+            'sections' =>function ($section_query)
+                {
+                    $section_query->limit(6)->with('sectionItems');
+                }
+            ])
+        ->get();
+        
+        $encryptedCategories = $categories->map(function ($category) {
+            // Encrypting category ID
+            $category->encrypted_id = Crypt::encryptString($category->id);
+    
+            // Encrypting feature IDs
+            $category->features->each(function ($feature) {
+                $feature->encrypted_id = Crypt::encryptString($feature->id);
+            });
+    
+            // Encrypting section IDs
+            $category->sections->each(function ($section) {
+                $section->encrypted_id = Crypt::encryptString($section->id);
+    
+                // Encrypting section item IDs
+                $section->sectionItems->each(function ($item) {
+                    $item->encrypted_id = Crypt::encryptString($item->id);
+                });
+            });
+    
+            return $category;
+        });
+    
+        return Inertia::render('Shop/Sample', ['categories' => $encryptedCategories]);
     }
 }

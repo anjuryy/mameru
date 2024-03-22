@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // $todos_list = Todo::get();
         // return Inertia::render('Todo/Index', [ 'listings' => Todo::get() ]);
@@ -22,12 +22,23 @@ class TodoController extends Controller
         //     ]
         // );
         // $todo_list = Todo::latest()->paginate(5)->withQueryString();
+        $filters = $request->only([
+            'name',
+            ...$request->only(['by','order'])
+        ]);
+
         $todo_list = Auth::user()
                     ->todos()
+                    ->Filter($filters)
                     ->paginate(5)
                     ->withQueryString();
 
-        return Inertia::render('Todo/Index', ['todo_list' => $todo_list]);
+        return Inertia::render('Todo/Index', 
+            [
+                'filters' => $filters,
+                'todolist' => $todo_list
+            ]
+        );
     }
 
     public function create(): Response
@@ -84,5 +95,16 @@ class TodoController extends Controller
         // $request->session()->regenerateToken();
 
         // return Redirect::to('/');
+    }
+
+    public function searchBar()
+    {
+        $todo = Auth::user()
+            ->todos()
+            ->paginate(5)
+            ->withQueryString();
+
+            return response()->json(['result' => $todo], 200);
+
     }
 }

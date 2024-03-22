@@ -12,8 +12,7 @@ class DashboardController extends Controller
     {
         $todo_list = Auth::user()
                     ->todos()
-                    ->paginate(5)
-                    ->withQueryString();
+                    ->get();
                     
         return Inertia::render(
             'Dashboard',

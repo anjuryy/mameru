@@ -73,6 +73,8 @@ Route::middleware('auth')->group(function () {
     Route::get('myblog', [BlogController::class, 'myblog'])->name('blog.myblog');
 
     Route::resource('product', ProductController::class);
+    Route::get('filter', [ProductController::class, 'filter'])->name('product.filter');
+
     Route::resource('category', CategoryController::class)->only(['create','store','edit','update']);
     Route::resource('featured', FeaturedController::class)->only(['create','store','edit','update']);
     Route::resource('section', SectionController::class)->only(['create','store','edit','update']);
@@ -91,6 +93,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('management', [ManagementController::class, 'index'])->name('management.index');
 
+    // SEARCH
+    // Route::get('/todo/search', [UserController::class, 'search'])->name('users.search'); 
 
 });
 

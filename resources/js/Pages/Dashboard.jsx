@@ -1,7 +1,9 @@
 import Box from '@/Components/Box';
+import { DashboardCard } from '@/Components/DashboardCard';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import { ClipboardDocumentCheckIcon, RectangleGroupIcon, SwatchIcon, UserGroupIcon } from "@heroicons/react/20/solid";
 
 export default function Dashboard({ auth }) {
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -30,11 +32,10 @@ export default function Dashboard({ auth }) {
 
     const { todo_list } = usePage().props
 
-    const dayNumbers = todo_list.data.map(todoList => (
+    const dayNumbers = todo_list.map(todoList => (
         (new Date(todoList.deadline)).getDay()
     ));
 
-    console.log(dayNumbers);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -45,9 +46,23 @@ export default function Dashboard({ auth }) {
             <div className="py-12">
                 <div className="mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="grid md:grid-cols-3 grid-cols-2 gap-3 p-4">
+                        <div className="grid lg:grid-cols-3 grid-cols-1 gap-3 p-4">
                             <div className="col-span-1">
-                                <Box />
+                                <div className="grid grid-cols-1 w-full lg:grid-cols-2 gap-2">
+                                    <Box>
+                                        <DashboardCard title={'Total Users'} icon={ <UserGroupIcon className="w-10 text-blue-500"/> } total={ 1 }/>
+                                    </Box>
+                                    <Box>
+                                        <DashboardCard title={'Total Tasks'} icon={ <ClipboardDocumentCheckIcon className="w-10 text-red-500"/> } total={ 1 }/>
+                                    </Box>
+                                    <Box>
+                                        <DashboardCard title={'Total Blogs'} icon={ <RectangleGroupIcon className="w-10 text-green-500"/> } total={ 1 }/>
+                                    </Box>
+                                    <Box>
+                                        <DashboardCard title={'Total Products'} icon={ <SwatchIcon className="w-10 text-yellow-500"/> } total={ 1 }/>
+                                    </Box>
+                                </div>
+                                
                             </div>
 
                             <div className="col-span-2"> {/** hidden md:block */}
@@ -61,8 +76,8 @@ export default function Dashboard({ auth }) {
                                             </div>
                                             <div className="grid grid-cols-7 gap-4">
                                             {daysOfWeek.map(day => (
-                                                <div>
-                                                    <div key={day} className="text-center font-bold text-lg xl:block hidden">
+                                                <div key={day}>
+                                                    <div className="text-center font-bold text-lg xl:block hidden">
                                                         { day } 
                                                     </div>
                                                     <div className="text-center font-bold text-lg xl:hidden block">
@@ -77,7 +92,7 @@ export default function Dashboard({ auth }) {
                                                 <div key={date} className="text-right border rounded-lg p-4 text-xs lg:h-24 h-10">
                                                 {date}
                                                 {
-                                                    todo_list.data.map(todoList => {
+                                                    todo_list.map(todoList => {
                                                         const dateString = todoList.deadline;
                                                         const dateParts = dateString.split("-");
                                                         const day = dateParts[2]; // Extract the day part
@@ -87,9 +102,10 @@ export default function Dashboard({ auth }) {
                                                         const monthIndex = currentDate.getMonth();
                                                         const monthString = String(monthIndex + 1).padStart(2, '0');
 
+                                                        console.log(dateString);
                                                         return (
-                                                            <div>
-                                                                <div key={todoList.id} className="text-sm text-left mt-6 text-indigo-400 ">
+                                                            <div key={todoList.id}>
+                                                                <div className="text-sm text-left mt-6 text-indigo-400 ">
                                                                     {
                                                                         date == day && monthString == month && currentDate.getFullYear() == year 
                                                                             ? 
