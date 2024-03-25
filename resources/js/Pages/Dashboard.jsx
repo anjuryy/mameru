@@ -1,4 +1,5 @@
 import Box from '@/Components/Box';
+import BoxThreeD from '../ReactFiber/Box.jsx';
 import { DashboardCard } from '@/Components/DashboardCard';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, usePage } from '@inertiajs/react';
@@ -28,7 +29,7 @@ export default function Dashboard({ auth }) {
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     // Create an array of dates for the current month
-    const datesOfMonth = Array.from({ length: numDaysInMonth }, (_, index) => index + 1);     
+    const datesOfMonth = Array.from({ length: numDaysInMonth }, (_, index) => index + 1);
 
     const { todo_list } = usePage().props
 
@@ -50,19 +51,23 @@ export default function Dashboard({ auth }) {
                             <div className="col-span-1">
                                 <div className="grid grid-cols-1 w-full lg:grid-cols-2 gap-2">
                                     <Box>
-                                        <DashboardCard title={'Total Users'} icon={ <UserGroupIcon className="w-10 text-blue-500"/> } total={ 1 }/>
+                                        <DashboardCard title={'Users'} icon={ <UserGroupIcon className="w-10 text-blue-500"/> } total={ 1 }/>
                                     </Box>
                                     <Box>
-                                        <DashboardCard title={'Total Tasks'} icon={ <ClipboardDocumentCheckIcon className="w-10 text-red-500"/> } total={ 1 }/>
+                                        <DashboardCard title={'Tasks'} icon={ <ClipboardDocumentCheckIcon className="w-10 text-red-500"/> } total={ 1 }/>
                                     </Box>
                                     <Box>
-                                        <DashboardCard title={'Total Blogs'} icon={ <RectangleGroupIcon className="w-10 text-green-500"/> } total={ 1 }/>
+                                        <DashboardCard title={'Blogs'} icon={ <RectangleGroupIcon className="w-10 text-green-500"/> } total={ 1 }/>
                                     </Box>
                                     <Box>
-                                        <DashboardCard title={'Total Products'} icon={ <SwatchIcon className="w-10 text-yellow-500"/> } total={ 1 }/>
+                                        <DashboardCard title={'Products'} icon={ <SwatchIcon className="w-10 text-yellow-500"/> } total={ 1 }/>
                                     </Box>
                                 </div>
-                                
+                                <div className="w-10">
+
+                                </div>
+
+
                             </div>
 
                             <div className="col-span-2"> {/** hidden md:block */}
@@ -78,7 +83,7 @@ export default function Dashboard({ auth }) {
                                             {daysOfWeek.map(day => (
                                                 <div key={day}>
                                                     <div className="text-center font-bold text-lg xl:block hidden">
-                                                        { day } 
+                                                        { day }
                                                     </div>
                                                     <div className="text-center font-bold text-lg xl:hidden block">
                                                         { day.split(" ").map(word => word.charAt(0)) }
@@ -107,23 +112,23 @@ export default function Dashboard({ auth }) {
                                                             <div key={todoList.id}>
                                                                 <div className="text-sm text-left mt-6 text-indigo-400 ">
                                                                     {
-                                                                        date == day && monthString == month && currentDate.getFullYear() == year 
-                                                                            ? 
+                                                                        date == day && monthString == month && currentDate.getFullYear() == year
+                                                                            ?
                                                                         <div>
                                                                             <div className="group 2xl:block hidden">
                                                                                 { todoList.name }
                                                                                 <div className="hidden group-hover:block absolute bg-white border border-gray-300 p-4 rounded-lg">
                                                                                     { todoList.task_desc == null ? 'No Description' : todoList.task_desc }
                                                                                 </div>
-                                                                            </div> 
+                                                                            </div>
                                                                             <div className="group 2xl:hidden block">
                                                                                 <li className='text-gray-500'></li>
                                                                                 <div className="hidden group-hover:block absolute bg-white border border-gray-300 p-4 rounded-lg">
                                                                                     { todoList.task_desc == null ? 'No Description' : todoList.task_desc }
                                                                                 </div>
-                                                                            </div> 
+                                                                            </div>
                                                                         </div>
-                                                                            : 
+                                                                            :
                                                                         ''
                                                                     }
                                                                 </div>

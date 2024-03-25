@@ -20,6 +20,8 @@ class Todo extends Model
 
     ];
 
+    protected $hidden = ['id', 'by_user_id'];
+
     public function owner() : BelongsTo {
         return $this->belongsTo(
             \App\Models\User::class,

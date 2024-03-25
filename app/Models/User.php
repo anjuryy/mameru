@@ -78,4 +78,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Purchase::class, 'by_user_id');
     }
+
+    public function user_currency(): HasMany
+    {
+        return $this->hasMany(UserCurrency::class, 'by_user_id');
+    }
 }

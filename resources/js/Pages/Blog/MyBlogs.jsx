@@ -61,7 +61,7 @@ export default function MyBlogs({ auth }) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 p-2">
                             {/* Map through the cards data and render a Card component for each */}
                             {blog_list.data.map(blog => (
-                                <Card key={blog.id} title={blog.title} content={blog.blog} imageUrl={blog.image} id={blog.id} buttonValue={'Edit'} />
+                                <Card key={blog.id} title={blog.title} content={blog.blog} imageUrl={blog.image} id={blog.encrypted_id} buttonValue={'Edit'} />
                             ))}
                         </div>
 

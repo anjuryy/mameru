@@ -14,7 +14,7 @@ export default function Edit({ auth }) {
     const to_do = usePage().props.todo_data;
 
     const { data, setData, patch, processing, errors, reset, register } = useForm({
-        id: to_do.id,
+        id: to_do.encrypted_id,
         name: to_do.name,
         task_desc: to_do.task_desc,
         deadline: to_do.deadline,

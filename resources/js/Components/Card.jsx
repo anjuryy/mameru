@@ -15,13 +15,13 @@ function Card({ title, content, imageUrl, id, buttonValue }) {
                         <img
                             src={"uploads/" + imageUrl}
                             alt="Card Image"
-                            className="w-80 h-auto rounded-md mb-2"
+                            className="w-80 h-80 rounded-md mb-2"
                         />
                      :
                     <img
                         src={"images/profilePic.jpeg"}
                         alt="Card Image"
-                        className="w-80 h-auto rounded-md mb-2"
+                        className="w-80 h-80 rounded-md mb-2"
                     />
 
                 }

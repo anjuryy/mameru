@@ -11,8 +11,12 @@ import React, { useState } from 'react';
 const Checkout = ({ auth }) => {
 
 const { purchases } = usePage().props
+const { user_currency_setting } = usePage().props
 
-const totalPrices = purchases.map(item => item.products.price * item.quantity);
+// const totalPrices = purchases.map(item => item.products.price * item.quantity);
+// const totalPrice = totalPrices.reduce((acc, curr) => parseInt(acc) + parseInt(curr), 0).toLocaleString();
+
+const totalPrices = purchases.map(item => (item.products.price / parseInt(user_currency_setting[0]['currency_converters'].value)) * item.quantity);
 const totalPrice = totalPrices.reduce((acc, curr) => parseInt(acc) + parseInt(curr), 0).toLocaleString();
 
 const submit = (e) => {
@@ -248,7 +252,7 @@ return (
                                                                 { product.products.name }
                                                             </Link>
                                                         </h3>
-                                                        <p className="ml-4">{ (product.products.price * product.quantity).toLocaleString() }</p>
+                                                        <p className="ml-4">{ user_currency_setting[0]['currency_converters'].symbol }{Math.floor(parseInt((product.products.price).toLocaleString()) / parseInt(user_currency_setting[0]['currency_converters'].value))}</p>
                                                         </div>
                                                         <p className="mt-1 text-sm text-gray-500">{ product.products.description }</p>
                                                     </div>
@@ -263,7 +267,7 @@ return (
                                         Total:
                                     </div>
                                     <div className="text-base font-medium text-gray-900">
-                                        { totalPrice }
+                                    { user_currency_setting[0]['currency_converters'].symbol }{ totalPrice }
                                     </div>
                                 </div>
                                 <Divider></Divider>

@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { Head, usePage } from '@inertiajs/react'
+import { Head, Link, usePage } from '@inertiajs/react'
 import ProductList from './ProductList'
 import ShoppingCart from './ShoppingCart'
 
@@ -125,8 +125,8 @@ const navigation = {
       },
     ],
     pages: [
-      { name: 'Company', href: '#' },
-      { name: 'Stores', href: '#' },
+    //   { name: 'Company', href: '#' },
+    //   { name: 'Stores', href: '#' },
     ],
   }
 
@@ -134,7 +134,7 @@ const navigation = {
     return classes.filter(Boolean).join(' ')
   }
 
-export default function ShopNavLink({ auth, category, products, purchases })
+export default function ShopNavLink({ auth, category, products, purchases, userCurrencySetting })
 {
     const [open, setOpen] = useState(false)
     const [openCart, setOpenCart] = useState(false)
@@ -386,8 +386,8 @@ export default function ShopNavLink({ auth, category, products, purchases })
                                                     <div key={item.name} className="group relative text-base sm:text-sm">
                                                     <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                                         <img
-                                                        src={item.imageSrc}
-                                                        alt={item.imageAlt}
+                                                            src={"images/profilePic.jpeg"}
+                                                            alt={item.imageAlt}
                                                         className="object-cover object-center"
                                                         />
                                                     </div>
@@ -416,9 +416,9 @@ export default function ShopNavLink({ auth, category, products, purchases })
                                                     >
                                                         {section.section_items.map((item) => (
                                                         <li key={item.name} className="flex">
-                                                            <a href={item.href} className="hover:text-gray-800">
+                                                            <Link href={route('product.filter', item.id)} className="hover:text-gray-800">
                                                             {item.name}
-                                                            </a>
+                                                            </Link>
                                                         </li>
                                                         ))}
                                                     </ul>
@@ -458,7 +458,7 @@ export default function ShopNavLink({ auth, category, products, purchases })
                             </a>
                             </div> */}
 
-                            <div className="relative inline-block text-left">
+                            {/* <div className="relative inline-block text-left">
                                 <button
                                     onClick={togglePopover}
                                     className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -469,19 +469,7 @@ export default function ShopNavLink({ auth, category, products, purchases })
                                     <path fillRule="evenodd" d="M10 12a1 1 0 01-.7-.3l-4-4a1 1 0 111.4-1.4L10 10.6l3.3-3.3a1 1 0 111.4 1.4l-4 4a1 1 0 01-.7.3z" clipRule="evenodd" />
                                     </svg>
                                 </button>
-
-                                {isOpen && (
-                                    <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                    <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={() => handleCurrencySelect('USD')}>USD - United States Dollar</a>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={() => handleCurrencySelect('EUR')}>EUR - Euro</a>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={() => handleCurrencySelect('GBP')}>GBP - British Pound Sterling</a>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={() => handleCurrencySelect('JPY')}>JPY - Japanese Yen</a>
-                                        {/* Add more currency options as needed */}
-                                    </div>
-                                    </div>
-                                )}
-                            </div>
+                            </div> */}
 
                             {/* Search */}
                             <div className="flex lg:ml-6">
@@ -500,7 +488,7 @@ export default function ShopNavLink({ auth, category, products, purchases })
                                     onClick={() => setOpenCart(true)}
                                 />
 
-                                <ShoppingCart openCart={openCart} setOpenCart={setOpenCart} purchases={ purchases } />
+                                <ShoppingCart openCart={openCart} setOpenCart={setOpenCart} purchases={ purchases } userCurrencySetting={ userCurrencySetting }/>
 
                                 <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{ purchases.length }</span>
                                 <span className="sr-only">items in cart, view bag</span>

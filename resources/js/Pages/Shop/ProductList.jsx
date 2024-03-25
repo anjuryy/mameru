@@ -1,3 +1,4 @@
+import Box from "@/Components/Box";
 import { Link } from "@inertiajs/react";
 
 /*
@@ -36,31 +37,32 @@ const products = [
     // More products...
   ]
 
-  export default function ProductList({ productLists }) {
-
+  export default function ProductList({ productLists, userCurrencySetting }) {
+    console.log(userCurrencySetting[0]['currency_converters'].symbol);
     // console.log(productLists);
 
     return (
       <div className="bg-white">
-        <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <div className="mx-auto max-w-2xl px-4 py-4 sm:px-6 lg:max-w-7xl lg:px-8">
           {/* <h2 className="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2> */}
 
-          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+          <div className="grid grid-cols-1 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {productLists.map((product) => (
-              <div key={product.id}>
+            <Box key={product.id} className="bg-white">
+            <div >
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                   <Link
                     href={route('product.show', product.id)} >
                     {
                         product.images.length > 0 ?
                         <img
-                            src={"images/" + product.images[0].filename}
+                            src={product.images[0].filename ? "../images/" + product.images[0].filename : "images/" + product.images[0].filename}
                             // alt={product.imageAlt}
                             className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                         />
                         :
                         <img
-                            src={"images/profilePic.jpeg"}
+                            src={"images/profilePic.jpeg" ? "../images/profilePic.jpeg" : "images/profilePic.jpeg"}
                             // alt={product.imageAlt}
                             className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                         />
@@ -78,9 +80,10 @@ const products = [
                     </h3>
                     <p className="mt-1 text-sm text-gray-500">{product.description}</p>
                   </div>
-                  <p className="text-sm font-medium text-gray-900">₱ {product.price}</p>
+                  <p className="text-sm font-medium text-gray-900">{ userCurrencySetting[0]['currency_converters'].symbol } {Math.floor(parseInt(product.price) / parseInt(userCurrencySetting[0]['currency_converters'].value))}</p>
                 </div>
               </div>
+              </Box>
             ))}
           </div>
         </div>

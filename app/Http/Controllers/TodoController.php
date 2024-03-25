@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class TodoController extends Controller
 {
@@ -27,16 +28,23 @@ class TodoController extends Controller
             ...$request->only(['by','order'])
         ]);
 
-        $todo_list = Auth::user()
+        $todolist = Auth::user()
                     ->todos()
-                    ->Filter($filters)
+                    ->filter($filters)
                     ->paginate(5)
                     ->withQueryString();
 
-        return Inertia::render('Todo/Index', 
+        // Encrypt the IDs in each todo item
+        $encryptedTodolist = $todolist->map(function ($todo) {
+            // Encrypting todo ID
+            $todo->encrypted_id = Crypt::encryptString($todo->id);
+            return $todo;
+        });
+
+        return Inertia::render('Todo/Index',
             [
                 'filters' => $filters,
-                'todolist' => $todo_list
+                'todolist' => $todolist
             ]
         );
     }
@@ -62,17 +70,25 @@ class TodoController extends Controller
 
     public function edit($id)
     {
+        $decrypted_id = Crypt::decryptString($id);
+
         $todo = Auth::user()
                 ->todos()
                 ->paginate(5)
                 ->withQueryString()
-                ->find($id);
-        // $todo = Todo::find($id);
+                ->find($decrypted_id);
+
+        $todo['encrypted_id'] = Crypt::encryptString($todo->id);
+
         return Inertia::render('Todo/Edit', [ 'todo_data' => $todo]);
     }
 
-    public function update(Request $request, Todo $todo)
+    public function update(Request $request, $id)
     {
+        $decrypted_id = Crypt::decryptString($id);
+
+        $todo = Todo::findOrFail($decrypted_id);
+
         $todo->update(
             $request->validate([
                 'name' => 'required|string|max:50',
@@ -87,8 +103,9 @@ class TodoController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        $decrypted_id = Crypt::decryptString($id);
 
-        Todo::where('id', $id)->delete();
+        Todo::where('id', $decrypted_id)->delete();
 
         return redirect(route('todo.index'))->with('success','Successfully Deleted');
         // $request->session()->invalidate();

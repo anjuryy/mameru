@@ -13,7 +13,7 @@ import Comments from './Comments';
 export default function Create({ auth }) {
     const blog_list = usePage().props
 
-    // console.log(blog_list.comments);
+    console.log(blog_list);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         comment: '',
@@ -22,7 +22,7 @@ export default function Create({ auth }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('blog.storeComment', blog_list.blog_info.id));
+        post(route('blog.storeComment', blog_list.blog_info.encrypted_id));
     };
 
     return (

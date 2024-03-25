@@ -9,6 +9,7 @@ use App\Models\BlogsComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class BlogController extends Controller
@@ -20,6 +21,11 @@ class BlogController extends Controller
                 // ->with('images')
                 paginate(6)
                 ->withQueryString();
+
+        $blogEncryptedId = $blogs->map(function ($blog){
+            $blog->encrypted_id = Crypt::encryptString($blog->id);
+            return $blog;
+        });
 
         return Inertia::render('Blog/Index', [
             'blog_list' => $blogs
@@ -33,6 +39,10 @@ class BlogController extends Controller
                 // ->with('images')
                 ->paginate(6)
                 ->withQueryString();
+
+        $blogsEncryptedId = $blogs->map(function ($blog) {
+            $blog->encrypted_id = Crypt::encryptString($blog->id);
+        });
 
         return Inertia::render('Blog/MyBlogs', [
             'blog_list' => $blogs
@@ -50,12 +60,12 @@ class BlogController extends Controller
         Validator::make($request->all(), [
             'title' => 'required|string|max:25',
             'blog' => 'required|string',
-            'image' => 'image'
-
+            // 'image' => 'image'
         ])->validate();
 
             // ddd($request->file->extension());
         // $fileName = time().'.'.$request->file->extension();
+        $fileName = '';
 
         // $request->file->move(public_path('uploads'), $fileName);
         if ($request->hasFile('image')) {
@@ -79,10 +89,14 @@ class BlogController extends Controller
 
     public function edit(Request $request, $id)
     {
+        $decrypted_id = Crypt::decryptString($id);
+
         $blog_info = Auth::user()
                     ->blogs()
                     ->with('images')
-                    ->find($id);
+                    ->find($decrypted_id);
+
+        $blog_info['encrypted_id'] = Crypt::encryptString($blog_info->id);
 
         return Inertia::render('Blog/Edit',
             [
@@ -93,6 +107,8 @@ class BlogController extends Controller
 
     public function update(Request $request, $id)
     {
+        $decypted_id = Crypt::decryptString($id);
+
         Validator::make($request->all(), [
             'title' => 'required|string|max:25',
             'blog' => 'required|string',
@@ -107,7 +123,7 @@ class BlogController extends Controller
 
             // Handle file upload logic here
 
-            $request->user()->blogs()->where('id', $id)->update([
+            $request->user()->blogs()->where('id', $decypted_id)->update([
 
                 'title' => $request->title,
                 'blog' => $request->blog,
@@ -115,7 +131,7 @@ class BlogController extends Controller
 
             ]);
         } else {
-            $request->user()->blogs()->where('id', $id)->update([
+            $request->user()->blogs()->where('id', $decypted_id)->update([
 
                 'title' => $request->title,
                 'blog' => $request->blog
@@ -132,12 +148,16 @@ class BlogController extends Controller
     {
         // $blog = Blog::with('owner')->with('comments')->find($id);
         // $blogComment = $blog->comments();
+        $decrypted_id = Crypt::decryptString($id);
+
         $comments = BlogsComment::select('*')
         ->join('users', 'blogs_comments.by_user_id', '=', 'users.id')
-        ->where('blogs_comments.blog_id', '=', $id)
+        ->where('blogs_comments.blog_id', '=', $decrypted_id)
         ->get();
 
-        $blog_info = Blog::find($id);
+        $blog_info = Blog::find($decrypted_id);
+
+        $blog_info['encrypted_id'] = $id;
 
         return Inertia::render('Blog/Show',
             [
@@ -154,7 +174,10 @@ class BlogController extends Controller
         //         'comment' => 'required|max:250'
         //     ])
         // );
-        $blog = Blog::find($id);
+        $decypted_id = Crypt::decryptString($id);
+
+        $blog = Blog::find($decypted_id);
+
         $offer = $blog->comments()->save(
             BlogsComment::make(
                 $request->validate([
@@ -166,8 +189,9 @@ class BlogController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        $decrypted_id = Crypt::decryptString($id);
 
-        Blog::where('id', $id)->delete();
+        Blog::where('id', $decrypted_id)->delete();
 
         return redirect(route('blog.index'))->with('success','Successfully Deleted');
         // $request->session()->invalidate();

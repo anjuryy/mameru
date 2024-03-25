@@ -11,7 +11,9 @@ export default function Index({ auth }) {
     const { category } = usePage().props
     const { products } = usePage().props
     const { purchases } = usePage().props
+    const { user_currency_setting } = usePage().props
 
+    // console.log(user_currency_setting);
     const [open, setOpen] = useState(false)
     const [openCart, setOpenCart] = useState(false)
 
@@ -21,9 +23,9 @@ export default function Index({ auth }) {
         >
             <Head title="Shop" />
 
-            <ShopNavLink category={ category } products={ products } purchases={ purchases }/>
+            <ShopNavLink category={ category } products={ products } purchases={ purchases } userCurrencySetting={ user_currency_setting }/>
 
-            <ProductList productLists={ products }/>
+            <ProductList productLists={ products } userCurrencySetting={ user_currency_setting }/>
 
         </AuthenticatedLayout>
 

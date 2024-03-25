@@ -30,22 +30,48 @@ class ProductController extends Controller
             ])
         ->get();
 
+        $encryptedCategories = $categories->map(function ($category) {
+            // Encrypting category ID
+            $category->encrypted_id = Crypt::encryptString($category->id);
+
+            // Encrypting feature IDs
+            $category->features->each(function ($feature) {
+                $feature->encrypted_id = Crypt::encryptString($feature->id);
+            });
+
+            // Encrypting section IDs
+            $category->sections->each(function ($section) {
+                $section->encrypted_id = Crypt::encryptString($section->id);
+
+                // Encrypting section item IDs
+                $section->sectionItems->each(function ($item) {
+                    $item->encrypted_id = Crypt::encryptString($item->id);
+                });
+            });
+
+            return $category;
+        });
+
         $products = Product::with('images')->get();
 
         $purchases = Auth::user()
             ->purchases()
             ->with('products.images')
             ->get();
-        // $category = DB::table('categories')
-        //     ->join('featureds', 'categories.id', '=', 'featureds.category_id')
-        //     ->select('featureds.name as featureds_name','categories.name as categories_name')
-        //     ->get();
+
+        $user_currency_setting = Auth::user()
+            ->user_currency()->with('currency_converters')
+            ->latest()
+            ->get();
+
+        // dd($user_currency_setting);
 
         return Inertia::render('Shop/Index',
         [
-           'category' => $categories,
+           'category' => $encryptedCategories,
            'products' => $products,
-           'purchases' => $purchases
+           'purchases' => $purchases,
+           'user_currency_setting' => $user_currency_setting
         ]);
     }
 
@@ -92,13 +118,19 @@ class ProductController extends Controller
             ->with('products.images')
             ->get();
 
+        $user_currency_setting = Auth::user()
+            ->user_currency()->with('currency_converters')
+            ->latest()
+            ->get();
+
         return Inertia::render(
             'Shop/Show',
             [
                 'product_detail' => $product,
                 'category' => $categories,
                 'products' => $products,
-                'purchases' => $purchases
+                'purchases' => $purchases,
+                'user_currency_setting' => $user_currency_setting
             ]
         );
     }
@@ -127,7 +159,7 @@ class ProductController extends Controller
         //
     }
 
-    public function filter()
+    public function filter($id)
     {
         $categories = Category::with(
             ['features' => function ($features_query)
@@ -141,29 +173,44 @@ class ProductController extends Controller
                 }
             ])
         ->get();
-        
+
         $encryptedCategories = $categories->map(function ($category) {
             // Encrypting category ID
             $category->encrypted_id = Crypt::encryptString($category->id);
-    
+
             // Encrypting feature IDs
             $category->features->each(function ($feature) {
                 $feature->encrypted_id = Crypt::encryptString($feature->id);
             });
-    
+
             // Encrypting section IDs
             $category->sections->each(function ($section) {
                 $section->encrypted_id = Crypt::encryptString($section->id);
-    
+
                 // Encrypting section item IDs
                 $section->sectionItems->each(function ($item) {
                     $item->encrypted_id = Crypt::encryptString($item->id);
                 });
             });
-    
+
             return $category;
         });
-    
-        return Inertia::render('Shop/Sample', ['categories' => $encryptedCategories]);
+
+        $products = Product::with('images')->where('products.category', '=', $id)->get();
+
+        $purchases = Auth::user()
+            ->purchases()
+            ->with('products.images')
+            ->get();
+
+        return Inertia::render('Shop/Index',
+        [
+           'category' => $encryptedCategories,
+           'products' => $products,
+           'purchases' => $purchases
+        ]);
+        // dd($categories);
+
+        // return Inertia::render('Shop/Sample', ['categories' => $encryptedCategories]);
     }
 }

@@ -20,6 +20,8 @@ class Blog extends Model
         'image',
     ];
 
+    protected $hidden = ['id'];
+
     public function owner() : BelongsTo {
         return $this->belongsTo(
             \App\Models\User::class,

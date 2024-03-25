@@ -29,11 +29,12 @@ const products = [
   // More products...
 ]
 
-export default function ShoppingCart({openCart, setOpenCart, purchases})
+export default function ShoppingCart({openCart, setOpenCart, purchases, userCurrencySetting})
 {
-    console.log(purchases);
+    // console.log(purchases);
 //   const [openCart, setOpenCart] = useState(true)
-  const totalPrices = purchases.map(item => item.products.price * item.quantity);
+// Math.floor(parseInt((item.products.price).toLocaleString()) / parseInt(userCurrencySetting[0]['currency_converters'].value))}
+  const totalPrices = purchases.map(item => (item.products.price / parseInt(userCurrencySetting[0]['currency_converters'].value)) * item.quantity);
 
   const totalPrice = totalPrices.reduce((acc, curr) => parseInt(acc) + parseInt(curr), 0).toLocaleString();
 
@@ -105,7 +106,7 @@ export default function ShoppingCart({openCart, setOpenCart, purchases})
                                             {product.products.name}
                                         </Link>
                                       </h3>
-                                      <p className="ml-4">{(product.products.price).toLocaleString()}</p>
+                                      <p className="ml-4">{ userCurrencySetting[0]['currency_converters'].symbol } {Math.floor(parseInt((product.products.price).toLocaleString()) / parseInt(userCurrencySetting[0]['currency_converters'].value))}</p>
                                     </div>
                                     <p className="mt-1 text-sm text-gray-500">{product.products.description}</p>
                                   </div>
@@ -135,7 +136,7 @@ export default function ShoppingCart({openCart, setOpenCart, purchases})
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>{ totalPrice }</p>
+                        <p>{ userCurrencySetting[0]['currency_converters'].symbol } { totalPrice }</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">Shipping calculated at checkout.</p>
                       <div className="mt-6">

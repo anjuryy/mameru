@@ -8,11 +8,13 @@ import { useState, useEffect } from 'react';
 
 export default function Index({ auth, flash }) {
 
-    const { todolist } = usePage().props;
+    const {todolist} = usePage().props;
+
+    console.log(todolist);
 
     const [allTodolist, setAllcountry] = useState([])
     const [filteredData, setFilteredData] = useState([])
-     
+
     useEffect(() => {
         const getusers = async() => {
             const getres = await fetch("http://127.0.0.1:8000/api/task/searchBar")
@@ -35,7 +37,7 @@ export default function Index({ auth, flash }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    
+
                     <div className="flex justify-between items-center">
                         <div>
                             <Filters allUsersData={ todolist.data } setFilteredData={ setFilteredData }/>
@@ -54,7 +56,7 @@ export default function Index({ auth, flash }) {
                                             <li key={value.name} className="flex justify-between gap-x-6 py-5">
                                                 <div className="flex min-w-0 gap-x-4">
                                                     <div className="min-w-0 flex-auto">
-                                                        <p className="text-sm font-semibold leading-6 text-gray-900"> <Link key={ value.id } href={route('todo.edit', value.id )} > {value.name} </Link> </p>
+                                                        <p className="text-sm font-semibold leading-6 text-gray-900"> <Link key={ value.id } href={route('todo.edit', value.encrypted_id )} > {value.name} </Link> </p>
                                                         <p className="mt-1 truncate text-xs leading-5 text-gray-500">{value.task_desc}</p>
                                                     </div>
                                                 </div>
@@ -83,13 +85,13 @@ export default function Index({ auth, flash }) {
                         )
                     }
                     </ul>
-                    { filteredData.length === 0 ? 
+                    { filteredData.length === 0 ?
                     <ul role="list" className="divide-y divide-gray-100">
                         {todolist.data.map(todo => (
                             <li key={todo.name} className="flex justify-between gap-x-6 py-5">
                             <div className="flex min-w-0 gap-x-4">
                                 <div className="min-w-0 flex-auto">
-                                    <p className="text-sm font-semibold leading-6 text-gray-900"> <Link key={ todo.id } href={route('todo.edit', todo.id )} > {todo.name} </Link> </p>
+                                    <p className="text-sm font-semibold leading-6 text-gray-900"> <Link key={ todo.id } href={route('todo.edit', todo.encrypted_id )} > {todo.name} </Link> </p>
                                     <p className="mt-1 truncate text-xs leading-5 text-gray-500">{todo.task_desc}</p>
                                 </div>
                             </div>
@@ -116,7 +118,7 @@ export default function Index({ auth, flash }) {
                             </li>
                         ))}
                     </ul>
-                    : null } 
+                    : null }
                         <Pagination getData={ todolist.links } getLength={ todolist }/>
                     </div>
                 </div>

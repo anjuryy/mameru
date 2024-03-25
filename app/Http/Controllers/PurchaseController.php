@@ -21,10 +21,16 @@ class PurchaseController extends Controller
             ->with('products.images')
             ->get();
 
+        $user_currency_setting = Auth::user()
+            ->user_currency()->with('currency_converters')
+            ->latest()
+            ->get();
+
         return Inertia::render(
             'Shop/Checkout',
             [
-                'purchases' => $purchases
+                'purchases' => $purchases,
+                'user_currency_setting' => $user_currency_setting
             ]
         );
     }

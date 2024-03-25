@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::patch('/profile', [ProfileController::class, 'update_currency'])->name('profile.update_currency');
 
     Route::get('/chat', [ChatController::class, 'index'])->name('chat');
     Route::get('/chat/{id}', [ChatController::class, 'selectUser'])->name('chat.user');
@@ -73,7 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('myblog', [BlogController::class, 'myblog'])->name('blog.myblog');
 
     Route::resource('product', ProductController::class);
-    Route::get('filter', [ProductController::class, 'filter'])->name('product.filter');
+    Route::get('filter/{id}', [ProductController::class, 'filter'])->name('product.filter');
 
     Route::resource('category', CategoryController::class)->only(['create','store','edit','update']);
     Route::resource('featured', FeaturedController::class)->only(['create','store','edit','update']);
@@ -94,7 +95,7 @@ Route::middleware('auth')->group(function () {
     Route::get('management', [ManagementController::class, 'index'])->name('management.index');
 
     // SEARCH
-    // Route::get('/todo/search', [UserController::class, 'search'])->name('users.search'); 
+    // Route::get('/todo/search', [UserController::class, 'search'])->name('users.search');
 
 });
 

@@ -18,7 +18,8 @@ export default function Show({ auth, flash })
     const { category } = usePage().props
     const { products } = usePage().props
     const { purchases } = usePage().props
-    
+    const { user_currency_setting } = usePage().props
+
     var disableButton = ''
     var disableButtonMessage = ''
 
@@ -51,11 +52,12 @@ export default function Show({ auth, flash })
     return (
         <AuthenticatedLayout
             user={ auth.user }
-        >   
-            
+        >
 
-            <ShopNavLink category={ category } products={ products } purchases={ purchases }/>
+            <ShopNavLink category={ category } products={ products } purchases={ purchases } userCurrencySetting={ user_currency_setting }/>
+
             <Alert flash={ flash } />
+
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
@@ -88,7 +90,8 @@ export default function Show({ auth, flash })
                                     </div>
 
                                     <div className="text-2xl font-bold pt-4">
-                                        ₱ { product_detail.price }
+                                        { user_currency_setting[0]['currency_converters'].symbol } { Math.floor(parseInt(product_detail.price) / parseInt(user_currency_setting[0]['currency_converters'].value)) }
+                                        {/* ₱ { product_detail.price } */}
                                     </div>
 
                                     <div className="pt-4 pb-4">
@@ -120,17 +123,17 @@ export default function Show({ auth, flash })
 
                                         <div className="mt-4 text-red-600 italic text-sm">
                                             {
-                                                product_detail.by_user_id == auth.user.id 
-                                                    ? 
+                                                product_detail.by_user_id == auth.user.id
+                                                    ?
                                                 disableButton = '* This is your product'
-                                                    : 
+                                                    :
                                                 disableButton = ''
                                             }
                                         </div>
                                         <div
                                             // href={route('')}
                                             className="mt-4 w-full flex items-center justify-center gap-2"
-                                        >   
+                                        >
                                             <PrimaryButton className="w-4/6 items-center justify-center hover:bg-gray-800 hover:text-white" disabled={disableButton}>
                                                 Add to cart
                                             </PrimaryButton>

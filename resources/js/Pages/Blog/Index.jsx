@@ -12,7 +12,8 @@ import { useEffect } from 'react';
 export default function Index({ auth, flash }) {
 
     const { blog_list } = usePage().props;
-    // console.log(blog_list.data);
+    console.log(blog_list);
+
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -59,10 +60,10 @@ export default function Index({ auth, flash }) {
                         </div>
 
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 p-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 mb-2">
                             {/* Map through the cards data and render a Card component for each */}
                             {blog_list.data.map(blog => (
-                                <Card key={blog.id} title={blog.title} content={blog.blog} imageUrl={blog.image} id={blog.id} buttonValue={'View'}/>
+                                <Card key={blog.id} title={blog.title} content={blog.blog} imageUrl={blog.image} id={blog.encrypted_id} buttonValue={'View'}/>
                             ))}
                         </div>
 
