@@ -1,11 +1,10 @@
-import ReactDOM from 'react-dom/client'
-import { KeyboardControls, PointerLockControls, Sky } from '@react-three/drei'
-import { Physics } from '@react-three/rapier'
+import React from 'react';
+import { Canvas } from 'react-three-fiber';
+import { Sky, Physics, PointerLockControls } from '@react-three/drei';
 
-const root = ReactDOM.createRoot(document.querySelector('#root'))
-
-root.render(
-    <Canvas
+const App = () => {
+    return (
+        <Canvas
             shadows
             camera={ {
                 fov: 45
@@ -13,12 +12,14 @@ root.render(
         >
             <Sky sunPosition={[100, 100, -10]} />
             <Physics gravity={[0, -30, 0]} debug={ true }>
-            {/* <Experience /> */}
-                {/* <Lights />
-                <Floor />
-                <Player /> */}
+                {/* Your 3D components */}
             </Physics>
-            <PointerLockControls />
-        </Canvas>
+            {/* <PointerLockControls /> */}
 
-)
+            {/* Input tag */}
+            <input type="text" placeholder="Enter something..." />
+        </Canvas>
+    );
+}
+
+export default App;
