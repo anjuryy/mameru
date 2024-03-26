@@ -198,6 +198,11 @@ class ProductController extends Controller
 
         $products = Product::with('images')->where('products.category', '=', $id)->get();
 
+        $user_currency_setting = Auth::user()
+            ->user_currency()->with('currency_converters')
+            ->latest()
+            ->get();
+
         $purchases = Auth::user()
             ->purchases()
             ->with('products.images')
@@ -205,9 +210,10 @@ class ProductController extends Controller
 
         return Inertia::render('Shop/Index',
         [
-           'category' => $encryptedCategories,
-           'products' => $products,
-           'purchases' => $purchases
+            'category' => $encryptedCategories,
+            'products' => $products,
+            'purchases' => $purchases,
+            'user_currency_setting' => $user_currency_setting
         ]);
         // dd($categories);
 

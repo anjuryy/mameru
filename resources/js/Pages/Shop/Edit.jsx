@@ -11,7 +11,7 @@ export default function Create({ auth })
     const { shop } = usePage().props
     const { product } = usePage().props
 
-    console.log(product);
+    // console.log(product);
     const { data, setData, put, processing, errors, reset } = useForm({
         name: product.name,
         description: product.description,

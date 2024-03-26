@@ -6,8 +6,13 @@ import { OrbitControls, Box, useGLTF } from '@react-three/drei';
 function ThreeScene() {
 
     return (
-        <Canvas>
-        {/* <OrbitControls /> */}
+        <Canvas
+            shadows
+            camera={ {
+                fov: 45
+            } }
+        >
+        <OrbitControls />
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
 

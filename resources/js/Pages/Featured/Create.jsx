@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 export default function Create({ auth }) {
     const { category } = usePage().props
 
-    console.log(category);
+    // console.log(category);
     const { data, setData, post, processing, errors, reset } = useForm({
         category_id: '',
         name: '',

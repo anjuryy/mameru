@@ -38,7 +38,7 @@ const products = [
   ]
 
   export default function ProductList({ productLists, userCurrencySetting }) {
-    console.log(userCurrencySetting[0]['currency_converters'].symbol);
+    // console.log(userCurrencySetting[0]['currency_converters'].symbol);
     // console.log(productLists);
 
     return (

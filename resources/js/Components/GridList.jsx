@@ -6,7 +6,7 @@ import Modal from './Modal';
 const GridItem = ({ data, id, urlForEdit }) => {
     const [isHovered, setIsHovered] = useState(false);
 
-    console.log(data.under_name);
+    // console.log(data.under_name);
     var underName = data.under_name ? data.under_name+': '  : ''
 
     const handleMouseEnter = () => {

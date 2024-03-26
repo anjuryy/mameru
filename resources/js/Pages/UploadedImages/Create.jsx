@@ -11,7 +11,7 @@ export default function Create({ auth })
         filename: []
     })
 
-    console.log(images);
+    // console.log(images);
     // const { data, setData, post, processing, errors, reset } = useForm({
     //     name: '',
     //     description: '',

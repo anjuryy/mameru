@@ -10,7 +10,7 @@ export default function UpdateCurrency({ mustVerifyEmail, status, className = ''
     const { currency } = usePage().props;
     const { currency_lists } = usePage().props;
 
-    console.log(currency_lists);
+    // console.log(currency_lists);
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
         currency_id: currency[0].currency_id,
@@ -47,7 +47,7 @@ export default function UpdateCurrency({ mustVerifyEmail, status, className = ''
                         <option>Select a currency...</option>
                         {
                             currency_lists.map(value => (
-                                <option value={value.id}> {value.symbol} - {value.code} - {value.name} </option>
+                                <option key={value.id} value={value.id}> {value.symbol} - {value.code} - {value.name} </option>
                             ))
                         }
                     </select>

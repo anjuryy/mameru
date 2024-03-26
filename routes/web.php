@@ -43,6 +43,11 @@ Route::get('/', function () {
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/anjurypatawaran', [ProfileController::class, 'index'])->name('profile.index');
+// Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+Route::get('/myroute', function () {
+    return view('mytemplate');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');

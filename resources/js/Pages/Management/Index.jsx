@@ -9,7 +9,7 @@ export default function Index({ auth }) {
     const { section } = usePage().props;
     const { sectionItem } = usePage().props;
 
-    console.log(featured);
+    // console.log(featured);
     const submit = (e) => {
         e.preventDefault();
 
