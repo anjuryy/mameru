@@ -33,7 +33,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
+        // 'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
@@ -44,7 +44,8 @@ Route::get('/', function () {
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 // Route::get('/anjurypatawaran', [ProfileController::class, 'index'])->name('profile.index');
-// Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+Route::get('/homepage', [ProfileController::class, 'index'])->name('profile.index');
+
 Route::get('/myroute', function () {
     return view('mytemplate');
 });

@@ -1,25 +1,28 @@
-import React from 'react';
-import { Canvas } from 'react-three-fiber';
-import { Sky, Physics, PointerLockControls } from '@react-three/drei';
+import { createRoot } from 'react-dom/client'
+import { Suspense } from 'react'
+// import { Logo } from '@pmndrs/branding'
+import '../../../css/style.css'
+import { App } from './App'
 
-const App = () => {
-    return (
-        <Canvas
-            shadows
-            camera={ {
-                fov: 45
-            } }
-        >
-            <Sky sunPosition={[100, 100, -10]} />
-            <Physics gravity={[0, -30, 0]} debug={ true }>
-                {/* Your 3D components */}
-            </Physics>
-            {/* <PointerLockControls /> */}
-
-            {/* Input tag */}
-            <input type="text" placeholder="Enter something..." />
-        </Canvas>
-    );
+function Overlay() {
+  return (
+    <div style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none', width: '100%', height: '100%' }}>
+      <a href="https://pmnd.rs/" style={{ position: 'absolute', top: 40, left: 90, fontSize: '13px' }}>
+        pmnd.rs
+        <br />
+        dev collective
+      </a>
+      <div style={{ position: 'absolute', top: 40, right: 40, fontSize: '13px' }}>10/17/2021</div>
+    </div>
+  )
 }
 
-export default App;
+createRoot(document.getElementById('root')).render(
+  <>
+    <Suspense fallback={null}>
+      <App />
+    </Suspense>
+    <Overlay />
+    {/* <Logo style={{ position: 'absolute', top: 40, left: 40, width: 30 }} /> */}
+  </>
+)

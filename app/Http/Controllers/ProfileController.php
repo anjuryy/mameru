@@ -90,7 +90,7 @@ class ProfileController extends Controller
 
     public function index()
     {
-        return Inertia::render('Homepage/Index');
+        return Inertia::render('Fiber/Index');
         // return view('example');
     }
 
