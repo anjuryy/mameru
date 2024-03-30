@@ -7,7 +7,10 @@ import { useState } from 'react';
 import { ClipboardDocumentCheckIcon, RectangleGroupIcon, SwatchIcon, UserGroupIcon } from "@heroicons/react/20/solid";
 
 export default function Dashboard({ auth }) {
+    const counts = usePage().props;
     const [currentDate, setCurrentDate] = useState(new Date());
+
+    console.log(counts);
 
     // Function to navigate to the previous month
     const goToPreviousMonth = () => {
@@ -51,16 +54,16 @@ export default function Dashboard({ auth }) {
                             <div className="col-span-1">
                                 <div className="grid grid-cols-1 w-full lg:grid-cols-2 gap-2">
                                     <Box>
-                                        <DashboardCard title={'Users'} icon={ <UserGroupIcon className="w-10 text-blue-500"/> } total={ 1 }/>
+                                        <DashboardCard title={'Users'} icon={ <UserGroupIcon className="w-10 text-blue-500"/> } total={ counts.user_count }/>
                                     </Box>
                                     <Box>
-                                        <DashboardCard title={'Tasks'} icon={ <ClipboardDocumentCheckIcon className="w-10 text-red-500"/> } total={ 1 }/>
+                                        <DashboardCard title={'Tasks'} icon={ <ClipboardDocumentCheckIcon className="w-10 text-red-500"/> } total={ counts.task_count }/>
                                     </Box>
                                     <Box>
-                                        <DashboardCard title={'Blogs'} icon={ <RectangleGroupIcon className="w-10 text-green-500"/> } total={ 1 }/>
+                                        <DashboardCard title={'Blogs'} icon={ <RectangleGroupIcon className="w-10 text-green-500"/> } total={ counts.blog_count }/>
                                     </Box>
                                     <Box>
-                                        <DashboardCard title={'Products'} icon={ <SwatchIcon className="w-10 text-yellow-500"/> } total={ 1 }/>
+                                        <DashboardCard title={'Products'} icon={ <SwatchIcon className="w-10 text-yellow-500"/> } total={ counts.product_count }/>
                                     </Box>
                                 </div>
                                 <div className="w-10">

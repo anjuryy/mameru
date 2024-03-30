@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
+use App\Models\Product;
+use App\Models\Todo;
+use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,11 +17,20 @@ class DashboardController extends Controller
         $todo_list = Auth::user()
                     ->todos()
                     ->get();
-                    
+
+        $user_count = User::count();
+        $task_count = Todo::count();
+        $blog_count = Blog::count();
+        $product_count = Product::count();
+
         return Inertia::render(
             'Dashboard',
             [
-                'todo_list' => $todo_list
+                'todo_list' => $todo_list,
+                'user_count' => $user_count,
+                'task_count' => $task_count,
+                'blog_count' => $blog_count,
+                'product_count' => $product_count,
             ]
         );
     }

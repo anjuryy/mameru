@@ -1,32 +1,3 @@
-// // In your R3F component file (e.g., ThreeScene.js)
-// import '../../../css/style.css';
-// // import ReactDOM from 'react-dom/client'
-// import { Canvas } from '@react-three/fiber'
-// import Experience from './Experience';
-
-// function Index() {
-
-//     return (
-//         <Canvas
-//             style={{ height: '100vh' }}
-//             shadows
-//             camera={ {
-//                 fov: 45,
-//                 near: 0.1,
-//                 far: 200,
-//                 position: [ 2.5, 4, 6 ]
-//             } }
-//             id='root'
-//         >
-
-//             <Experience />
-//         </Canvas>
-//     );
-// }
-
-// export default Index;
-
-
 import { createRoot } from 'react-dom/client'
 import { Suspense } from 'react'
 // import { Logo } from '@pmndrs/branding'
@@ -47,10 +18,10 @@ function Overlay() {
                 <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
             </div>
             <div>
-                <div className="flex justify-between items-center h-20 text-xl">
+                <div className="flex justify-between items-center h-20 text-lg">
                     <div className='mr-4'>
                         <a href="#login">Login</a>
-                        
+
                     </div>
                     <div>
                         Register
@@ -65,7 +36,7 @@ function Overlay() {
   }
 
 // createRoot(document.getElementById('root')).render(
-  
+
 // )
 
 function Index() {
@@ -73,10 +44,26 @@ function Index() {
     return (
         <>
     <Suspense fallback={null}>
-      <App />
+        <div className="grid grid-cols-3">
+            <div className="col-span-2">
+                <App />
+            </div>
+            <div className="col-span-1 w-full mt-24">
+                <div className="bold text-2xl flex items-center justify-center">
+                    Features
+                </div>
+                <div className="p-6">
+                    <div className="text-black bold text-1xl flex items-start justify-start">
+                        To Do Lists:
+                    </div>
+                    <p className="indent-4 p-1"> Calendar for the deadlines </p>
+                </div>
+            </div>
+        </div>
+
       <div id="login"></div>
     </Suspense>
-    
+
     <Overlay />
     {/* <Logo style={{ position: 'absolute', top: 40, left: 40, width: 30 }} /> */}
   </>

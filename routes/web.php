@@ -44,7 +44,7 @@ Route::get('/', function () {
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 // Route::get('/anjurypatawaran', [ProfileController::class, 'index'])->name('profile.index');
-Route::get('/homepage', [ProfileController::class, 'index'])->name('profile.index');
+Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
 
 Route::get('/myroute', function () {
     return view('mytemplate');
