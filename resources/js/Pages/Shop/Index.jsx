@@ -6,6 +6,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head, usePage } from '@inertiajs/react'
 import ProductList from './ProductList'
 import ShopNavLink from './ShopNavLink'
+import { useEffect } from 'react'
 
 export default function Index({ auth }) {
     const { category } = usePage().props
@@ -17,15 +18,30 @@ export default function Index({ auth }) {
     const [open, setOpen] = useState(false)
     const [openCart, setOpenCart] = useState(false)
 
+    const [allTodolist, setAllcountry] = useState([])
+    const [filteredData, setFilteredData] = useState([])
+
+    useEffect(() => {
+        const getusers = async() => {
+            const getres = await fetch("http://127.0.0.1:8000/api/product/searchBar")
+            const setusers = await getres.json();
+            console.log(setusers)
+            setAllcountry(await setusers.results)
+        }
+        getusers()
+    }, []);
+
+    console.log(filteredData);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
         >
             <Head title="Shop" />
 
-            <ShopNavLink category={ category } products={ products } purchases={ purchases } userCurrencySetting={ user_currency_setting }/>
+            <ShopNavLink category={ category } products={ products } purchases={ purchases } userCurrencySetting={ user_currency_setting } setFilteredData={ setFilteredData }/>
 
-            <ProductList productLists={ products } userCurrencySetting={ user_currency_setting }/>
+            <ProductList productLists={ products } userCurrencySetting={ user_currency_setting } filteredData={ filteredData }/>
 
         </AuthenticatedLayout>
 

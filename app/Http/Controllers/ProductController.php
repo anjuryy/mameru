@@ -219,4 +219,11 @@ class ProductController extends Controller
 
         // return Inertia::render('Shop/Sample', ['categories' => $encryptedCategories]);
     }
+
+    public function searchBar()
+    {
+        $todo = Product::get();
+
+        return response()->json(['result' => $todo], 200);
+    }
 }

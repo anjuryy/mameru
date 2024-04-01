@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 export default function MyShop({ auth, flash }) {
 
     const { shop } = usePage().props;
-
+    console.log(shop);
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -40,13 +40,13 @@ export default function MyShop({ auth, flash }) {
             // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">My Shop</h2>}
         >
             <Head title="My Shop" />
-            
+
             <Alert flash={ flash } />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    
+
                     <Link
                         href={route('myshop.create')}
                     >
@@ -74,10 +74,13 @@ export default function MyShop({ auth, flash }) {
                                         </div>
                                         <section>
                                             <div className="flex items-center gap-1 text-gray-900">
-                                                <a
+                                                <Link
                                                     className="btn-outline text-xs font-medium"
                                                     target="_blank"
-                                                >Preview</a>
+                                                    href={route('product.show', data.id)}
+                                                >
+                                                    Preview
+                                                </Link>
                                                 <Link
                                                     href={route('myshop.edit', data.id)}
                                                     className="btn-outline text-xs font-medium"
@@ -119,7 +122,7 @@ export default function MyShop({ auth, flash }) {
                                                 <Link
                                                     className="block w-full btn-outline text-xs font-medium text-center"
                                                     >
-                                                    Purchases (12)
+                                                    Purchases ({data.purchases_count})
                                                 </Link>
                                             </div>
                                         </section>

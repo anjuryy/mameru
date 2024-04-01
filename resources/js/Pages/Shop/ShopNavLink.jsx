@@ -6,6 +6,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head, Link, usePage } from '@inertiajs/react'
 import ProductList from './ProductList'
 import ShoppingCart from './ShoppingCart'
+import Search from './Search'
+import { useEffect } from 'react'
 
 const navigation = {
     categories: [
@@ -134,7 +136,7 @@ const navigation = {
     return classes.filter(Boolean).join(' ')
   }
 
-export default function ShopNavLink({ auth, category, products, purchases, userCurrencySetting })
+export default function ShopNavLink({ auth, category, products, purchases, userCurrencySetting, setFilteredData })
 {
     const [open, setOpen] = useState(false)
     const [openCart, setOpenCart] = useState(false)
@@ -472,12 +474,13 @@ export default function ShopNavLink({ auth, category, products, purchases, userC
                             </div> */}
 
                             {/* Search */}
-                            <div className="flex lg:ml-6">
+                            {/* <div className="flex lg:ml-6">
                             <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
                                 <span className="sr-only">Search</span>
                                 <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
                             </a>
-                            </div>
+                            </div> */}
+                            <Search allUsersData={ products } setFilteredData={ setFilteredData }/>
 
                             {/* Cart */}
                             <div className="ml-4 flow-root lg:ml-6">

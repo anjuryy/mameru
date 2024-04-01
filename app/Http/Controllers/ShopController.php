@@ -23,7 +23,7 @@ class ShopController extends Controller
                 ->join('sections', 'section_items.section_id', '=', 'sections.id')
                 ->join('categories', 'sections.category_id', '=', 'categories.id')
                 ->select('products.*','section_items.name as under_name','categories.name as category_name')
-                ->withCount('images')
+                ->withCount('images','purchases')
                 ->paginate(10)
                 ->withQueryString();
 
@@ -57,7 +57,7 @@ class ShopController extends Controller
                 'price' => 'required|min:1|max:100000',
             ])
         );
-        
+
         return redirect(route('myshop.index'))->with('success','Successfully Added');
     }
 

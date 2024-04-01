@@ -4,13 +4,13 @@ import { Divider } from "antd";
 import BoxThreeD from '../ReactFiber/Box.jsx';
 
 
-  export function DashboardCard({ title, icon, total }) {
+  export function DashboardCard({ link, title, icon, total }) {
     return (
         <div className="border border-gray-500 p-4 rounded-lg ">
             <div className="flex justify-between items-center mb-3">
                 <div>
                     {/* <dt className="text-sm text-gray-800 w-10 h-10"><BoxThreeD /></dt> */}
-                    <dt className="text-sm text-gray-800">{icon}</dt>
+                    <dt className="text-sm text-gray-800">{ icon }</dt>
                 </div>
                 <div>
                     <dt className="text-sm text-gray-500">{ title }</dt>
@@ -18,7 +18,7 @@ import BoxThreeD from '../ReactFiber/Box.jsx';
                 </div>
             </div>
             <hr />
-                <Link>
+                <Link href={route(link)}>
                     <div className="h-full text-gray-600 hover:text-gray-800 flex justify-end mt-2">
                         {/* <ChevronDoubleRightIcon className="w-6 ml-2"/> */}
                         View More

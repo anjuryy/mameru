@@ -10,7 +10,7 @@ export default function Dashboard({ auth }) {
     const counts = usePage().props;
     const [currentDate, setCurrentDate] = useState(new Date());
 
-    console.log(counts);
+    // console.log(counts);
 
     // Function to navigate to the previous month
     const goToPreviousMonth = () => {
@@ -54,16 +54,16 @@ export default function Dashboard({ auth }) {
                             <div className="col-span-1">
                                 <div className="grid grid-cols-1 w-full lg:grid-cols-2 gap-2">
                                     <Box>
-                                        <DashboardCard title={'Users'} icon={ <UserGroupIcon className="w-10 text-blue-500"/> } total={ counts.user_count }/>
+                                        <DashboardCard link={'todo.index'} title={'Users'} icon={ <UserGroupIcon className="w-10 text-blue-500"/> } total={ counts.user_count }/>
                                     </Box>
                                     <Box>
-                                        <DashboardCard title={'Tasks'} icon={ <ClipboardDocumentCheckIcon className="w-10 text-red-500"/> } total={ counts.task_count }/>
+                                        <DashboardCard link={'todo.index'} title={'Tasks'} icon={ <ClipboardDocumentCheckIcon className="w-10 text-red-500"/> } total={ counts.task_count }/>
                                     </Box>
                                     <Box>
-                                        <DashboardCard title={'Blogs'} icon={ <RectangleGroupIcon className="w-10 text-green-500"/> } total={ counts.blog_count }/>
+                                        <DashboardCard link={'blog.index'} title={'Blogs'} icon={ <RectangleGroupIcon className="w-10 text-green-500"/> } total={ counts.blog_count }/>
                                     </Box>
                                     <Box>
-                                        <DashboardCard title={'Products'} icon={ <SwatchIcon className="w-10 text-yellow-500"/> } total={ counts.product_count }/>
+                                        <DashboardCard link={'product.index'} title={'Products'} icon={ <SwatchIcon className="w-10 text-yellow-500"/> } total={ counts.product_count }/>
                                     </Box>
                                 </div>
                                 <div className="w-10">
@@ -98,6 +98,7 @@ export default function Dashboard({ auth }) {
                                             ))}
                                             {datesOfMonth.map(date => (
                                                 <div key={date} className="text-right border rounded-lg p-4 text-xs lg:h-24 h-10">
+
                                                 {date}
                                                 {
                                                     todo_list.map(todoList => {
@@ -110,35 +111,34 @@ export default function Dashboard({ auth }) {
                                                         const monthIndex = currentDate.getMonth();
                                                         const monthString = String(monthIndex + 1).padStart(2, '0');
 
-                                                        console.log(dateString);
-                                                        return (
-                                                            <div key={todoList.id}>
-                                                                <div className="text-sm text-left mt-6 text-indigo-400 ">
-                                                                    {
-                                                                        date == day && monthString == month && currentDate.getFullYear() == year
-                                                                            ?
-                                                                        <div>
-                                                                            <div className="group 2xl:block hidden">
-                                                                                { todoList.name }
-                                                                                <div className="hidden group-hover:block absolute bg-white border border-gray-300 p-4 rounded-lg">
-                                                                                    { todoList.task_desc == null ? 'No Description' : todoList.task_desc }
+                                                            return (
+                                                                <div key={ date }>
+                                                                    <div className="text-sm text-left mt-6 text-indigo-400">
+                                                                        {
+                                                                            date == day && monthString == month && currentDate.getFullYear() == year
+                                                                                ?
+                                                                            <div>
+                                                                                <div className="group 2xl:block hidden">
+                                                                                    { todoList.name }
+                                                                                    <div className="hidden group-hover:block absolute bg-white border border-gray-300 p-4 rounded-lg">
+                                                                                        { todoList.task_desc == null ? 'No Description' : todoList.task_desc }
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div className="group 2xl:hidden block">
+                                                                                    <li className='text-gray-500'></li>
+                                                                                    <div className="hidden group-hover:block absolute bg-white border border-gray-300 p-4 rounded-lg">
+                                                                                        { todoList.task_desc == null ? 'No Description' : todoList.task_desc }
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div className="group 2xl:hidden block">
-                                                                                <li className='text-gray-500'></li>
-                                                                                <div className="hidden group-hover:block absolute bg-white border border-gray-300 p-4 rounded-lg">
-                                                                                    { todoList.task_desc == null ? 'No Description' : todoList.task_desc }
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                            :
-                                                                        ''
-                                                                    }
+                                                                                :
+                                                                            ''
+                                                                        }
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        );
-                                                    })
-                                                }
+                                                            );
+                                                        })
+                                                    }
                                                 </div>
                                             ))}
                                             </div>

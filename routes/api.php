@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CurrencyConverterController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TodoController;
 
 /*
@@ -24,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('task/searchBar', [TodoController::class, 'searchBar']);
+Route::get('product/searchBar', [ProductController::class, 'searchBar']);
 Route::apiResource('/currency_converter', CurrencyConverterController::class);
 
 Route::middleware('auth:sanctum')->group(function(){
