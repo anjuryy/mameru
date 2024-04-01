@@ -321,7 +321,7 @@ export default function ShopNavLink({ auth, category, products, purchases, userC
                     </p> */}
 
                     <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="border-b border-gray-200">
+                    <div className="">
                         <div className="flex h-16 items-center">
                         <button
                             type="button"
@@ -334,7 +334,7 @@ export default function ShopNavLink({ auth, category, products, purchases, userC
                         </button>
 
                         {/* Logo */}
-                        <div className="ml-4 flex lg:ml-0">
+                        {/* <div className="ml-4 flex lg:ml-0">
                             <a href="#">
                             <span className="sr-only">Your Company</span>
                             <img
@@ -343,7 +343,7 @@ export default function ShopNavLink({ auth, category, products, purchases, userC
                                 alt=""
                             />
                             </a>
-                        </div>
+                        </div> */}
 
                         {/* Flyout menus */}
                         <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">

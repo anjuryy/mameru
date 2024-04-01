@@ -98,7 +98,9 @@ Route::middleware('auth')->group(function () {
     Route::post('purchase/{id}/store', [PurchaseController::class,'store'])->name('purchase.store');
     Route::resource('purchase', PurchaseController::class)->only(['destroy','index']);
 
-    Route::get('management', [ManagementController::class, 'index'])->name('management.index');
+    Route::group(['middleware' => ['auth', 'role:admin']],function () {
+        Route::get('management', [ManagementController::class, 'index'])->name('management.index');
+    });
 
     // SEARCH
     // Route::get('/todo/search', [UserController::class, 'search'])->name('users.search');

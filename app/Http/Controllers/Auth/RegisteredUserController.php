@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\RoleUser;
 use App\Models\User;
 use App\Models\UserCurrency;
 use App\Providers\RouteServiceProvider;
@@ -51,6 +52,11 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        $user_role = RoleUser::create([
+            'user_id' => $user->id,
+            'role_id' => 2
+        ]); 
+        
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);

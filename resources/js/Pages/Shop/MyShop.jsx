@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 export default function MyShop({ auth, flash }) {
 
     const { shop } = usePage().props;
-    console.log(shop);
+    
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',

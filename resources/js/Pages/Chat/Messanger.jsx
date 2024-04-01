@@ -22,7 +22,7 @@ const Messanger = ({ auth, mustVerifyEmail, status, user, chats }) => {
     const containerRef = useRef(null);
     const [messages, setMessages] = useState([]);
 
-    console.log(messages);
+    // console.log(messages);
     // console.log(auth, "test");
     containerRef.current?.scrollIntoView({ behavior: "smooth" });
     useEffect(() => {

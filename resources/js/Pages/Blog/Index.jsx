@@ -8,11 +8,12 @@ import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
+import { PlusIcon } from '@heroicons/react/20/solid';
 
 export default function Index({ auth, flash }) {
 
     const { blog_list } = usePage().props;
-    console.log(blog_list);
+    // console.log(blog_list);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
@@ -41,36 +42,39 @@ export default function Index({ auth, flash }) {
             <Alert flash={ flash } />
 
             <Head title="Blog Posts" />
-
-            <div className="py-6">
+            <div className="p-6">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className=" overflow-hidden shadow-sm sm:rounded-lg">
-
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                         <div className="flex justify-between">
-                            <Link href={route('blog.myblog')} className="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 mr-4 mb-4 rounded-full focus:outline-none focus:shadow-outline flex items-center">
+                            {
+                                blog_list.data.length == 0 ? 
+                                <div></div>
+                                : 
+                                <Link href={route('blog.myblog')} className="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 mr-4 mb-4 rounded-full focus:outline-none focus:shadow-outline flex items-center">
                                     My Blog
+                                </Link>
+                            }
+                            <Link href={route('blog.create')} className="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 mr-4 mb-4 rounded-sm focus:outline-none focus:shadow-outline flex items-center">
+                                <PlusIcon className="w-5" />
                             </Link>
-                            <Link href={route('blog.create')} className="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 mr-4 mb-4 rounded-full focus:outline-none focus:shadow-outline flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-                                    <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-                                </svg>
-                            </Link>
-
-
                         </div>
+                        {
+                            blog_list.data.length == 0 ? 
+                                <div className="text-gray-300 h-96 flex items-center justify-center w-full text-3xl">No Record Found</div> 
+                            : 
+                            <div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 mb-2">
+                                    {/* Map through the cards data and render a Card component for each */}
+                                    {blog_list.data.map(blog => (
+                                        <Card key={blog.id} title={blog.title} content={blog.blog} imageUrl={blog.image} id={blog.encrypted_id} buttonValue={'View'}/>
+                                    ))}
+                                </div>
 
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 mb-2">
-                            {/* Map through the cards data and render a Card component for each */}
-                            {blog_list.data.map(blog => (
-                                <Card key={blog.id} title={blog.title} content={blog.blog} imageUrl={blog.image} id={blog.encrypted_id} buttonValue={'View'}/>
-                            ))}
-                        </div>
-
-                        <Pagination getData={ blog_list.links } getLength={ blog_list }/>
+                                <Pagination getData={ blog_list.links } getLength={ blog_list }/>
+                            </div>
+                        }
                     </div>
                 </div>
-
             </div>
 
 
