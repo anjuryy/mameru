@@ -1,8 +1,9 @@
+import Alert from '@/Components/Alert';
 import GridList from '@/Components/GridList';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, usePage } from '@inertiajs/react';
 
-export default function Index({ auth }) {
+export default function Index({ auth, flash }) {
 
     const { category } = usePage().props;
     const { featured } = usePage().props;
@@ -22,6 +23,8 @@ export default function Index({ auth }) {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Shop Management</h2>}
         >
             <Head title="Categories" />
+
+            <Alert flash={ flash } />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

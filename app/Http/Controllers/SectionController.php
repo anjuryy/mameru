@@ -48,6 +48,8 @@ class SectionController extends Controller
         $section = $category->sections()->create([
             'name' => $validated['name']
         ]);
+
+        return redirect()->route('management.index')->with('success', 'Successfully added!');
     }
 
     /**

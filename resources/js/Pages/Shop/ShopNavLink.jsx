@@ -9,129 +9,6 @@ import ShoppingCart from './ShoppingCart'
 import Search from './Search'
 import { useEffect } from 'react'
 
-const navigation = {
-    categories: [
-      {
-        id: 'women',
-        name: 'Women',
-        featured: [
-          {
-            name: 'New Arrivals',
-            href: '#',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-            imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
-          },
-          {
-            name: 'Basic Tees',
-            href: '#',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-            imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
-          },
-        ],
-        sections: [
-          {
-            id: 'clothing',
-            name: 'Clothing',
-            items: [
-              { name: 'Tops', href: '#' },
-              { name: 'Dresses', href: '#' },
-              { name: 'Pants', href: '#' },
-              { name: 'Denim', href: '#' },
-              { name: 'Sweaters', href: '#' },
-              { name: 'T-Shirts', href: '#' },
-              { name: 'Jackets', href: '#' },
-              { name: 'Activewear', href: '#' },
-              { name: 'Browse All', href: '#' },
-            ],
-          },
-          {
-            id: 'accessories',
-            name: 'Accessories',
-            items: [
-              { name: 'Watches', href: '#' },
-              { name: 'Wallets', href: '#' },
-              { name: 'Bags', href: '#' },
-              { name: 'Sunglasses', href: '#' },
-              { name: 'Hats', href: '#' },
-              { name: 'Belts', href: '#' },
-            ],
-          },
-          {
-            id: 'brands',
-            name: 'Brands',
-            items: [
-              { name: 'Full Nelson', href: '#' },
-              { name: 'My Way', href: '#' },
-              { name: 'Re-Arranged', href: '#' },
-              { name: 'Counterfeit', href: '#' },
-              { name: 'Significant Other', href: '#' },
-            ],
-          },
-        ],
-      },
-      {
-        id: 'men',
-        name: 'Men',
-        featured: [
-          {
-            name: 'New Arrivals',
-            href: '#',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-            imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-          },
-          {
-            name: 'Artwork Tees',
-            href: '#',
-            imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-            imageAlt:
-              'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-          },
-        ],
-        sections: [
-          {
-            id: 'clothing',
-            name: 'Clothing',
-            items: [
-              { name: 'Tops', href: '#' },
-              { name: 'Pants', href: '#' },
-              { name: 'Sweaters', href: '#' },
-              { name: 'T-Shirts', href: '#' },
-              { name: 'Jackets', href: '#' },
-              { name: 'Activewear', href: '#' },
-              { name: 'Browse All', href: '#' },
-            ],
-          },
-          {
-            id: 'accessories',
-            name: 'Accessories',
-            items: [
-              { name: 'Watches', href: '#' },
-              { name: 'Wallets', href: '#' },
-              { name: 'Bags', href: '#' },
-              { name: 'Sunglasses', href: '#' },
-              { name: 'Hats', href: '#' },
-              { name: 'Belts', href: '#' },
-            ],
-          },
-          {
-            id: 'brands',
-            name: 'Brands',
-            items: [
-              { name: 'Re-Arranged', href: '#' },
-              { name: 'Counterfeit', href: '#' },
-              { name: 'Full Nelson', href: '#' },
-              { name: 'My Way', href: '#' },
-            ],
-          },
-        ],
-      },
-    ],
-    pages: [
-    //   { name: 'Company', href: '#' },
-    //   { name: 'Stores', href: '#' },
-    ],
-  }
-
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
@@ -216,7 +93,7 @@ export default function ShopNavLink({ auth, category, products, purchases, userC
                             <Tab.Group as="div" className="mt-2">
                             <div className="border-b border-gray-200">
                                 <Tab.List className="-mb-px flex space-x-8 px-4">
-                                {navigation.categories.map((category) => (
+                                {category.map((category) => (
                                     <Tab
                                     key={category.name}
                                     className={({ selected }) =>
@@ -231,11 +108,12 @@ export default function ShopNavLink({ auth, category, products, purchases, userC
                                 ))}
                                 </Tab.List>
                             </div>
+
                             <Tab.Panels as={Fragment}>
-                                {navigation.categories.map((category) => (
+                                {category.map((category) => (
                                 <Tab.Panel key={category.name} className="space-y-10 px-4 pb-8 pt-10">
                                     <div className="grid grid-cols-2 gap-x-4">
-                                    {category.featured.map((item) => (
+                                    {category.features.map((item) => (
                                         <div key={item.name} className="group relative text-sm">
                                         <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                             <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center" />
@@ -260,11 +138,11 @@ export default function ShopNavLink({ auth, category, products, purchases, userC
                                         aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
                                         className="mt-6 flex flex-col space-y-6"
                                         >
-                                        {section.items.map((item) => (
+                                        {section.section_items.map((item) => (
                                             <li key={item.name} className="flow-root">
-                                            <a href={item.href} className="-m-2 block p-2 text-gray-500">
-                                                {item.name}
-                                            </a>
+                                                <Link href={route('product.filter', item.id)} className="hover:text-gray-800">
+                                                    {item.name}
+                                                </Link>
                                             </li>
                                         ))}
                                         </ul>
@@ -274,16 +152,6 @@ export default function ShopNavLink({ auth, category, products, purchases, userC
                                 ))}
                             </Tab.Panels>
                             </Tab.Group>
-
-                            <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                            {navigation.pages.map((page) => (
-                                <div key={page.name} className="flow-root">
-                                <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
-                                    {page.name}
-                                </a>
-                                </div>
-                            ))}
-                            </div>
 
                             {/* <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                             <div className="flow-root">
@@ -388,7 +256,8 @@ export default function ShopNavLink({ auth, category, products, purchases, userC
                                                     <div key={item.name} className="group relative text-base sm:text-sm">
                                                     <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                                         <img
-                                                            src={"images/profilePic.jpeg"}
+                                                            // src={"images/profilePic.jpeg"}
+                                                            src={"images/profilePic.jpeg" ? "../images/profilePic.jpeg" : "images/profilePic.jpeg"}
                                                             alt={item.imageAlt}
                                                         className="object-cover object-center"
                                                         />
@@ -437,15 +306,6 @@ export default function ShopNavLink({ auth, category, products, purchases, userC
                                 </Popover>
                             ))}
 
-                            {navigation.pages.map((page) => (
-                                <a
-                                key={page.name}
-                                href={page.href}
-                                className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                                >
-                                {page.name}
-                                </a>
-                            ))}
                             </div>
                         </Popover.Group>
 

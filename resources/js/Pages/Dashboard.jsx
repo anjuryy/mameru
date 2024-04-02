@@ -54,7 +54,7 @@ export default function Dashboard({ auth }) {
                             <div className="col-span-1">
                                 <div className="grid grid-cols-1 w-full lg:grid-cols-2 gap-2">
                                     <Box>
-                                        <DashboardCard link={'todo.index'} title={'Users'} icon={ <UserGroupIcon className="w-10 text-blue-500"/> } total={ counts.user_count }/>
+                                        <DashboardCard link={'users.index'} title={'Users'} icon={ <UserGroupIcon className="w-10 text-blue-500"/> } total={ counts.user_count }/>
                                     </Box>
                                     <Box>
                                         <DashboardCard link={'todo.index'} title={'Tasks'} icon={ <ClipboardDocumentCheckIcon className="w-10 text-red-500"/> } total={ counts.task_count }/>

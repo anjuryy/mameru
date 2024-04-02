@@ -100,6 +100,7 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => ['auth', 'role:admin']],function () {
         Route::get('management', [ManagementController::class, 'index'])->name('management.index');
+        Route::get('users',[UserController::class, 'index'])->name('users.index');
     });
 
     // SEARCH

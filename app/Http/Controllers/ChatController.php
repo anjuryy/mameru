@@ -12,7 +12,7 @@ use Inertia\Inertia;
 class ChatController extends Controller
 {
     public function index(){
-        return Inertia::render('Chat/Messanger',[
+        return Inertia::render('Chat/Messenger',[
             'data'=>'me'
         ]);
     }
@@ -24,7 +24,7 @@ class ChatController extends Controller
         })->orWhere(function($query) use($id){
             $query->where('from',auth()->id())->where('to',$id);
         })->get();
-        return Inertia::render('Chat/Messanger',[
+        return Inertia::render('Chat/Messenger',[
             'user'=>$user,
             'chats'=>$messages
         ]);

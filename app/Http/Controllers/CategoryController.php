@@ -52,7 +52,7 @@ class CategoryController extends Controller
         }
         else
         {
-            return redirect()->route('management.index');
+            return redirect()->route('management.index')->with('success', 'Successfully added!');
         }
     }
 
@@ -80,8 +80,8 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $category->update(
-            $request->validate([ 
-                'name' => 'string|required|max:50' 
+            $request->validate([
+                'name' => 'string|required|max:50'
             ])
         );
 

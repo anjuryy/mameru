@@ -27,9 +27,9 @@ class FeaturedController extends Controller
         $category = Category::get();
 
         return Inertia::render(
-            'Featured/Create', 
-            [ 
-                'category' => $category 
+            'Featured/Create',
+            [
+                'category' => $category
             ]
         );
     }
@@ -39,20 +39,22 @@ class FeaturedController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $validatedData = $request->validate([
             'category_id' => 'required',
             'name' => 'string|required|max:50',
             'url' => 'nullable|string'
         ]);
-        
+
         $category = Category::findOrFail($validatedData['category_id']); // Get the Category instance
-        
+
         $feature = $category->features()->create([
             'name' => $validatedData['name'],
             'url' => $validatedData['url'] ?? null
         ]);
-        
+
+        return redirect()->route('management.index')->with('success', 'Successfully added!');
+
     }
 
     /**
@@ -90,7 +92,7 @@ class FeaturedController extends Controller
             'name' => 'string|required|max:50',
             'url' => 'nullable|string'
         ]);
-    
+
         // Update the attributes of the $featured model instance
 
         $updated = $featured->whereKey($featured->getKey())->update([
@@ -107,7 +109,7 @@ class FeaturedController extends Controller
 
         // // Dump the generated SQL update query
         // dump($updatedQuery->toSql());
-        
+
     }
 
     /**

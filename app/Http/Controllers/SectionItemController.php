@@ -51,6 +51,9 @@ class SectionItemController extends Controller
             'name' => $validate['name'],
             'url' => $validate['url'] ?? null
         ]);
+
+        return redirect()->route('management.index')->with('success', 'Successfully added!');
+
     }
 
     /**
@@ -66,7 +69,7 @@ class SectionItemController extends Controller
      */
     public function edit(SectionItem $sectionItem)
     {
-        
+
         $section = Section::join('categories', 'sections.category_id' ,'=', 'categories.id')
             ->select('sections.*', 'categories.name as under_name')
             ->get();

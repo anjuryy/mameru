@@ -5,7 +5,7 @@ import {
     AudioOutlined,
     InfoCircleOutlined,
 } from "@ant-design/icons";
-import "./Messanger.css";
+import "./Messenger.css";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import ChatUser from "@/Components/organism/ChatUser";
@@ -14,7 +14,7 @@ import Message from "@/Components/organism/Message";
 import { subscribeToChannel } from "@/pusher/pusher";
 const { Search } = Input;
 
-const Messanger = ({ auth, mustVerifyEmail, status, user, chats }) => {
+const Messenger = ({ auth, mustVerifyEmail, status, user, chats }) => {
     const onSearch = (e) => {
         // console.log(e.target.value);
         // console.log(appName);
@@ -44,7 +44,7 @@ const Messanger = ({ auth, mustVerifyEmail, status, user, chats }) => {
 
     return (
         <AuthenticatedLayout user={auth.user}>
-            <Head title="Messanger" />
+            <Head title="Messenger" />
             <div className="chatContainer">
                 <div className="chatUserList">
                     {/* <h4>Users</h4> */}
@@ -128,4 +128,4 @@ const Messanger = ({ auth, mustVerifyEmail, status, user, chats }) => {
     );
 };
 
-export default Messanger;
+export default Messenger;

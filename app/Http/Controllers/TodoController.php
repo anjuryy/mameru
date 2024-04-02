@@ -122,6 +122,5 @@ class TodoController extends Controller
             ->withQueryString();
 
             return response()->json(['result' => $todo], 200);
-
     }
 }

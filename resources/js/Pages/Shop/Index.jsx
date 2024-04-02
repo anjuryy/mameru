@@ -25,13 +25,11 @@ export default function Index({ auth }) {
         const getusers = async() => {
             const getres = await fetch("http://127.0.0.1:8000/api/product/searchBar")
             const setusers = await getres.json();
-            console.log(setusers)
+            // console.log(setusers)
             setAllcountry(await setusers.results)
         }
         getusers()
     }, []);
-
-    console.log(filteredData);
 
     return (
         <AuthenticatedLayout
