@@ -66,10 +66,10 @@ export default function Dashboard({ auth }) {
                                         <DashboardCard link={'product.index'} title={'Products'} icon={ <SwatchIcon className="w-10 text-yellow-500"/> } total={ counts.product_count }/>
                                     </Box>
                                 </div>
+                                
                                 <div className="w-10">
 
                                 </div>
-
 
                             </div>
 

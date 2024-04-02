@@ -1,10 +1,11 @@
 import * as THREE from 'three'
 import { useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Image, ScrollControls, Scroll, useScroll } from '@react-three/drei'
+import { Image, ScrollControls, Scroll, useScroll, Box, PresentationControls, Sky } from '@react-three/drei'
 import { proxy, useSnapshot } from 'valtio'
 import { easing } from 'maath'
 import Login from '../Auth/Login'
+import Items from './Items'
 
 const material = new THREE.LineBasicMaterial({ color: 'white' })
 const geometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, -0.5, 0), new THREE.Vector3(0, 0.5, 0)])
@@ -59,25 +60,51 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
   return <Image ref={ref} {...props} position={position} scale={scale} onClick={click} onPointerOver={over} onPointerOut={out} />
 }
 
-function Items({ w = 0.7, gap = 0.15 }) {
-  const { urls } = useSnapshot(state)
-  const { width } = useThree((state) => state.viewport)
-  const xW = w + gap
-  return (
-    <ScrollControls horizontal damping={0.1} pages={(width - xW + urls.length * xW) / width}>
-      <Minimap />
-      <Scroll>
-        {urls.map((url, i) => <Item key={i} index={i} position={[i * xW, 0, 0]} scale={[w, 4, 1]} url={url} />) /* prettier-ignore */}
-      </Scroll>
-    </ScrollControls>
-  )
-}
+// function Items({ w = 0.7, gap = 0.15 }) {
+//   const { urls } = useSnapshot(state)
+//   const { width } = useThree((state) => state.viewport)
+//   const xW = w + gap
+//   return (
+//     <ScrollControls horizontal damping={0.1} pages={(width - xW + urls.length * xW) / width}>
+//       <Minimap />
+//       <Scroll>
+//         {urls.map((url, i) => <Item key={i} index={i} position={[i * xW, 0, 0]} scale={[w, 4, 1]} url={url} />) /* prettier-ignore */}
+//       </Scroll>
+//     </ScrollControls>
+//   )
+// }
 
 export const App = () => (
     <>
     <div>
-        <Canvas gl={{ antialias: false }} dpr={[1, 1.5]} onPointerMissed={() => (state.clicked = null)} style={{ height: '100vh' }}>
-            <Items />
+        <Canvas flat dpr={[1, 2]} camera={{ fov: 25, position: [0, 0, 8] }} style={{ height: '100vh' }}>
+            
+            <color attach="background" args={['#FFFFFF']} />
+            <directionalLight
+              castShadow
+              position={ [ - 2, 2, 1 ] }
+              intensity={ 2 }
+              shadow-mapSize={ [ 1024, 1024 ] }
+              shadow-camera-near={ -2 }
+              shadow-camera-far={ 15 }
+              shadow-camera-top={ 10 }
+              shadow-camera-right={ 10 }
+              shadow-camera-bottom={ - 10 }
+              shadow-camera-left={ - 10 }
+          />
+            <ambientLight intensity={ 1.5 }/>
+            <PresentationControls snap global={false} zoom={0.8} rotation={[0, -Math.PI / 4, 0]} azimuth={[-Math.PI / 4, Math.PI / 4]}>
+              <group position-y={-0.75} dispose={null}>
+                {/* <Level />
+                <Sudo />
+                <Camera />
+                <Cactus />
+                <Icon />
+                <Pyramid /> */}
+                <Sky />
+                <Items />
+              </group>
+            </PresentationControls>
         </Canvas>
 
 

@@ -22,7 +22,7 @@ export default function Index({ auth, flash }) {
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Shop Management</h2>}
         >
-            <Head title="Categories" />
+            <Head title="Management" />
 
             <Alert flash={ flash } />
 

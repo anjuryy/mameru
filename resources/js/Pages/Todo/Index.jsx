@@ -32,7 +32,7 @@ export default function Index({ auth, flash }) {
         >
             <Alert flash={ flash } />
 
-            <Head title="To Do - Create" />
+            <Head title="Task" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

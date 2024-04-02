@@ -6,7 +6,7 @@ export default function Guest({ children }) {
         <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
 
             <div>
-                <a href="https://www.anjurypatawaran.online/">
+                <a href="https://profile.anjurypatawaran.online/">
                     <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
                 </a>
             </div>
@@ -15,8 +15,8 @@ export default function Guest({ children }) {
                 {children}
             </div>
             <div className="text-xs mt-4 text-indigo-700 hover:text-indigo-500">
-                <a href="https://www.anjurypatawaran.online/">
-                    anjurypatawaran.online
+                <a href="https://profile.anjurypatawaran.online/">
+                    profile.anjurypatawaran.online
                 </a>
             </div>
         </div>

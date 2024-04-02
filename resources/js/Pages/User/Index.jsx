@@ -32,7 +32,7 @@ export default function User({ auth, flash }) {
         >
             <Alert flash={ flash } />
 
-            <Head title="To Do - Create" />
+            <Head title="User" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -67,7 +67,7 @@ export default function User({ auth, flash }) {
                                                  <li key={value.name} className="flex justify-between gap-x-6 py-5">
                                                      <div className="flex min-w-0 gap-x-4">
                                                          <div className="min-w-0 flex-auto">
-                                                             <p className="text-sm font-semibold leading-6 text-gray-900"> <Link key={ value.id } href={route('todo.edit', value.encrypted_id )} > {value.name} </Link> </p>
+                                                             <p className="text-sm font-semibold leading-6 text-gray-900"> {value.name} </p>
                                                              <p className="mt-1 truncate text-xs leading-5 text-gray-500">{value.email}</p>
                                                          </div>
                                                      </div>
@@ -102,7 +102,7 @@ export default function User({ auth, flash }) {
                                  <li key={user.name} className="flex justify-between gap-x-6 py-5">
                                  <div className="flex min-w-0 gap-x-4">
                                      <div className="min-w-0 flex-auto">
-                                         <p className="text-sm font-semibold leading-6 text-gray-900"> <Link key={ user.id } href={route('todo.edit', user.encrypted_id )} > {user.name} </Link> </p>
+                                         <p className="text-sm font-semibold leading-6 text-gray-900"> {user.name} </p>
                                          <p className="mt-1 truncate text-xs leading-5 text-gray-500">{user.email}</p>
                                      </div>
                                  </div>
