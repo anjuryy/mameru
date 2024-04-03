@@ -28,7 +28,7 @@ function Overlay() {
                     </div>
                 </div>
             </div>
-            
+
       </>
     )
   }
@@ -47,7 +47,7 @@ function Index() {
             <App />
         </div>
 
-        <div className="lg:col-span-1 col-auto w-full lg:w-full mt-4 lg:mt-40 lg:order-2"> {/* Adjusted width and margin */}
+        <div className="lg:col-span-1 col-auto w-full lg:w-full mt-4 lg:mt-20 lg:order-2"> {/* Adjusted width and margin */}
             <div className="bold text-2xl flex items-center justify-center">
                 Features
             </div>

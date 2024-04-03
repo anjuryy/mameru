@@ -34,7 +34,14 @@ export default function Login({ status, canResetPassword }) {
             <Head title="Log in" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
-
+            <div className="text-xs justify-end items-end mb-2">
+                <div>
+                    Admin: mavis@gmail.com
+                </div>
+                <div>
+                    Password: password
+                </div>
+            </div>
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
@@ -112,6 +119,9 @@ export default function Login({ status, canResetPassword }) {
                             Register
                         </SecondaryButton>
                     </Link>
+                </div>
+                <div className="text-sm text-red-500 italic flex justify-center items-center">
+                    * This portfolio is still under development
                 </div>
             </form>
 

@@ -10,7 +10,7 @@ export default defineConfig({
             input: 'resources/js/app.jsx',
             refresh: true,
         }),
-        
+
         react(),
 
         // {
@@ -27,6 +27,21 @@ export default defineConfig({
         //     },
         // },
     ],
+    build: {
+        emptyOutDir: true, // Empty the folder first
+        sourcemap: true, // Add sourcemap
+        chunkSizeWarningLimit:1500,
+        rollupOptions: {
+            output:{
+                manualChunks(id) {
+                  if (id.includes('node_modules')) {
+
+                      return id.toString().split('node_modules/')[1].split('/')[0].toString();
+                  }
+              }
+            }
+        }
+    }
     // server:
     // {
     //     host: true, // Open to local network and display URL
