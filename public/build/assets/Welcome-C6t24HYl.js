@@ -8,3 +8,4 @@ import{j as e}from"./react-Dtk7mQTN.js";import{a,d as r}from"./@inertiajs-CX0dcm
                     }
                 }
             `})]})}export{T as default};
+//# sourceMappingURL=Welcome-C6t24HYl.js.map

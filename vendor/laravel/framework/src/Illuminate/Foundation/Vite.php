@@ -652,7 +652,7 @@ class Vite implements Htmlable
      */
     protected function hotAsset($asset)
     {
-        return rtrim(file_get_contents($this->hotFile())).'/'.$asset;
+        return rtrim(file_get_contents($this->hotFile())).$asset;
     }
 
     /**

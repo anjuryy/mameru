@@ -33,6 +33,8 @@ export default defineConfig({
     //     open: !('SANDBOX_URL' in process.env || 'CODESANDBOX_HOST' in process.env) // Open if it's not a CodeSandbox
     // },
     build: {
+        emptyOutDir: true, // Empty the folder first
+        sourcemap: true, // Add sourcemap
         chunkSizeWarningLimit:1500,
         rollupOptions: {
             output:{
