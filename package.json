@@ -32,7 +32,7 @@
         "pusher-js": "^8.4.0-rc2",
         "r3f-perf": "7.1",
         "react-infinite-scroll-component": "^6.1.0",
-        "three": "^0.162.0",
+        "three": "^0.163.0",
         "vite-plugin-glsl": "^1.2.1",
         "vite-plugin-require": "^1.1.14",
         "valtio": "1.10.3"
