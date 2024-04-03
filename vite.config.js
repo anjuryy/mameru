@@ -27,15 +27,22 @@ export default defineConfig({
         //     },
         // },
     ],
-    // server:
-    // {
-    //     host: true, // Open to local network and display URL
-    //     open: !('SANDBOX_URL' in process.env || 'CODESANDBOX_HOST' in process.env) // Open if it's not a CodeSandbox
-    // },
-    // build:
-    // {
-    //     outDir: '../dist', // Output in the dist/ folder
-    //     emptyOutDir: true, // Empty the folder first
-    //     sourcemap: true // Add sourcemap
-    // },
+    server:
+    {
+        host: true, // Open to local network and display URL
+        open: !('SANDBOX_URL' in process.env || 'CODESANDBOX_HOST' in process.env) // Open if it's not a CodeSandbox
+    },
+    build: {
+        chunkSizeWarningLimit:1500,
+        rollupOptions: {
+            output:{
+                manualChunks(id) {
+                  if (id.includes('node_modules')) {
+                    
+                      return id.toString().split('node_modules/')[1].split('/')[0].toString();
+                  }
+              }
+            }
+        }
+    }
 });
