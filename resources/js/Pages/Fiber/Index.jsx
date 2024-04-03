@@ -1,11 +1,9 @@
-import { createRoot } from 'react-dom/client'
 import { Suspense } from 'react'
 // import { Logo } from '@pmndrs/branding'
 import '../../../css/style.css'
 import { App } from './App'
 import ApplicationLogo from '@/Components/ApplicationLogo'
 import { Link } from '@inertiajs/react'
-import Login from '../Auth/Login'
 
 function Overlay() {
     return (

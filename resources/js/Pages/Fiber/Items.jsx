@@ -9,8 +9,8 @@ export default function Items()
         <primitive 
             object={ model.scene }
             scale={0.5}
-            rotation={[0, 9.6 ,0]}
-            position={[-2.0, - 0.8, - 1]}
+            rotation={[0, 9, 0]}
+            position={[-1.3, - 0.8, - 1]}
         />
     </>
 }
