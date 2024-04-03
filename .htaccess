@@ -1,4 +1,8 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^(.*)$ public/$1 [L]
+<<<<<<< HEAD
 </IfModule>
+=======
+</IfModule>
+>>>>>>> 7001d8c6 (update build)

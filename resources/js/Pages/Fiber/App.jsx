@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Image, ScrollControls, Scroll, useScroll, Box, PresentationControls, Sky } from '@react-three/drei'
+import { Image, ScrollControls, Scroll, useScroll, Box, PresentationControls, Sky, OrbitControls } from '@react-three/drei'
 import { proxy, useSnapshot } from 'valtio'
 import { easing } from 'maath'
 import Login from '../Auth/Login'
@@ -78,7 +78,7 @@ export const App = () => (
     <>
     <div>
         <Canvas flat dpr={[1, 2]} camera={{ fov: 25, position: [0, 0, 8] }} style={{ height: '100vh' }}>
-            
+
             <color attach="background" args={['#FFFFFF']} />
             <directionalLight
               castShadow
@@ -93,7 +93,8 @@ export const App = () => (
               shadow-camera-left={ - 10 }
           />
             <ambientLight intensity={ 1.5 }/>
-            <PresentationControls snap global={false} zoom={0.8} rotation={[0, -Math.PI / 4, 0]} azimuth={[-Math.PI / 4, Math.PI / 4]}>
+            <OrbitControls />
+            {/* <PresentationControls snap global={false} zoom={0.8} rotation={[0, -Math.PI / 4, 0]} azimuth={[-Math.PI / 4, Math.PI / 4]}> */}
               <group position-y={-0.75} dispose={null}>
                 {/* <Level />
                 <Sudo />
@@ -104,15 +105,15 @@ export const App = () => (
                 <Sky />
                 <Items />
               </group>
-            </PresentationControls>
+            {/* </PresentationControls> */}
         </Canvas>
 
 
         {/* <Login /> */}
     </div>
-        
 
-        
+
+
     </>
-  
+
 )
