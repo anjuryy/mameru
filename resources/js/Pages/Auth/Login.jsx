@@ -8,6 +8,8 @@ import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Divider } from 'antd';
 import SecondaryButton from '@/Components/SecondaryButton';
+import { useState } from 'react';
+import Modal from '@/Components/Modal';
 // import BoxThree from '../../ReactFiber/Box.jsx'
 
 export default function Login({ status, canResetPassword }) {
@@ -16,6 +18,10 @@ export default function Login({ status, canResetPassword }) {
         password: '',
         remember: false,
     });
+
+    console.log(processing);
+
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         return () => {
@@ -37,7 +43,9 @@ export default function Login({ status, canResetPassword }) {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <div className='flex justify-between items-center'>
+                        <InputLabel htmlFor="email" value="Email" /> <a className='text-sm text-indigo-400 cursor-pointer' onClick={() => setShowModal(true)}>Click here for admin account</a>
+                    </div>
 
                     <TextInput
                         id="email"
@@ -87,7 +95,7 @@ export default function Login({ status, canResetPassword }) {
                         Register
                     </PrimaryButton> */}
 
-                    <PrimaryButton className="flex items-center justify-center w-full hover:bg-white hover:text-gray-800 hover:rounded-md border-gray-800 hover:border-gray-500" disabled={processing}>
+                    <PrimaryButton className={`flex items-center justify-center w-full hover:bg-white hover:text-gray-800 hover:rounded-md border-gray-800 hover:border-gray-500 ${ processing ? 'cursor-progress' : ''}`} disabled={processing}>
                         Log in
                     </PrimaryButton>
 
@@ -114,6 +122,17 @@ export default function Login({ status, canResetPassword }) {
                     </Link>
                 </div>
             </form>
+
+            <Modal show={showModal} onClose={() => setShowModal(false)} maxWidth="2xl">
+                {/* Content of the modal */}
+                <div>
+                    <h1 className='bg-gray-800 p-4 text-white'>Admin Account</h1>
+                    <div className='p-4'>
+                        <div className='inline-flex'> <div className='text-md'>Username: </div> &nbsp; mavis@gmail.com </div>
+                        <p>Password: password</p>
+                    </div>
+                </div>
+            </Modal>
 
             {/* <BoxThree /> */}
 
