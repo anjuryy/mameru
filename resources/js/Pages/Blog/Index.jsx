@@ -1,10 +1,6 @@
 import Alert from '@/Components/Alert';
 import Card from '@/Components/Card';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
 import Pagination from '@/Components/Pagination';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
@@ -22,18 +18,6 @@ export default function Index({ auth, flash }) {
         password_confirmation: '',
     });
 
-    useEffect(() => {
-        return () => {
-            reset('password', 'password_confirmation');
-        };
-    }, []);
-
-    const submit = (e) => {
-        e.preventDefault();
-
-        post(route('register'));
-    };
-
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -47,9 +31,9 @@ export default function Index({ auth, flash }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                         <div className="flex justify-between">
                             {
-                                blog_list.data.length == 0 ? 
+                                blog_list.data.length == 0 ?
                                 <div></div>
-                                : 
+                                :
                                 <Link href={route('blog.myblog')} className="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 mr-4 mb-4 rounded-full focus:outline-none focus:shadow-outline flex items-center">
                                     My Blog
                                 </Link>
@@ -59,9 +43,9 @@ export default function Index({ auth, flash }) {
                             </Link>
                         </div>
                         {
-                            blog_list.data.length == 0 ? 
-                                <div className="text-gray-300 h-96 flex items-center justify-center w-full text-3xl">No Record Found</div> 
-                            : 
+                            blog_list.data.length == 0 ?
+                                <div className="text-gray-300 h-96 flex items-center justify-center w-full text-3xl">No Record Found</div>
+                            :
                             <div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 mb-2">
                                     {/* Map through the cards data and render a Card component for each */}

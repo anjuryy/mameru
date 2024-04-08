@@ -19,7 +19,7 @@ import BoxThreeD from '../ReactFiber/Box.jsx';
             </div>
             <hr />
                 <Link href={route(link)}>
-                    <div className="h-full text-gray-600 hover:text-gray-800 flex justify-end mt-2">
+                    <div className="h-full text-gray-600 hover:text-gray-800 flex justify-end mt-2 text-xs">
                         {/* <ChevronDoubleRightIcon className="w-6 ml-2"/> */}
                         View More
                     </div>
