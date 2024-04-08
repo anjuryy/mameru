@@ -19,8 +19,6 @@ export default function Login({ status, canResetPassword }) {
         remember: false,
     });
 
-    console.log(processing);
-
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {

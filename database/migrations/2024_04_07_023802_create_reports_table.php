@@ -15,10 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('comment');
+            $table->string('image')->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->foreignIdFor(
                 'App\Models\User',
                 'by_user_id'
             );
+            $table->softDeletes();
             $table->timestamps();
         });
     }

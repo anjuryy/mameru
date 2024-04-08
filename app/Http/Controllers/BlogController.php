@@ -63,16 +63,12 @@ class BlogController extends Controller
             // 'image' => 'image'
         ])->validate();
 
-            // ddd($request->file->extension());
-        // $fileName = time().'.'.$request->file->extension();
         $fileName = '';
 
-        // $request->file->move(public_path('uploads'), $fileName);
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads'), $fileName);
-            // Handle file upload logic here
         }
 
         $request->user()->blogs()->create([
@@ -84,7 +80,6 @@ class BlogController extends Controller
         ]);
 
         return redirect(route('blog.index'))->with('success','Successfully Added');
-        // return redirect(route('blog.index'));
     }
 
     public function edit(Request $request, $id)
@@ -107,7 +102,7 @@ class BlogController extends Controller
 
     public function update(Request $request, $id)
     {
-        $decypted_id = Crypt::decryptString($id);
+        $decrypted_id = Crypt::decryptString($id);
 
         Validator::make($request->all(), [
             'title' => 'required|string|max:25',
@@ -123,7 +118,7 @@ class BlogController extends Controller
 
             // Handle file upload logic here
 
-            $request->user()->blogs()->where('id', $decypted_id)->update([
+            $request->user()->blogs()->where('id', $decrypted_id)->update([
 
                 'title' => $request->title,
                 'blog' => $request->blog,
@@ -131,7 +126,7 @@ class BlogController extends Controller
 
             ]);
         } else {
-            $request->user()->blogs()->where('id', $decypted_id)->update([
+            $request->user()->blogs()->where('id', $decrypted_id)->update([
 
                 'title' => $request->title,
                 'blog' => $request->blog

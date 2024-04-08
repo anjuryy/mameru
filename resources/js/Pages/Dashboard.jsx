@@ -4,7 +4,7 @@ import { DashboardCard } from '@/Components/DashboardCard';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, usePage, router } from '@inertiajs/react';
 import { useState } from 'react';
-import { ClipboardDocumentCheckIcon, RectangleGroupIcon, SwatchIcon, UserGroupIcon } from "@heroicons/react/20/solid";
+import { ClipboardDocumentCheckIcon, RectangleGroupIcon, SwatchIcon, UserGroupIcon, TicketIcon } from "@heroicons/react/20/solid";
 
 export default function Dashboard({ auth }) {
     const counts = usePage().props;
@@ -46,7 +46,7 @@ export default function Dashboard({ auth }) {
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
+            <div className="py-6">
                 <div className="mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="grid lg:grid-cols-3 grid-cols-1 gap-3 p-4">
@@ -63,6 +63,9 @@ export default function Dashboard({ auth }) {
                                     </Box>
                                     <Box>
                                         <DashboardCard link={'product.index'} title={'Products'} icon={ <SwatchIcon className="w-10 text-yellow-500"/> } total={ counts.product_count }/>
+                                    </Box>
+                                    <Box>
+                                        <DashboardCard link={'ticket.index'} title={'Tickets'} icon={ <TicketIcon className="w-10 text-violet-500"/> } total={ counts.report_count }/>
                                     </Box>
                                 </div>
 

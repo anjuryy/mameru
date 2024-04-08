@@ -18,6 +18,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SectionItemController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UploadedImageController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -46,6 +47,10 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 // Route::get('/anjurypatawaran', [ProfileController::class, 'index'])->name('profile.index');
 Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+
+Route::get('/email/verify', function () {
+    return view('Auth/VerifyEmail');
+})->middleware('auth')->name('verification.notice');
 
 Route::get('/myroute', function () {
     return view('mytemplate');
@@ -79,7 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('featured', FeaturedController::class)->only(['create','store','edit','update']);
     Route::resource('section', SectionController::class)->only(['create','store','edit','update']);
     Route::resource('item', SectionItemController::class)->only(['create','store','edit','update']);
-    Route::resource('myshop', ShopController::class);
+    Route::resource('myshop', ShopController::class)->middleware(['verified']);
     Route::put('myshop/{id}/restore', [ShopController::class,'restore'])->name('myshop.restore');
 
     Route::resource('uploaded_images', UploadedImageController::class)->only(['edit','update','destroy']);
@@ -94,11 +99,19 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['auth', 'role:admin']],function () {
         Route::get('management', [ManagementController::class, 'index'])->name('management.index');
         Route::get('users',[UserController::class, 'index'])->name('users.index');
+
+        Route::get('ticket', [TicketController::class, 'index'])->name('ticket.index');
+        Route::get('ticket/{id}/show', [TicketController::class, 'show'])->name('ticket.show');
+        Route::put('ticket/update/{id}', [TicketController::class, 'update'])->name('ticket.update');
+
     });
 
-    Route::group(['middleware' => ['auth', 'role:user']],function () {
+    Route::group(['middleware' => ['auth', 'role:user', 'verified']],function () {
         Route::resource('report', ReportController::class);
+        Route::post('/report/update/{id}', [ReportController::class, 'update'])->name('report.update');
     });
+
+
 
     // SEARCH
     // Route::get('/todo/search', [UserController::class, 'search'])->name('users.search');

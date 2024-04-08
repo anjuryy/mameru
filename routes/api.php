@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CurrencyConverterController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
 
@@ -26,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('task/searchBar', [TodoController::class, 'searchBar']);
+Route::get('ticket/searchBar', [TicketController::class, 'searchBar']);
 Route::get('product/searchBar', [ProductController::class, 'searchBar']);
 Route::get('user/searchBar', [UserController::class, 'searchBar']);
 

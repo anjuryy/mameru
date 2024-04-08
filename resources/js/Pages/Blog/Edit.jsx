@@ -4,13 +4,13 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { PhotoIcon } from '@heroicons/react/20/solid';
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
 import DeleteForm from '../Blog/DeleteForm';
 
 export default function Create({ auth }) {
+
     const blog_list = usePage().props
+
     const { data, setData, post, processing, errors, reset } = useForm({
         id: blog_list.blog_info.encrypted_id,
         title: blog_list.blog_info.title,
@@ -21,7 +21,6 @@ export default function Create({ auth }) {
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(data.image.name);
 
         post(route('blog.update', blog_list.blog_info.encrypted_id));
     };
@@ -48,7 +47,6 @@ export default function Create({ auth }) {
                                 autoComplete="title"
                                 isFocused={true}
                                 onChange={(e) => setData('title', e.target.value)}
-
                             />
 
                             <InputError message={errors.title} className="mt-2" />

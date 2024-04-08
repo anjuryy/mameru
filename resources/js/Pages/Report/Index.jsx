@@ -1,5 +1,5 @@
 import Alert from '@/Components/Alert';
-import Filters from '@/Pages/Todo/Filters';
+import Filters from '@/Pages/Report/Filters';
 import Pagination from '@/Components/Pagination';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { PlusIcon } from '@heroicons/react/20/solid';
@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 
 export default function Index({ auth, flash }) {
 
-    const { report } = usePage().props;
+    const { reports } = usePage().props;
 
     const [allReportlist, setAllcountry] = useState([])
     const [filteredData, setFilteredData] = useState([])
@@ -38,11 +38,11 @@ export default function Index({ auth, flash }) {
 
                     <div className="flex justify-between items-center">
                         {
-                            report.data.length == 0 ?
+                            reports.data.length == 0 ?
                             <div></div>
                             :
                             <div>
-                                <Filters allUsersData={ report.data } setFilteredData={ setFilteredData }/>
+                                <Filters allUsersData={ reports.data } setFilteredData={ setFilteredData }/>
                             </div>
                         }
 
@@ -51,7 +51,7 @@ export default function Index({ auth, flash }) {
                         </Link>
                     </div>
                     {
-                        report.data.length == 0 ?
+                        reports.data.length == 0 ?
                             <div className="text-gray-300 h-96 flex items-center justify-center w-full text-3xl">No Record Found</div>
                         :
                          <div>
@@ -62,29 +62,33 @@ export default function Index({ auth, flash }) {
                                      {
                                          filteredData.slice(0, 15).map((value, index) => {
                                              return (
-                                                 <li key={value.name} className="flex justify-between gap-x-6 py-5">
+                                                 <li key={value.id} className="flex justify-between gap-x-6 py-5">
                                                      <div className="flex min-w-0 gap-x-4">
                                                          <div className="min-w-0 flex-auto">
-                                                             <p className="text-sm font-semibold leading-6 text-gray-900"> <Link key={ value.id } href={route('todo.edit', value.encrypted_id )} > {value.name} </Link> </p>
-                                                             <p className="mt-1 truncate text-xs leading-5 text-gray-500">{value.task_desc}</p>
+                                                             <p className="text-sm font-semibold leading-6 text-gray-900"> <Link key={ value.id } href={route('report.edit', value.encrypted_id )} > {value.title} </Link> </p>
+                                                             <p className="mt-1 truncate text-xs leading-5 text-gray-500">{value.comment}</p>
                                                          </div>
                                                      </div>
                                                      <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                                                         {value.completed ? (
-                                                         <div className="mt-1 flex items-center gap-x-1.5">
-                                                             <div className="flex-none rounded-full bg-gray-500/20 p-1">
-                                                             <div className="h-1.5 w-1.5 rounded-full bg-gray-500" />
-                                                             </div>
-                                                             <p className="text-xs leading-5 text-gray-500">Dated: {value.deadline}</p>
-                                                         </div>
-                                                         ) : (
-                                                         <div className="mt-1 flex items-center gap-x-1.5">
-                                                             <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-                                                             <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                                             </div>
-                                                             <p className="text-xs leading-5 text-gray-500">Dated: {value.deadline}</p>
-                                                         </div>
-                                                         )}
+                                                     {value.status === 0 ? (
+                                                            <div className="mt-1 flex items-center gap-x-1.5">
+                                                                <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                                                                    Status: Pending
+                                                                </span>
+                                                            </div>
+                                                        ) : value.status === 1 ? (
+                                                            <div className="mt-1 flex items-center gap-x-1.5">
+                                                                <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
+                                                                    Status: Ongoing
+                                                                </span>
+                                                            </div>
+                                                        ) : (
+                                                            <div className="mt-1 flex items-center gap-x-1.5">
+                                                                <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                                                                    Status: Completed
+                                                                </span>
+                                                            </div>
+                                                        )}
                                                      </div>
                                                  </li>
                                              )
@@ -96,39 +100,40 @@ export default function Index({ auth, flash }) {
                          </ul>
                          { filteredData.length === 0 ?
                          <ul role="list" className="divide-y divide-gray-100">
-                             {report.data.map(todo => (
-                                 <li key={todo.name} className="flex justify-between gap-x-6 py-5">
+                             {reports.data.map(data => (
+                                <li key={data.id} className="flex justify-between gap-x-6 py-5">
                                  <div className="flex min-w-0 gap-x-4">
                                      <div className="min-w-0 flex-auto">
-                                         <p className="text-sm font-semibold leading-6 text-gray-900"> <Link key={ todo.id } href={route('todo.edit', todo.encrypted_id )} > {todo.name} </Link> </p>
-                                         <p className="mt-1 truncate text-xs leading-5 text-gray-500">{todo.task_desc}</p>
+                                         <p className="text-sm font-semibold leading-6 text-gray-900"> <Link key={ data.encrypted_id } href={route('report.show', data.encrypted_id )} > { data.title } </Link> </p>
+                                         <p className="mt-1 truncate text-xs leading-5 text-gray-500">{data.comment}</p>
                                      </div>
-                                 </div>
-                                 <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                                     {todo.completed ? (
-                                     <div className="mt-1 flex items-center gap-x-1.5">
-                                         <div className="flex-none rounded-full bg-gray-500/20 p-1">
-                                         <div className="h-1.5 w-1.5 rounded-full bg-gray-500" />
-                                         </div>
-                                         <p className="text-xs leading-5 text-gray-500">Dated: {todo.deadline}</p>
-                                     </div>
-                                     ) : (
-                                     <div className="mt-1 flex items-center gap-x-1.5 min-w-0">
-                                         <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-                                         <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                         </div>
-                                         <div className="min-w-0 flex-auto">
-
-                                         </div>
-                                         <p className="text-xs leading-5 text-gray-500">Dated: {todo.deadline}</p>
-                                     </div>
-                                     )}
-                                 </div>
-                                 </li>
+                                </div>
+                                <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                                        {data.status === 0 ? (
+                                            <div className="mt-1 flex items-center gap-x-1.5">
+                                                <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                                                    Status: Pending
+                                                </span>
+                                            </div>
+                                        ) : data.status === 1 ? (
+                                            <div className="mt-1 flex items-center gap-x-1.5">
+                                                <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
+                                                    Status: Ongoing
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <div className="mt-1 flex items-center gap-x-1.5">
+                                                <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                                                    Status: Completed
+                                                </span>
+                                            </div>
+                                        )}
+                                    </div>
+                                </li>
                              ))}
                          </ul>
                          : null }
-                            <Pagination getData={ report.links } getLength={ report }/>
+                            <Pagination getData={ reports.links } getLength={ reports }/>
                         </div>
                     }
                     </div>
