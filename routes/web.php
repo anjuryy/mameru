@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SectionItemController;
 use App\Http\Controllers\ShopController;
@@ -93,6 +94,10 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['auth', 'role:admin']],function () {
         Route::get('management', [ManagementController::class, 'index'])->name('management.index');
         Route::get('users',[UserController::class, 'index'])->name('users.index');
+    });
+
+    Route::group(['middleware' => ['auth', 'role:user']],function () {
+        Route::resource('report', ReportController::class);
     });
 
     // SEARCH

@@ -2,15 +2,14 @@ import Box from '@/Components/Box';
 import BoxThreeD from '../ReactFiber/Box.jsx';
 import { DashboardCard } from '@/Components/DashboardCard';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, usePage } from '@inertiajs/react';
+import { Head, usePage, router } from '@inertiajs/react';
 import { useState } from 'react';
 import { ClipboardDocumentCheckIcon, RectangleGroupIcon, SwatchIcon, UserGroupIcon } from "@heroicons/react/20/solid";
 
 export default function Dashboard({ auth }) {
     const counts = usePage().props;
-    const [currentDate, setCurrentDate] = useState(new Date());
 
-    // console.log(counts);
+    const [currentDate, setCurrentDate] = useState(new Date());
 
     // Function to navigate to the previous month
     const goToPreviousMonth = () => {
@@ -66,7 +65,7 @@ export default function Dashboard({ auth }) {
                                         <DashboardCard link={'product.index'} title={'Products'} icon={ <SwatchIcon className="w-10 text-yellow-500"/> } total={ counts.product_count }/>
                                     </Box>
                                 </div>
-                                
+
                                 <div className="w-10">
 
                                 </div>

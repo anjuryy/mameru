@@ -11,7 +11,6 @@ import DeleteForm from '../Blog/DeleteForm';
 
 export default function Create({ auth }) {
     const blog_list = usePage().props
-
     const { data, setData, post, processing, errors, reset } = useForm({
         id: blog_list.blog_info.encrypted_id,
         title: blog_list.blog_info.title,
