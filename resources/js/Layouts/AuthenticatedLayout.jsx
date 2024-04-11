@@ -4,8 +4,11 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
+import { BellIcon } from '@heroicons/react/24/outline';
 
 export default function Authenticated({ user, header, children }) {
+    // console.log(user);
+
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     const getRole = usePage().props
@@ -75,7 +78,21 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className="hidden md:flex md:items-center md:ms-6">
+                        <Link href={route('notification.index')}>
+                                                <div className="relative pr-2 py-2 text-lg">
+                                                    <BellIcon className="w-5"/>
+                                                    {
+                                                        user.notificationCount
+                                                        ?
+                                                        <div className="absolute right-0 top-0 w-4 h-4 bg-red-700 border-white text-white rounded-full text-xs text-center">
+                                                            { user.notificationCount > 9 ? user.notificationCount + '+' : user.notificationCount }
+                                                        </div>
+                                                        : ''
+                                                    }
+                                                </div>
+                                            </Link>
                             <div className="ms-3 relative">
+
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">

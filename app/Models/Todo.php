@@ -16,7 +16,8 @@ class Todo extends Model
         'name',
         'task_desc',
         'deadline',
-        'completed'
+        'completed',
+        'email_sent'
 
     ];
 

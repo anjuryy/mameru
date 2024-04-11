@@ -13,11 +13,14 @@ use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\NotificationSeenController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SectionItemController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\TaskCronController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UploadedImageController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -55,6 +58,8 @@ Route::get('/email/verify', function () {
 Route::get('/myroute', function () {
     return view('mytemplate');
 });
+
+Route::get('/cron', [TaskCronController::class, 'cron'])->name('cron');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -106,11 +111,19 @@ Route::middleware('auth')->group(function () {
 
     });
 
+    Route::get('notification', [NotificationController::class, 'index'])->name('notification.index');
+
+    // Route::put('notification/{notification}/seen', [NotificationSeenController::class, 'seen'])->name('notification.seen');
+
     Route::group(['middleware' => ['auth', 'role:user', 'verified']],function () {
         Route::resource('report', ReportController::class);
         Route::post('/report/update/{id}', [ReportController::class, 'update'])->name('report.update');
     });
 
+    Route::put(
+        'notification/{notification}/seen',
+        NotificationSeenController::class
+        )->name('notification.seen');
 
 
     // SEARCH

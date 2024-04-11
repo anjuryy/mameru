@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use App\Notifications\TaskNotification;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
 
 class TodoController extends Controller
 {
@@ -31,6 +34,8 @@ class TodoController extends Controller
         $todolist = Auth::user()
                     ->todos()
                     ->filter($filters)
+                    ->orderBy('deadline', 'asc')
+                    ->orderBy('completed', 'desc')
                     ->paginate(5)
                     ->withQueryString();
 
@@ -56,13 +61,24 @@ class TodoController extends Controller
 
     public function store(Request $request)
     {
-        $request->user()->todos()->create(
-            $request->validate([
-                'name' => 'required|string|max:50',
-                'task_desc' => 'max:255',
-                'deadline' => 'date'
-            ])
-        );
+        $user = Auth::user();
+
+        Notification::send($user, new TaskNotification($request->all()));
+        // dd($request->input('deadline'));
+
+        $date = date('Y-m-d H:i:s', strtotime($request->input('deadline')));
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string|max:50',
+            'task_desc' => 'max:255',
+            'deadline' => 'required|date'
+        ]);
+
+        $request->user()->todos()->create([
+            'name' => $request->input('name'),
+            'task_desc' => $request->input('task_desc'),
+            'deadline' => $date,
+        ]);
 
         // return redirect(route('todo.index'));
         return redirect(route('todo.index'))->with('success','Successfully Added');
@@ -89,14 +105,21 @@ class TodoController extends Controller
 
         $todo = Todo::findOrFail($decrypted_id);
 
-        $todo->update(
-            $request->validate([
-                'name' => 'required|string|max:50',
-                'task_desc' => 'max:255',
-                'deadline' => 'date',
-                'completed' =>  'boolean'
-            ])
-        );
+        $date = date('Y-m-d H:i:s', strtotime($request->input('deadline')));
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string|max:50',
+            'task_desc' => 'max:255',
+            'deadline' => 'required|date',
+            'completed' =>  'boolean'
+        ]);
+
+        $todo->update([
+            'name' => $request->input('name'),
+            'task_desc' => $request->input('task_desc'),
+            'deadline' => $date,
+            'completed' => $request->input('completed')
+        ]);
 
         return redirect(route('todo.index'))->with('success','Successfully Edited');
     }

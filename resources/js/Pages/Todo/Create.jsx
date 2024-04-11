@@ -7,18 +7,29 @@ import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function Create({ auth }) {
+    const [startDate, setStartDate] = useState(new Date());
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         task_desc: '',
-        deadline: ''
+        deadline: startDate
     });
+
+    const handleChange = (selectedDate) => {
+        setStartDate(selectedDate);
+        const adjustedDate = new Date(selectedDate.getTime() - selectedDate.getTimezoneOffset() * 60000);
+        data.deadline = adjustedDate
+    };
+
+    const minDateTime = new Date();
 
     const submit = (e) => {
         e.preventDefault();
-
+        // console.log(data.deadline);
         post(route('todo.store'));
     };
 
@@ -65,19 +76,36 @@ export default function Create({ auth }) {
                         </div>
 
                         <div className="mt-4">
+                            <InputLabel htmlFor="deadline" className="text-sm" value="Deadline"/>
+
+                            <DatePicker
+                                name="deadline"
+                                selected={startDate}
+                                onChange={handleChange}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                timeIntervals={15} // Optionally, you can set time intervals
+                                dateFormat="MMMM d, yyyy h:mm aa" // Displayed format (optional)
+                                className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-400"
+                            />
+
+                        </div>
+
+                        {/* <div className="mt-4">
+
                             <InputLabel htmlFor="deadline" value="Deadline" />
 
                             <TextInput
                                 id="deadline"
                                 name="deadline"
-                                type="date"
+                                type="time"
                                 value={data.deadline}
                                 className="mt-1 block w-full"
                                 onChange={(e) => setData('deadline', e.target.value)}
                             />
 
                             <InputError message={errors.deadline} className="mt-2" />
-                        </div>
+                        </div> */}
 
                         <div className="flex items-center justify-end mt-4">
 

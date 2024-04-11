@@ -9,18 +9,23 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import DeleteForm from './DeleteForm';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function Edit({ auth }) {
     const to_do = usePage().props.todo_data;
+
+    const [startDate, setStartDate] = useState(new Date());
 
     const { data, setData, patch, processing, errors, reset, register } = useForm({
         id: to_do.encrypted_id,
         name: to_do.name,
         task_desc: to_do.task_desc,
-        deadline: to_do.deadline,
+        deadline: new Date(to_do.deadline),
         completed: to_do.completed
     });
 
+    console.log(data.deadline);
     const submit = (e) => {
         e.preventDefault();
 
@@ -37,6 +42,13 @@ export default function Edit({ auth }) {
     const handleSelect = (value) => {
         setSelectedOption(value);
     };
+
+    const handleChange = (selectedDate) => {
+        setStartDate(selectedDate);
+        setData('deadline', selectedDate);
+    };
+
+    const minDateTime = new Date();
 
     return (
         <AuthenticatedLayout
@@ -83,23 +95,34 @@ export default function Edit({ auth }) {
                         <div className="mt-4">
                             <InputLabel htmlFor="deadline" value="Deadline" />
 
-                            <TextInput
+                            <DatePicker
+                                name="deadline"
+                                selected={data.deadline}
+                                onChange={handleChange}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                timeIntervals={15} // Optionally, you can set time intervals
+                                dateFormat="MMMM d, yyyy h:mm aa" // Displayed format (optional)
+                                className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-400"
+                            />
+
+                            {/* <TextInput
                                 id="deadline"
                                 name="deadline"
                                 type="date"
                                 value={data.deadline}
                                 className="mt-1 block w-full"
                                 onChange={(e) => setData('deadline', e.target.value)}
-                            />
+                            /> */}
 
                             <InputError message={errors.deadline} className="mt-2" />
                         </div>
                         <div className="mt-4">
-                            <InputLabel htmlFor="completed" value="completed" />
+                            <InputLabel htmlFor="completed" value="Completed" />
 
                             <select
                                 id="completed"
-                                name="deadline"
+                                name="completed"
                                 type="text"
                                 value={data.completed}
                                 className="order-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full"

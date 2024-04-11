@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         // $users = User::where('id', '!=', '2')->paginate(5)->withQueryString();
-        $users = User::paginate(5)->withQueryString();
+        $users = User::where('id', '!=', 1)->paginate(5)->withQueryString();
 
         $encryptedUserlist = $users->map(function ($user) {
             // Encrypting todo ID

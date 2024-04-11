@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('task_desc')->nullable();
             $table->boolean('completed')->default(false);
-            $table->date('deadline')->nullable();
+            $table->boolean('email_sent')->default(false);
+            $table->dateTime('deadline')->nullable();
             $table->foreignIdFor(
                 \App\Models\User::class,
                 'by_user_id'

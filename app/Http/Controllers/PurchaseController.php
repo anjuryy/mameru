@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Product;
 use App\Models\Purchase;
+use App\Notifications\PurchaseMade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -58,10 +59,14 @@ class PurchaseController extends Controller
         ]);
 
         // dd($validated['quantity']);
-        $product->purchases()->create([
+        $purchased = $product->purchases()->create([
                 'quantity' => $validated['quantity'],
                 'by_user_id' => $userId
         ]);
+
+        $product->owner->notify(
+            new PurchaseMade($purchased)
+        );
 
         return Redirect::back()->with('success','Successfully added to your cart');
     }

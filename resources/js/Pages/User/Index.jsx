@@ -67,7 +67,7 @@ export default function User({ auth, flash }) {
                                                  <li key={value.name} className="flex justify-between gap-x-6 py-5">
                                                      <div className="flex min-w-0 gap-x-4">
                                                          <div className="min-w-0 flex-auto">
-                                                             <p className="text-sm font-semibold leading-6 text-gray-900"> {value.name} </p>
+                                                             <p className="text-sm font-semibold leading-6 text-gray-900 capitalize"> {value.name} </p>
                                                              <p className="mt-1 truncate text-xs leading-5 text-gray-500">{value.email}</p>
                                                          </div>
                                                      </div>
@@ -102,7 +102,7 @@ export default function User({ auth, flash }) {
                                  <li key={user.name} className="flex justify-between gap-x-6 py-5">
                                  <div className="flex min-w-0 gap-x-4">
                                      <div className="min-w-0 flex-auto">
-                                         <p className="text-sm font-semibold leading-6 text-gray-900"> {user.name} </p>
+                                         <p className="text-sm font-semibold leading-6 text-gray-900 capitalize"> {user.name} </p>
                                          <p className="mt-1 truncate text-xs leading-5 text-gray-500">{user.email}</p>
                                      </div>
                                  </div>
