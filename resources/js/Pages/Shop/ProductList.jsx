@@ -38,22 +38,22 @@ const products = [
   ]
 
   export default function ProductList({ productLists, userCurrencySetting, filteredData }) {
-    // console.log(userCurrencySetting[0]['currency_converters'].symbol);
+    console.log(userCurrencySetting[0]['currency_converters'].value);
     // console.log(productLists);
 
     return (
       <div className="bg-white">
         {
-          productLists.length == 0 ? 
-            <div className="text-gray-300 h-96 flex items-center justify-center w-full text-3xl">No Record Found</div> 
-            : 
+          productLists.length == 0 ?
+            <div className="text-gray-300 h-96 flex items-center justify-center w-full text-3xl">No Record Found</div>
+            :
           ''
         }
         <div className="mx-auto max-w-2xl px-4 py-4 sm:px-6 lg:max-w-7xl lg:px-8">
           {/* <h2 className="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2> */}
 
           <div className="grid grid-cols-1 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            
+
             {
                 filteredData.length !== 0 && (
                     filteredData.slice(0, 15).map((value, index) => {
@@ -90,7 +90,8 @@ const products = [
                                     </h3>
                                     <p className="mt-1 text-sm text-gray-500">{value.description}</p>
                                 </div>
-                                <p className="text-sm font-medium text-gray-900">{ userCurrencySetting[0]['currency_converters'].symbol }{Math.floor(parseInt(value.price) / parseInt(userCurrencySetting[0]['currency_converters'].value))}</p>
+                                {Math.floor(parseInt(value.price))}
+                                <p className="text-sm font-medium text-gray-900">{ userCurrencySetting[0]['currency_converters'].symbol }{Math.floor(parseInt(product.price) * userCurrencySetting[0]['currency_converters'].value)}</p>
                                 </div>
                             </div>
                             </Box>
@@ -133,7 +134,7 @@ const products = [
                             </h3>
                             <p className="mt-1 text-sm text-gray-500">{product.description}</p>
                         </div>
-                        <p className="text-sm font-medium text-gray-900">{ userCurrencySetting[0]['currency_converters'].symbol }{Math.floor(parseInt(product.price) / parseInt(userCurrencySetting[0]['currency_converters'].value))}</p>
+                        <p className="text-sm font-medium text-gray-900">{ userCurrencySetting[0]['currency_converters'].symbol }{Math.floor(parseInt(product.price) * userCurrencySetting[0]['currency_converters'].value)}</p>
                         </div>
                     </div>
                     </Box>

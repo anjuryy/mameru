@@ -34,7 +34,7 @@ export default function ShoppingCart({openCart, setOpenCart, purchases, userCurr
     // console.log(purchases);
 //   const [openCart, setOpenCart] = useState(true)
 // Math.floor(parseInt((item.products.price).toLocaleString()) / parseInt(userCurrencySetting[0]['currency_converters'].value))}
-  const totalPrices = purchases.map(item => (item.products.price / parseInt(userCurrencySetting[0]['currency_converters'].value)) * item.quantity);
+  const totalPrices = purchases.map(item => (item.products.price * userCurrencySetting[0]['currency_converters'].value) * item.quantity);
 
   const totalPrice = totalPrices.reduce((acc, curr) => parseInt(acc) + parseInt(curr), 0).toLocaleString();
 
@@ -106,7 +106,7 @@ export default function ShoppingCart({openCart, setOpenCart, purchases, userCurr
                                             {product.products.name}
                                         </Link>
                                       </h3>
-                                      <p className="ml-4">{ userCurrencySetting[0]['currency_converters'].symbol }{Math.floor(parseInt((product.products.price).toLocaleString()) / parseInt(userCurrencySetting[0]['currency_converters'].value))}</p>
+                                      <p className="ml-4">{ userCurrencySetting[0]['currency_converters'].symbol }{Math.floor(parseInt((product.products.price).toLocaleString()) * userCurrencySetting[0]['currency_converters'].value)}</p>
                                     </div>
                                     <p className="mt-1 text-sm text-gray-500">{product.products.description}</p>
                                   </div>

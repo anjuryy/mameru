@@ -16,7 +16,7 @@ const { user_currency_setting } = usePage().props
 // const totalPrices = purchases.map(item => item.products.price * item.quantity);
 // const totalPrice = totalPrices.reduce((acc, curr) => parseInt(acc) + parseInt(curr), 0).toLocaleString();
 
-const totalPrices = purchases.map(item => (item.products.price / parseInt(user_currency_setting[0]['currency_converters'].value)) * item.quantity);
+const totalPrices = purchases.map(item => (item.products.price * user_currency_setting[0]['currency_converters'].value) * item.quantity);
 const totalPrice = totalPrices.reduce((acc, curr) => parseInt(acc) + parseInt(curr), 0).toLocaleString();
 
 const submit = (e) => {
@@ -252,7 +252,7 @@ return (
                                                                 { product.products.name }
                                                             </Link>
                                                         </h3>
-                                                        <p className="ml-4">{ user_currency_setting[0]['currency_converters'].symbol }{Math.floor(parseInt((product.products.price).toLocaleString()) / parseInt(user_currency_setting[0]['currency_converters'].value))}</p>
+                                                        <p className="ml-4">{ user_currency_setting[0]['currency_converters'].symbol }{Math.floor(parseInt((product.products.price).toLocaleString()) * user_currency_setting[0]['currency_converters'].value)}</p>
                                                         </div>
                                                         <p className="mt-1 text-sm text-gray-500">{ product.products.description }</p>
                                                     </div>

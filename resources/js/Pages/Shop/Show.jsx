@@ -90,7 +90,7 @@ export default function Show({ auth, flash })
                                     </div>
 
                                     <div className="text-2xl font-bold pt-4">
-                                        { user_currency_setting[0]['currency_converters'].symbol } { Math.floor(parseInt(product_detail.price) / parseInt(user_currency_setting[0]['currency_converters'].value)) }
+                                        { user_currency_setting[0]['currency_converters'].symbol } { Math.floor(parseInt(product_detail.price) * user_currency_setting[0]['currency_converters'].value) }
                                         {/* ₱ { product_detail.price } */}
                                     </div>
 
