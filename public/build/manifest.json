@@ -2115,7 +2115,7 @@
     ]
   },
   "resources/js/Pages/Fiber/App.jsx": {
-    "file": "assets/App-DUyZLmAb.js",
+    "file": "assets/App-CUV8z6sx.js",
     "name": "App",
     "src": "resources/js/Pages/Fiber/App.jsx",
     "isDynamicEntry": true,
@@ -2161,7 +2161,7 @@
     ]
   },
   "resources/js/Pages/Fiber/Index.jsx": {
-    "file": "assets/Index-CjqsxXQl.js",
+    "file": "assets/Index-C8IjhCQy.js",
     "name": "Index",
     "src": "resources/js/Pages/Fiber/Index.jsx",
     "isDynamicEntry": true,
@@ -2210,7 +2210,7 @@
     ]
   },
   "resources/js/Pages/Fiber/Items.jsx": {
-    "file": "assets/Items-C2f8nZr5.js",
+    "file": "assets/Items-CpvGh-mJ.js",
     "name": "Items",
     "src": "resources/js/Pages/Fiber/Items.jsx",
     "isDynamicEntry": true,
@@ -3330,7 +3330,7 @@
     ]
   },
   "resources/js/Pages/Shop/Index.jsx": {
-    "file": "assets/Index-DUxHn_6V.js",
+    "file": "assets/Index-BlBwILXs.js",
     "name": "Index",
     "src": "resources/js/Pages/Shop/Index.jsx",
     "isDynamicEntry": true,
@@ -3435,7 +3435,7 @@
     ]
   },
   "resources/js/Pages/Shop/ProductList.jsx": {
-    "file": "assets/ProductList-PFMjAWWx.js",
+    "file": "assets/ProductList-hoxhJKzO.js",
     "name": "ProductList",
     "src": "resources/js/Pages/Shop/ProductList.jsx",
     "isDynamicEntry": true,
@@ -4241,7 +4241,7 @@
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-DPOPINRj.js",
+    "file": "assets/app-BqyjAhYC.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,

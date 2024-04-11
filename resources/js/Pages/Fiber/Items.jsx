@@ -7,7 +7,7 @@ export default function Items()
     const machineTexture = useTexture('./blender/Machine.jpg');
     machineTexture.flipY = false;
 
-    console.log(model);
+    // console.log(model);
     return <>
         <mesh geometry={ model.nodes.Circle007.geometry }>
             <meshBasicMaterial map={machineTexture} side={THREE.DoubleSide}/>
