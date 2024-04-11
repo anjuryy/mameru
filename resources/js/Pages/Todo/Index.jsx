@@ -17,7 +17,7 @@ export default function Index({ auth, flash }) {
 
     useEffect(() => {
         const getusers = async() => {
-            const getres = await fetch("http://127.0.0.1:8000/api/task/searchBar")
+            const getres = await fetch("https://anjurypatawaran.online/api/task/searchBar")
             const setusers = await getres.json();
             // console.log(setusers)
             setAllcountry(await setusers.results)
@@ -42,19 +42,19 @@ export default function Index({ auth, flash }) {
                         {
                             todolist.data.length == 0 ?
                             <div></div>
-                            : 
+                            :
                             <div>
                                 <Filters allUsersData={ todolist.data } setFilteredData={ setFilteredData }/>
                             </div>
                         }
-                        
+
                         <Link href={route('todo.create')} className="bg-gray-800 hover:bg-gray-500 text-white font-bold py-2 px-4 mr-4 mb-4 rounded-sm focus:outline-none focus:shadow-outline flex items-center">
                             <PlusIcon className="w-5" />
                         </Link>
                     </div>
                     {
                         todolist.data.length == 0 ?
-                            <div className="text-gray-300 h-96 flex items-center justify-center w-full text-3xl">No Record Found</div> 
+                            <div className="text-gray-300 h-96 flex items-center justify-center w-full text-3xl">No Record Found</div>
                         :
                          <div>
                          <ul role="list" className="divide-y divide-gray-100">
@@ -120,7 +120,7 @@ export default function Index({ auth, flash }) {
                                          <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                                          </div>
                                          <div className="min-w-0 flex-auto">
-     
+
                                          </div>
                                          <p className="text-xs leading-5 text-gray-500">Dated: {todo.deadline}</p>
                                      </div>

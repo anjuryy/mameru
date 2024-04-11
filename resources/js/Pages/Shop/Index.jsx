@@ -23,7 +23,7 @@ export default function Index({ auth }) {
 
     useEffect(() => {
         const getusers = async() => {
-            const getres = await fetch("http://127.0.0.1:8000/api/product/searchBar")
+            const getres = await fetch("https://anjurypatawaran.online/api/product/searchBar")
             const setusers = await getres.json();
             // console.log(setusers)
             setAllcountry(await setusers.results)
