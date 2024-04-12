@@ -17,7 +17,7 @@ export default function User({ auth, flash }) {
 
     useEffect(() => {
         const getusers = async() => {
-            const getres = await fetch("https://anjurypatawaran.online/user/searchBar")
+            const getres = await fetch("https://anjurypatawaran.online/api/user/searchBar")
             const setusers = await getres.json();
             // console.log(setusers)
             setAllcountry(await setusers.results)

@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeaturedController;
+use App\Http\Controllers\KanbanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
@@ -112,6 +113,8 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('notification', [NotificationController::class, 'index'])->name('notification.index');
+
+    Route::get('kanban', [KanbanController::class, 'index'])->name('kanban.index');
 
     // Route::put('notification/{notification}/seen', [NotificationSeenController::class, 'seen'])->name('notification.seen');
 
