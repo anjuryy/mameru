@@ -5,6 +5,10 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, usePage, router } from '@inertiajs/react';
 import { useState } from 'react';
 import { ClipboardDocumentCheckIcon, RectangleGroupIcon, SwatchIcon, UserGroupIcon, TicketIcon } from "@heroicons/react/20/solid";
+import Weather from '@/Components/Weather.jsx';
+import Quotes from '@/Components/Quotes.jsx';
+import Sun from '@/ReactFiber/Sun.jsx';
+import Moon from '@/ReactFiber/Moon.jsx';
 
 export default function Dashboard({ auth }) {
     const counts = usePage().props;
@@ -39,6 +43,10 @@ export default function Dashboard({ auth }) {
         (new Date(todoList.deadline)).getDay()
     ));
 
+    const now = new Date();
+
+    const currentHour = now.getHours();
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -51,23 +59,43 @@ export default function Dashboard({ auth }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="grid lg:grid-cols-3 grid-cols-1 gap-3 p-4">
                             <div className="col-span-1">
-                                <div className="grid grid-cols-1 w-full lg:grid-cols-2 gap-2">
-                                    <Box>
-                                        <DashboardCard link={'users.index'} title={'Users'} icon={ <UserGroupIcon className="w-10 text-blue-500"/> } total={ counts.user_count }/>
-                                    </Box>
-                                    <Box>
-                                        <DashboardCard link={'todo.index'} title={'Tasks'} icon={ <ClipboardDocumentCheckIcon className="w-10 text-red-500"/> } total={ counts.task_count }/>
-                                    </Box>
-                                    <Box>
-                                        <DashboardCard link={'blog.index'} title={'Blogs'} icon={ <RectangleGroupIcon className="w-10 text-green-500"/> } total={ counts.blog_count }/>
-                                    </Box>
-                                    <Box>
-                                        <DashboardCard link={'product.index'} title={'Products'} icon={ <SwatchIcon className="w-10 text-yellow-500"/> } total={ counts.product_count }/>
-                                    </Box>
-                                    <Box>
-                                        <DashboardCard link={'ticket.index'} title={'Tickets'} icon={ <TicketIcon className="w-10 text-violet-500"/> } total={ counts.report_count }/>
-                                    </Box>
-                                </div>
+                                {
+                                    auth.role != 1 ?
+                                    <div>
+                                        <div className='h-50'>
+                                            {
+                                                currentHour >= 18 ?
+                                                <Moon />
+                                                :
+                                                <Sun />
+
+                                            }
+                                        </div>
+
+                                        <Weather />
+                                        <Quotes />
+                                    </div>
+                                    :
+                                    <div className="grid grid-cols-1 w-full lg:grid-cols-2 gap-2">
+                                        <Box>
+                                            <DashboardCard link={'users.index'} title={'Users'} icon={ <UserGroupIcon className="w-10 text-blue-500"/> } total={ counts.user_count }/>
+                                        </Box>
+                                        <Box>
+                                            <DashboardCard link={'todo.index'} title={'Tasks'} icon={ <ClipboardDocumentCheckIcon className="w-10 text-red-500"/> } total={ counts.task_count }/>
+                                        </Box>
+                                        <Box>
+                                            <DashboardCard link={'blog.index'} title={'Blogs'} icon={ <RectangleGroupIcon className="w-10 text-green-500"/> } total={ counts.blog_count }/>
+                                        </Box>
+                                        <Box>
+                                            <DashboardCard link={'product.index'} title={'Products'} icon={ <SwatchIcon className="w-10 text-yellow-500"/> } total={ counts.product_count }/>
+                                        </Box>
+                                        <Box>
+                                            <DashboardCard link={'ticket.index'} title={'Tickets'} icon={ <TicketIcon className="w-10 text-violet-500"/> } total={ counts.report_count }/>
+                                        </Box>
+                                    </div>
+                                }
+
+
 
                                 <div className="w-10">
 

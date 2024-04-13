@@ -16,7 +16,7 @@ function ThreeScene() {
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
 
-        <Box position={[0, 0, 4]} />
+            <Box position={[0, 0, 4]} args={[1, 1, 1]}/>
         </Canvas>
     );
 }

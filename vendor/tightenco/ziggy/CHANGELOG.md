@@ -8,6 +8,28 @@ Breaking changes are marked with ⚠️.
 
 ## [Unreleased]
 
+## [v2.1.0] - 2024-03-26
+
+**Added**
+
+- Improve generated types to include optional types by @alexmccabe in https://github.com/tighten/ziggy/pull/697
+
+**Fixed**
+
+* Fix Vue plugin on Vue 2 by @bakerkretzmar in https://github.com/tighten/ziggy/pull/738
+
+## [v2.0.5] - 2024-03-19
+
+**Fixed**
+
+- Export the types file by @simon-tma in https://github.com/tighten/ziggy/pull/721
+
+## [v2.0.4] - 2024-03-05
+
+**Fixed**
+
+- Fix event listener propagation by @bakerkretzmar in https://github.com/tighten/ziggy/pull/724
+
 ## [v2.0.3] - 2024-02-20
 
 **Fixed**
@@ -368,7 +390,10 @@ See [UPGRADING](UPGRADING.md#upgrading-from-1x-to-2x) for detailed upgrade instr
 
 For previous changes see the [Releases](https://github.com/tighten/ziggy/releases) page.
 
-[Unreleased]: https://github.com/tighten/ziggy/compare/v2.0.3...HEAD
+[Unreleased]: https://github.com/tighten/ziggy/compare/v2.1.0...HEAD
+[v2.1.0]: https://github.com/tighten/ziggy/compare/v2.0.5...v2.1.0
+[v2.0.5]: https://github.com/tighten/ziggy/compare/v2.0.4...v2.0.5
+[v2.0.4]: https://github.com/tighten/ziggy/compare/v2.0.3...v2.0.4
 [v2.0.3]: https://github.com/tighten/ziggy/compare/v2.0.2...v2.0.3
 [v2.0.2]: https://github.com/tighten/ziggy/compare/v2.0.1...v2.0.2
 [v2.0.1]: https://github.com/tighten/ziggy/compare/v2.0.0...v2.0.1
