@@ -176,6 +176,9 @@ export default function Authenticated({ user, header, Secondheader, children }) 
                         <ResponsiveNavLink href={route('todo.index')} active={route().current('todo.index')}>
                             Task
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('board.index')} active={route().current('board.index')}>
+                            Board
+                        </ResponsiveNavLink>
                         <ResponsiveNavLink href={route('blog.index')} active={route().current('blog.index')}>
                             Blog
                         </ResponsiveNavLink>
