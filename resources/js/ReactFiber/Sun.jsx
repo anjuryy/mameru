@@ -22,17 +22,15 @@ function Sun() {
 }
 
 function SunModel() {
-    const sunModel = useGLTF('./blender/sun.glb');
-    const sunTexture = useTexture('./blender/Sun.jpg');
+    const sunModel = useGLTF('./blender/sun2/sun2.glb');
+    const sunTexture = useTexture('./blender/sun2/Sun2.jpg');
     sunTexture.flipY = false;
 
-    // console.log(sunModel.nodes.Mball002.geometry);
-
-    return (
-        <mesh geometry={ sunModel.nodes.Mball002.geometry } scale={0.06} position-x={1.8}>
-            <meshBasicMaterial map={sunTexture} />
+    return <>
+        <mesh geometry={ sunModel.nodes.Sphere001.geometry } scale={[0.1, 0.17, 0.1]} position-x={3.4} position-y={0.5}>
+            < meshBasicMaterial map={sunTexture} />
         </mesh>
-    );
+    </>
 }
 
 export default Sun;

@@ -1,25 +1,40 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
+import { usePage, useForm } from '@inertiajs/react'
 
 const AddCard = ({ column, setCards }) => {
+    const { board_encrypted_id } = usePage().props
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        title: '',
+        card_id: ''
+    })
+
     const [text, setText] = useState("");
     const [adding, setAdding] = useState(false);
 
     const handleSubmit = (e) => {
-      e.preventDefault();
+        const cardId = text.length + Date.now().toString()
+        data.title = text
+        data.card_id = cardId
 
-      if (!text.trim().length) return;
+        e.preventDefault();
 
-      const newCard = {
-        column,
-        title: text.trim(),
-        id: Math.random().toString(),
-      };
+        if (!text.trim().length) return;
 
-      setCards((pv) => [...pv, newCard]);
+        const newCard = {
+            column,
+            title: text.trim(),
+            id: cardId,
+            card_id: cardId
+        };
 
-      setAdding(false);
+        post(`/board/${board_encrypted_id}/card/${column}/${newCard.id}`)
+
+        setCards((pv) => [...pv, newCard]);
+
+        setAdding(false);
     };
 
     return (
@@ -27,10 +42,11 @@ const AddCard = ({ column, setCards }) => {
         {adding ? (
           <motion.form layout onSubmit={handleSubmit}>
             <textarea
-              onChange={(e) => setText(e.target.value)}
-              autoFocus
-              placeholder="Add new task..."
-              className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-50 placeholder-violet-300 focus:outline-0"
+                name="title"
+                onChange={(e) => setText(e.target.value)}
+                autoFocus
+                placeholder="Add new task..."
+                className="w-full rounded border border-gray-400 bg-gray-400/20 p-3 text-sm text-black placeholder-gray-300 focus:outline-0"
             />
             <div className="mt-1.5 flex items-center justify-end gap-1.5">
               <button

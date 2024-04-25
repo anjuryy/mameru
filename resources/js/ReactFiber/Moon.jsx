@@ -31,17 +31,15 @@ function Moon() {
 }
 
 function MoonModel() {
-    const moonModel = useGLTF('./blender/moon.glb');
-    const moonTexture = useTexture('./blender/Moon.jpg');
+    const moonModel = useGLTF('./blender/sun2/moon2.glb');
+    const moonTexture = useTexture('./blender/sun2/Moon2.jpg');
     moonTexture.flipY = false;
 
-    // console.log(moonModel.nodes.Mball002.geometry);
-
-    return (
-        <mesh geometry={ moonModel.nodes.Mball002.geometry } scale={0.06} position-x={1.8}>
-            <meshBasicMaterial map={moonTexture} />
+    return <>
+        <mesh geometry={ moonModel.nodes.Sphere.geometry } scale={[0.72, 0.27, 0.1]} position-x={ 3.6 } position-y={0.5}>
+            < meshBasicMaterial map={moonTexture} />
         </mesh>
-    );
+    </>
 }
 
 export default Moon;

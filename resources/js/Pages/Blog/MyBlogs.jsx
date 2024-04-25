@@ -12,8 +12,6 @@ export default function MyBlogs({ auth }) {
 
     const { blog_list } = usePage().props;
 
-    console.log(blog_list);
-
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',

@@ -19,7 +19,7 @@ const Quotes = () => {
         return response.json();
       })
       .then(data => {
-        // console.log(data);
+
         setQuoteData(data);
         setLoading(false);
       })

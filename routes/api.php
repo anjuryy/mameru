@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ColumnController;
 use App\Http\Controllers\CurrencyConverterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TicketController;
@@ -30,6 +31,8 @@ Route::get('task/searchBar', [TodoController::class, 'searchBar']);
 Route::get('ticket/searchBar', [TicketController::class, 'searchBar']);
 Route::get('product/searchBar', [ProductController::class, 'searchBar']);
 Route::get('user/searchBar', [UserController::class, 'searchBar']);
+
+Route::get('column/{id}', [ColumnController::class, 'getColumn'])->name('getColumn');
 
 Route::apiResource('/currency_converter', CurrencyConverterController::class);
 

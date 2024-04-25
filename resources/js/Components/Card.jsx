@@ -4,8 +4,7 @@ import PrimaryButton from './PrimaryButton';
 import SecondaryButton from './SecondaryButton';
 
 function Card({ title, content, imageUrl, id, buttonValue }) {
-    // imageUrl.data == null ? console.log('Hi') : console.log('hello');
-    // console.log(id)
+
     return (
         <div className="relative bg-white shadow-md rounded-md p-4 max-w-sm mx-auto">
             {/* Image */}

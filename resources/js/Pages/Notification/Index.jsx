@@ -11,8 +11,6 @@ export default function Index({ auth, flash }) {
 
     const { notifications } = usePage().props;
 
-    console.log(notifications);
-
     const [allTodolist, setAllcountry] = useState([])
     const [filteredData, setFilteredData] = useState([])
 

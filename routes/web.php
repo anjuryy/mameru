@@ -4,8 +4,11 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BoardController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ColumnController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeaturedController;
 use App\Http\Controllers\KanbanController;
@@ -122,6 +125,23 @@ Route::middleware('auth')->group(function () {
         Route::resource('report', ReportController::class);
         Route::post('/report/update/{id}', [ReportController::class, 'update'])->name('report.update');
     });
+
+    Route::resource('board',BoardController::class);
+    Route::post('/board/update/{id}', [BoardController::class, 'update'])->name('board.update');
+    Route::get('/board/kanban/{id}',[BoardController::class, 'kanban'])->name('board.kanban');
+    Route::post('/board/kanban/{id}',[BoardController::class, 'storeColumn'])->name('board.storeColumn');
+    Route::delete('/board/{board_id}/deleteBoardMember/{id}',[BoardController::class, 'deleteBoardMember'])->name('board.deleteBoardMember');
+
+    Route::post('/kanban/addMember/{id}',[KanbanController::class, 'addMember'])->name('kanban.addMember');
+    Route::get('/kanban/{email}/acceptInvitation/{id}',[KanbanController::class, 'acceptInvitation'])->name('kanban.acceptInvitation');
+
+    Route::delete('/board/column/{id}',[ColumnController::class, 'destroy'])->name('column.destroy');
+    Route::put('/board/column/{id}',[ColumnController::class, 'updateColumnValue'])->name('column.updateColumnValue');
+
+    Route::post('/board/{board_encrypted_id}/card/{column}/{card_id}',[CardController::class, 'storeCard'])->name('card.storeCard');
+    Route::put('/board/card/{id}',[CardController::class, 'updateCard'])->name('card.updateCard');
+    Route::delete('/board/card/{id}',[CardController::class, 'destroy'])->name('card.destroy');
+    Route::put('/board/cardValue/{id}',[CardController::class, 'updateCardValue'])->name('card.updateCardValue');
 
     Route::put(
         'notification/{notification}/seen',

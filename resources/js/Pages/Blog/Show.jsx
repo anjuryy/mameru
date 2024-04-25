@@ -13,8 +13,6 @@ import Comments from './Comments';
 export default function Create({ auth }) {
     const blog_list = usePage().props
 
-    console.log(blog_list);
-
     const { data, setData, post, processing, errors, reset } = useForm({
         comment: '',
     });

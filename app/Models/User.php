@@ -101,4 +101,24 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Report::class, 'by_user_id');
     }
+
+    public function boards(): HasMany
+    {
+        return $this->hasMany(Board::class, 'by_user_id');
+    }
+
+    public function columns(): HasMany
+    {
+        return $this->hasMany(Column::class, 'by_user_id');
+    }
+
+    public function cards(): HasMany
+    {
+        return $this->hasMany(Card::class, 'by_user_id');
+    }
+
+    public function board_members(): HasMany
+    {
+        return $this->hasMany(BoardMember::class, 'by_user_id');
+    }
 }

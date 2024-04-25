@@ -6,10 +6,11 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { BellIcon } from '@heroicons/react/24/outline';
 
-export default function Authenticated({ user, header, children }) {
+export default function Authenticated({ user, header, Secondheader, children }) {
     // console.log(user);
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const [showingTaskDropdown, setShowingTaskDropdown] = useState(false);
 
     const getRole = usePage().props
 
@@ -34,6 +35,12 @@ export default function Authenticated({ user, header, children }) {
                             <div className="hidden space-x-8 md:-my-px md:ms-10 md:flex">
                                 <NavLink href={route('todo.index')} active={route().current('todo.index')}>
                                     Task
+                                </NavLink>
+                            </div>
+
+                            <div className="hidden space-x-8 md:-my-px md:ms-10 md:flex">
+                                <NavLink href={route('board.index')} active={route().current('board.index')}>
+                                    Board
                                 </NavLink>
                             </div>
 
@@ -80,7 +87,7 @@ export default function Authenticated({ user, header, children }) {
                         <div className="hidden md:flex md:items-center md:ms-6">
                         <Link href={route('notification.index')}>
                                                 <div className="relative pr-2 py-2 text-lg">
-                                                    <BellIcon className="w-5"/>
+                                                    <BellIcon className="w-5 text-gray-500 hover:text-gray-800"/>
                                                     {
                                                         user.notificationCount
                                                         ?
@@ -220,6 +227,12 @@ export default function Authenticated({ user, header, children }) {
             {header && (
                 <header className="bg-white shadow">
                     <div className="max-w-7xl mx-auto py-6 px-4 md:px-6 lg:px-8">{header}</div>
+                </header>
+            )}
+
+            {Secondheader && (
+                <header className="bg-gray-800 opacity-50 shadow">
+                    <div className="max-w-7xl mx-auto py-3 px-2 md:px-6 lg:px-8">{Secondheader}</div>
                 </header>
             )}
 

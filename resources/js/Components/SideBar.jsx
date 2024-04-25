@@ -2,7 +2,6 @@ import React from 'react';
 
 const Sidebar = ({ categoryList }) => {
 
-    console.log(categoryList);
 
     return (
         <div className="flex h-screen ">
@@ -16,7 +15,7 @@ const Sidebar = ({ categoryList }) => {
                                 <li key={ data.id }> { data.name } </li>
                             ))
                         }
-                        
+
                     </ul>
                 </div>
             </div>

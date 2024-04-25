@@ -25,7 +25,6 @@ export default function Edit({ auth }) {
         completed: to_do.completed
     });
 
-    console.log(data.deadline);
     const submit = (e) => {
         e.preventDefault();
 
