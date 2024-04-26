@@ -21,6 +21,22 @@ class ProfileTest extends TestCase
         $response->assertOk();
     }
 
+    public function test_profile_information_currency_update()
+    {
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->from('/profile')
+            ->patch('/update_currency', [
+                'currency_id' => '1',
+            ]);
+
+        $response
+            ->assertSessionHasNoErrors()
+            ->assertRedirect('/profile');
+    }
+
     public function test_profile_information_can_be_updated(): void
     {
         $user = User::factory()->create();

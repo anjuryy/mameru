@@ -94,5 +94,5 @@ class ProfileController extends Controller
         // return view('example');
     }
 
-    
+
 }

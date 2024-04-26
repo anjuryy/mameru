@@ -49,10 +49,6 @@ Route::get('/', function () {
     ]);
 });
 
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-// Route::get('/anjurypatawaran', [ProfileController::class, 'index'])->name('profile.index');
 Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
 
 Route::get('/email/verify', function () {
@@ -71,7 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::patch('/profile', [ProfileController::class, 'update_currency'])->name('profile.update_currency');
+    Route::patch('/update_currency', [ProfileController::class, 'update_currency'])->name('profile.update_currency');
 
     Route::get('/chat', [ChatController::class, 'index'])->name('chat');
     Route::get('/chat/{id}', [ChatController::class, 'selectUser'])->name('chat.user');
@@ -118,8 +114,6 @@ Route::middleware('auth')->group(function () {
     Route::get('notification', [NotificationController::class, 'index'])->name('notification.index');
 
     Route::get('kanban', [KanbanController::class, 'index'])->name('kanban.index');
-
-    // Route::put('notification/{notification}/seen', [NotificationSeenController::class, 'seen'])->name('notification.seen');
 
     Route::group(['middleware' => ['auth', 'role:user', 'verified']],function () {
         Route::resource('report', ReportController::class);
