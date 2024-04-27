@@ -11,7 +11,7 @@ const Board = () => {
     const { card } = usePage().props
     const { board_encrypted_id } = usePage().props
 
-    console.log(card);
+    // console.log(card);
     // console.log(nice);
     const DEFAULT_CARDS_WITH_STRING_ID = card.map(card => ({
         ...card,

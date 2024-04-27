@@ -1753,7 +1753,7 @@
     ]
   },
   "resources/js/Pages/Board/BoardMembers.jsx": {
-    "file": "assets/BoardMembers-xhAarnLx.js",
+    "file": "assets/BoardMembers-oQXh2jbc.js",
     "name": "BoardMembers",
     "src": "resources/js/Pages/Board/BoardMembers.jsx",
     "isDynamicEntry": true,
@@ -1895,7 +1895,7 @@
     ]
   },
   "resources/js/Pages/Board/Edit.jsx": {
-    "file": "assets/Edit-D1DpIIK-.js",
+    "file": "assets/Edit-CXgFiycD.js",
     "name": "Edit",
     "src": "resources/js/Pages/Board/Edit.jsx",
     "isDynamicEntry": true,
@@ -2158,7 +2158,7 @@
     ]
   },
   "resources/js/Pages/Chat/Messenger.jsx": {
-    "file": "assets/Messenger-MoVHLe_E.js",
+    "file": "assets/Messenger-C05h-ccf.js",
     "name": "Messenger",
     "src": "resources/js/Pages/Chat/Messenger.jsx",
     "isDynamicEntry": true,
@@ -2814,7 +2814,7 @@
     ]
   },
   "resources/js/Pages/Kanban/Board.jsx": {
-    "file": "assets/Board-WMcMVZFc.js",
+    "file": "assets/Board-BBLuZ3I7.js",
     "name": "Board",
     "src": "resources/js/Pages/Kanban/Board.jsx",
     "isDynamicEntry": true,
@@ -3087,7 +3087,7 @@
     ]
   },
   "resources/js/Pages/Kanban/Index.jsx": {
-    "file": "assets/Index-CGz0EX3T.js",
+    "file": "assets/Index-Dvw1j_mw.js",
     "name": "Index",
     "src": "resources/js/Pages/Kanban/Index.jsx",
     "isDynamicEntry": true,
@@ -5044,7 +5044,7 @@
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-DbrAcBnU.js",
+    "file": "assets/app-BTn8L_7F.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,

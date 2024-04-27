@@ -31,7 +31,7 @@ const Messenger = ({ auth, mustVerifyEmail, status, user, chats }) => {
             "MessageSent",
             (event) => {
                 containerRef.current.scrollTop = 0;
-                console.log(event.message);
+                // console.log(event.message);
                 setMessages((prevItems) => [...prevItems, event.message]);
             }
         );

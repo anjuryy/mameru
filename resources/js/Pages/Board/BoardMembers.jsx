@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react'
 
 export default function BoardMembers({ boardMembersData, boardId })
 {
-    console.log(boardMembersData);
+    // console.log(boardMembersData);
     return <>
         <div className="grid grid-cols-4 gap-3">
             {
