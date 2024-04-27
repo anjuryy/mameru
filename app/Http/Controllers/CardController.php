@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Board;
 use App\Models\Card;
+use App\Models\Column;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -17,7 +18,9 @@ class CardController extends Controller
 
         $board = Board::findOrFail($decrypted_board_id);
 
-        // dd($request->all());
+        $column = Column::where('temp_id', '=', $column_id)->first();
+        // dd($column_id);
+
         Validator::make($request->all(),[
             'title' => 'string|required',
             'card_id' => 'required|string'
@@ -26,8 +29,9 @@ class CardController extends Controller
         $request->user()->cards()->create([
             'title' => $request->title,
             'board_id' => $decrypted_board_id,
-            'column' => $column_id,
-            'card_id' => $card_id
+            'column' => $column->id,
+            'card_id' => $card_id,
+            'updated_by' => Auth::id()
         ]);
     }
 

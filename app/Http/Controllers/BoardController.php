@@ -68,7 +68,7 @@ class BoardController extends Controller
         if($request->hasFile('image')){
             $file = $request->file('image');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads'), $fileName);
+            $file->move(public_path('boards'), $fileName);
         }
 
         $color = '';
@@ -138,7 +138,6 @@ class BoardController extends Controller
             [
                 'title' => 'string|required|max:50',
                 'description' => 'string|required',
-                'color' => 'string'
             ]
         )->validate();
 
@@ -149,7 +148,7 @@ class BoardController extends Controller
             $fileName = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('boards'), $fileName);
         }
-
+        // dd($fileName);
         $color = '';
 
         if($request->color){
@@ -196,7 +195,7 @@ class BoardController extends Controller
                     ->where('board_members.board_id', '=', $decrypted_id)
                     ->get();
 
-        $card = Card::join('users', 'cards.updated_by', '=', 'users.id')->where('board_id', '=', $decrypted_id)->get();
+        $card = Card::select('cards.*', 'users.name', 'users.email')->leftJoin('users', 'cards.updated_by', '=', 'users.id')->where('board_id', '=', $decrypted_id)->get();
 
         return Inertia::render(
             'Kanban/Index',
@@ -224,6 +223,7 @@ class BoardController extends Controller
                 ])
             )->user()->associate($request->user())
         );
+
     }
 
     public function deleteBoardMember($board_id, $id)

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { usePage, useForm } from '@inertiajs/react'
 
-const AddCard = ({ column, setCards }) => {
+const AddCard = ({ column, temp_id, setCards }) => {
     const { board_encrypted_id } = usePage().props
 
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -30,7 +30,7 @@ const AddCard = ({ column, setCards }) => {
             card_id: cardId
         };
 
-        post(`/board/${board_encrypted_id}/card/${column}/${newCard.id}`)
+        post(`/board/${board_encrypted_id}/card/${temp_id}/${newCard.id}`)
 
         setCards((pv) => [...pv, newCard]);
 

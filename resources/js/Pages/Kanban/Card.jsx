@@ -45,17 +45,15 @@ const Card = ({ title, id, card_id, name, email, column, handleDragStart }) => {
                     <p className="text-sm text-neutral-100">{(title == data.title ? title : data.title)}</p>
                 )}
                 <div className="text-xs flex justify-normal items-center space-x-1">
-                    <div className="relative group">
-                        <div>
-                            <img src="../../images/profilePic.jpeg" alt="" className="rounded-full text-white w-7 h-7 shadow-md"/>
-                            {/* <button className="bg-white rounded-full text-white w-7 h-7 shadow-md hover:bg-gray-100">
-                            </button> */}
-                            <div className="absolute hidden bg-gray-100 text-gray-800 px-4 py-2 mt-2 rounded-lg shadow-md group-hover:block full">
-                                {/* Show additional information here */}
-                                { name } ({ email })
-                            </div>
+                <div className="relative group">
+                    <div>
+                        <img src="../../images/profilePic.jpeg" alt="" className="rounded-full text-white w-7 h-7 shadow-md"/>
+                        <div className="absolute hidden bg-gray-100 text-gray-800 px-4 py-2 mt-2 rounded-lg shadow-md group-hover:block w-auto z-10">
+                            {/* Show additional information here */}
+                            { name } ({ email })
                         </div>
-                    </div>
+                        </div>
+                </div>
                     <FiEdit className="w-4 cursor-pointer" onClick={() => setEditingTitle(!editingTitle)} />
                 </div>
             </div>

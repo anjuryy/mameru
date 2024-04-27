@@ -426,8 +426,8 @@
     "file": "assets/json2mq-l0sNRNKZ.js",
     "name": "json2mq"
   },
-  "_laravel-echo-pGwNh3O0.js": {
-    "file": "assets/laravel-echo-pGwNh3O0.js",
+  "_laravel-echo-uEX0tK2L.js": {
+    "file": "assets/laravel-echo-uEX0tK2L.js",
     "name": "laravel-echo"
   },
   "_laravel-vite-plugin-DEL3ZhID.js": {
@@ -2678,7 +2678,7 @@
     ]
   },
   "resources/js/Pages/Kanban/AddCard.jsx": {
-    "file": "assets/AddCard-BcNkEiyg.js",
+    "file": "assets/AddCard-BX-bqW-Z.js",
     "name": "AddCard",
     "src": "resources/js/Pages/Kanban/AddCard.jsx",
     "isDynamicEntry": true,
@@ -2814,7 +2814,7 @@
     ]
   },
   "resources/js/Pages/Kanban/Board.jsx": {
-    "file": "assets/Board-DXyU7G2V.js",
+    "file": "assets/Board-WMcMVZFc.js",
     "name": "Board",
     "src": "resources/js/Pages/Kanban/Board.jsx",
     "isDynamicEntry": true,
@@ -2916,7 +2916,7 @@
     ]
   },
   "resources/js/Pages/Kanban/Card.jsx": {
-    "file": "assets/Card-D2EgQyZr.js",
+    "file": "assets/Card-CIgzOq50.js",
     "name": "Card",
     "src": "resources/js/Pages/Kanban/Card.jsx",
     "isDynamicEntry": true,
@@ -2962,7 +2962,7 @@
     ]
   },
   "resources/js/Pages/Kanban/Column.jsx": {
-    "file": "assets/Column-_7gysu_e.js",
+    "file": "assets/Column-BsZDrBLM.js",
     "name": "Column",
     "src": "resources/js/Pages/Kanban/Column.jsx",
     "isDynamicEntry": true,
@@ -3087,7 +3087,7 @@
     ]
   },
   "resources/js/Pages/Kanban/Index.jsx": {
-    "file": "assets/Index-ChQqb9fn.js",
+    "file": "assets/Index-CGz0EX3T.js",
     "name": "Index",
     "src": "resources/js/Pages/Kanban/Index.jsx",
     "isDynamicEntry": true,
@@ -5044,7 +5044,7 @@
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-Cyq_eWfT.js",
+    "file": "assets/app-DbrAcBnU.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
@@ -5052,7 +5052,7 @@
       "_@react-three-DCtOoYiB.js",
       "_react-uJq-X2VP.js",
       "_axios-Di5RpEPX.js",
-      "_laravel-echo-pGwNh3O0.js",
+      "_laravel-echo-uEX0tK2L.js",
       "_pusher-js-BSR0W6KV.js",
       "_react-dom-Bh-aC8ob.js",
       "_@inertiajs-Cx-bV3lL.js",

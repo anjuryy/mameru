@@ -232,7 +232,7 @@ const Column = ({ title, headingColor, cards, column, setCards, columns, temp_id
           return <Card key={c.id} {...c} handleDragStart={handleDragStart} />;
         })}
         <DropIndicator beforeId={null} column={column} />
-        <AddCard column={column} setCards={setCards} />
+        <AddCard column={column} temp_id={temp_id} setCards={setCards} />
 
       </div>
 
